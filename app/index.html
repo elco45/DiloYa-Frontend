@@ -2,14 +2,15 @@
 <html ng-app="MyApp">
   	<head>
 	    <meta charset="utf-8">
-	    <title>Meow!</title>
+	    <title>Dilo Ya!</title>
 	    <!-- inject:css -->
-	    <link href="styles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	    <link rel="stylesheet" href="styles/main.css" type="text/css">
 	    <!-- endinject -->
 
 	    <!-- bower:css -->
 	    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 	    <link rel="stylesheet" href="/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css">
+      <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 	    <!-- endinject -->
 
 	    <!--home-->
@@ -20,10 +21,13 @@
 	    <meta name="viewport" content="width=device-width">
   	</head>
 
-  	<body>
-    	<div ui-view  ></div>
+  	<body class="container" ng-controller="LoginController">
+      <div class="page-header ">
+          <h2 class="House" ng-click="refresh()"><span class="glyphicon glyphicon-equalizer"></span> Dilo Ya!</h2>
+      </div>
+    	<div ui-view></div>
+      <hr>
   	</body>
-
   	<!-- bower:js -->
   	<script src="/jquery/dist/jquery.js"></script>
   	<script src="/jquery-ui/jquery-ui.js"></script>
@@ -39,5 +43,14 @@
   	<!-- inject:js -->
   	<script src="scripts/controllers/EmployeeController.js"></script>
   	<script src="scripts/services/EmployeeService.js"></script>
+    <script src="scripts/controllers/LoginController.js"></script>
+    <script src="scripts/services/AuthService.js"></script>
+    <script src="scripts/controllers/ComplainController.js"></script>
+    <script src="scripts/services/ComplainService.js"></script>
+    <script src="scripts/controllers/BusinessController.js"></script>
+    <script src="scripts/services/BusinessService.js"></script>
   	<!-- endinject -->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_h7MKshyQR2tvZDNN12CI-QRnLc_Qiso&libraries=places" async defer></script>
+
 </html>

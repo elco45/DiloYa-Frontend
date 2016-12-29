@@ -10,8 +10,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/home',
             templateUrl: '/views/home.html'
         })
-        .state('view2', {
-            url: '/view2',
-            templateUrl: '/views/view2.html'
+        .state('business', {
+            url: '/negocios',
+            templateUrl: '/views/business.html'
         })
 }])

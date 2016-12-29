@@ -1,0 +1,219 @@
+<div class = "container" ng-controller="BusinessController" ng-init = "allBusinesses()">
+	<hr>
+	<div class="row">
+		<h2 class="col-xs-3">Lista de Negocios</h2>
+		<button type="button" class="btn btn-primary btn-lg col-xs-2" data-toggle="modal" data-target="#myModalAdd">Agregar</button>
+	</div>
+	<span class="clearfix"></span>
+	<hr>
+	<table class="table table-hover">
+	    <thead>
+	      	<tr>
+		        <th>Nombre</th>
+		        <th>Activo</th>
+		        <th>Editar</th>
+		        <th>Sucursales</th>
+	      	</tr>
+	    </thead>
+	    <tbody>
+	      	<tr ng-repeat = "x in businesses">
+		        <td>{{x.name}}</td>
+		        <td>{{x.active==true ? "Si":"No"}}</td>
+		        <td>
+		        	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalEdit" ng-click="getBusiness(x._id)">Edit</button>
+		        </td>
+		        <td>
+		        	<button type="button" class="btn btn-primary">Ver</button>
+		        </td>
+	      	</tr>
+	    </tbody>
+  	</table>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModalAdd" role="dialog">
+	    <div class="modal-dialog">
+	      	<!-- Modal content-->
+	      	<div class="modal-content">
+	        	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 class="modal-title">Creación de negocios</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<form class="form-horizontal" name="businessFormAdd" ng-init="businessFormAdd.$valid" novalidate>
+					  	<div class="form-group" ng-class="{ 'has-error' : businessFormAdd.name.$invalid && !businessFormAdd.name.$pristine }">
+						    <label class="control-label col-sm-4">Nombre:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+						      	type="text" 
+						      	name="name" 
+						      	class="form-control" 
+						      	placeholder="Ingrese el nombre de la empresa"
+						      	ng-model="business.name"
+						      	limit-to="50" 
+					      		required
+					      		>
+					      		<p ng-show="businessFormAdd.name.$invalid && !businessFormAdd.name.$pristine" class="help-block">Porfavar llene este campo</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : businessFormAdd.email.$invalid && !businessFormAdd.email.$pristine }">
+						    <label class="control-label col-sm-4">Email:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="email" 
+							      	name="email" 
+							      	class="form-control" 
+							      	placeholder="algo@ejemplo.com" 
+							      	ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+							      	ng-model="business.email" 
+							      	limit-to="50" 
+							      	required
+							    >
+						      	<p ng-show="businessFormAdd.email.$invalid && !businessFormAdd.email.$pristine" class="help-block">Ingrese un correo válido</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group">
+						    <label class="control-label col-sm-4">Teléfono: </label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="telephone" 
+							      	class="form-control" 
+							      	placeholder="Ej. 8888-8888"
+							      	ng-model="business.telephone" 
+							      	limit-to="13"
+						      	>
+						    </div>
+					  	</div>
+					  	<div class="form-group">
+						    <label class="control-label col-sm-4">Activo: </label>
+						    <div class="col-sm-5">
+						      	<input 
+							      	type="checkbox" 
+							      	name="active" 
+							      	ng-model="business.active"
+						      	>
+						    </div>
+					  	</div>
+					  	<div class="form-group"> 
+					    	<div class="col-sm-offset-2 col-sm-10">
+					      		<button type="submit" class="btn btn-success" ng-disabled="businessFormAdd.$invalid" ng-click="addBusiness(business); resetForm(businessFormAdd)" data-dismiss="modal">Crear</button>
+					    	</div>
+					  	</div>
+					</form>
+	        	</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModalEdit" role="dialog">
+	    <div class="modal-dialog">
+	      	<!-- Modal content-->
+	      	<div class="modal-content">
+	        	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 class="modal-title">Editar negocio</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<form class="form-horizontal" name="businessForm" ng-init="businessForm.$valid" novalidate>
+					  	<div class="form-group" ng-class="{ 'has-error' : businessForm.name.$invalid && !businessForm.name.$pristine }">
+						    <label class="control-label col-sm-4">Nombre:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+						      	type="text" 
+						      	name="name" 
+						      	class="form-control" 
+						      	placeholder="Ingrese el nombre de la empresa"
+						      	ng-model="business.name"
+						      	limit-to="50" 
+					      		required
+					      		>
+					      		<p ng-show="businessForm.name.$invalid && !businessForm.name.$pristine" class="help-block">Porfavar llene este campo</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : businessForm.email.$invalid && !businessForm.email.$pristine }">
+						    <label class="control-label col-sm-4">Email:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="email" 
+							      	name="email" 
+							      	class="form-control" 
+							      	placeholder="algo@ejemplo.com" 
+							      	ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+							      	ng-model="business.email" 
+							      	limit-to="50" 
+							      	required
+							    >
+						      	<p ng-show="businessForm.email.$invalid && !businessForm.email.$pristine" class="help-block">Ingrese un correo válido</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group">
+						    <label class="control-label col-sm-4">Teléfono: </label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="telephone" 
+							      	class="form-control" 
+							      	placeholder="Ej. 8888-8888"
+							      	ng-model="business.telephone" 
+							      	limit-to="13"
+						      	>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : businessForm.dateStart.$invalid && !businessForm.dateStart.$pristine }">
+						    <label class="control-label col-sm-4">Fecha inicio: </label>
+						    <div class="col-sm-8">
+						      	<input 
+						      		type="date" 
+						      		class="form-control"
+						      		name="dateStart" 
+						      		min="2015-01-01"
+						      		ng-model="business.dateStart"
+						      		datetime="MM-dd-yyyy"
+						      		required
+						      	>
+						    </div>
+						    <p ng-show="businessForm.dateStart.$invalid && !businessForm.dateStart.$pristine" class="help-block">Porfavar llene este campo</p>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : businessForm.datePayed.$invalid && !businessForm.datePayed.$pristine }">
+						    <label class="control-label col-sm-4">Fecha último pago: </label>
+						    <div class="col-sm-8">
+						      	<input 
+						      		type="date" 
+						      		class="form-control"
+						      		name="datePayed" 
+						      		min="2015-01-01"
+						      		ng-model="business.datePayed"
+						      		datetime="MM-dd-yyyy"
+						      		required
+						      	>
+						    </div>
+						    <p ng-show="businessForm.datePayed.$invalid && !businessForm.datePayed.$pristine" class="help-block">Porfavar llene este campo</p>
+					  	</div>
+					  	<div class="form-group">
+						    <label class="control-label col-sm-4">Activo: </label>
+						    <div class="col-sm-5">
+						      	<input 
+							      	type="checkbox" 
+							      	ng-model="business.active"
+						      	>
+						    </div>
+					  	</div>
+					  	<div class="form-group"> 
+					    	<div class="col-sm-offset-2 col-sm-10">
+					      		<button type="submit" class="btn btn-success" ng-disabled="businessForm.$invalid" ng-click = "updateBusiness(business); resetForm(businessForm)" data-dismiss="modal">Actualizar</button>
+					    	</div>
+					  	</div>
+					</form>
+	        	</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+</div>
