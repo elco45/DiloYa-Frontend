@@ -1,0 +1,33 @@
+{
+  "name": "Dilo Ya!",
+  "authors": [
+    "Dennis Cheong"
+  ],
+  "description": "Dilo ya!",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "Angular",
+    "Mongo",
+    "Node",
+    "Bootstrap"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "latest",
+    "angular": "latest",
+    "angular-ui-router": "latest",
+    "gulp": "latest",
+    "bootstrap-css": "latest",
+    "ngstorage": "latest",
+    "bootstrap3-dialog": "latest"
+  }
+}
