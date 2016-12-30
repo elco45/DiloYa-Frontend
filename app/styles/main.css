@@ -121,11 +121,17 @@ input, textarea{
     margin: 0 auto;
     vertical-align:middle
     width: 100%;
-    height: 500px;
+    height: 100%;
     margin-top: 6%;
     text-align: center;  
 
-}  
+}
+
+#containerT{
+    height: 100%;
+    padding-bottom: 5%;
+
+}   
 .container-{
     padding:0 0 20px;
     position:relative;
@@ -138,6 +144,7 @@ input, textarea{
     border-radius: 10px;
     margin: 0 auto;
     margin-top: 10%;
+    margin-bottom: 10%;
     padding: 0;
     text-align: center;
 
@@ -216,7 +223,21 @@ input, textarea{
     font-size: 2.8em;
     text-shadow: 1px 1px #fff;
 }
+.spanTextEE{
+    /*color: #68A4C4;*/
 
+    color: #024f72;
+    font-style: bold;
+    font-size: 1.5em;
+}
+.spanTextEE:hover{
+    /*color: #68A4C4;*/
+
+    color: #024f72;
+    font-style: bold;
+    font-size: 1.8em;
+    text-shadow: 1px 1px #fff;
+}
 #navStyle{
     color: #fff;
     border-color: #024f72;
@@ -232,9 +253,13 @@ a{
 }
 
 #navColorText{
-       color: #FFF457; 
+    color: #FFF457; 
 }
 
+#closeColor{
+    color: white;
+
+}
 #navAlign{
     margin-top: 1%;
     margin-left: 11%;
@@ -242,11 +267,46 @@ a{
 }
 
 #marginButton{
-
+    margin-top: 1.7%;
     margin-right: 3%;
+}
+#itemsMarginR{
+
+    margin-right: 12%; 
+}
+#itemsMarginL{
+
+    margin-left: 12%; 
+}
+
+#controlMargin{
+    margin-top: 2%;
+
+}
+.spanTextEEColor{
+
+    color: #141414;
+}
+.trStyle{
+    color: #fff;
+    background: #024f72;
+
 }
 
 hr{
-    color: #fff;
+    color: #141414;
+
+}
+
+input[type="text"], textarea {
+
+  background-color : #fff; 
+
+}
+
+
+input[type="password"],textarea {
+
+  background-color : #fff; 
 
 }

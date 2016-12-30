@@ -1,17 +1,23 @@
-<div class = "container" ng-controller="BusinessController" ng-init = "allBusinesses()">
+<div class = "container" ng-controller="BusinessController" ng-init = "allBusinesses()" id="container">
 	<hr>
 	<div class="row">
-		<h2 class="col-md-4 col-sm-4 col-xs-4">Lista de Negocios</h2>
-	</div>
-	<div class ="row">
-		<button type="button" class="btn btn-primary btn-lg col-md-3 col-sm-3 col-xs-3 col-xs-offset-4 pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="business={}" id="marginButton">Agregar</button>		
+		<h2 class="col-md-4 col-sm-4 col-xs-4"><span class="spanTextEE">Lista</span> <span class ="spanTextEEColor">de Negocios</span></h2>
+		<button type="button" class="btn btn-primary btn-lg col-md-3 col-sm-3 col-xs-3 col-xs-offset-4 pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="business={}" id="marginButton">Agregar</button>				
 	</div>
 	<hr>
 	<span class="clearfix"></span>
 	<hr>
-	<table class="table table-hover">
+	<div class="form-group col-lg-2 col-md-2 pull-left" id="itemsMarginL">
+          <label for="Buscar">Buscar/Filtrar:</label>
+          <input type="text" class="form-control" id="Buscar" name="Buscar" ng-model="Buscar" id="Buscar">
+    </div>
+	<div class="form-group col-lg-2 col-md-2 pull-right" id="itemsMarginR">
+          <label for="ItemsPerPage"><label >Items por página:</label></label>
+          <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" id="pageSize" name="pageSize" ng-minlength="1" ng-maxlength="100">
+	</div>    
+	<table class="table table-hover table-striped table-bordered">
 	    <thead>
-	      	<tr>
+	      	<tr class="trStyle">
 		        <th>Nombre</th>
 		        <th>Activo</th>
 		        <th>Editar</th>
@@ -19,7 +25,7 @@
 	      	</tr>
 	    </thead>
 	    <tbody>
-	      	<tr ng-repeat = "x in businesses">
+	      	<tr dir-paginate="x in businesses | filter:Buscar | itemsPerPage: pageSize |  filter:query as results" >
 		        <td>{{x.name}}</td>
 		        <td>{{x.active==true ? "Si":"No"}}</td>
 		        <td>
@@ -31,6 +37,10 @@
 	      	</tr>
 	    </tbody>
   	</table>
+  	 <div class="form-group col-lg-4 col-md-6 pull-right" id="controlMargin">
+          <label for="CreateRol" ng-if="pageSize < results.length"><label>...</label></label>
+            <dir-pagination-controls max-size="100" direction-links="true" boundary-links="true" ></dir-pagination-controls>
+     </div>
 
 
 	<!-- Modal -->
@@ -38,8 +48,8 @@
 	    <div class="modal-dialog">
 	      	<!-- Modal content-->
 	      	<div class="modal-content">
-	        	<div class="modal-header">
-	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        	<div class="modal-header trStyle">
+	          		<button type="button" class="close" data-dismiss="modal" id="closeColor">&times;</button>
 	          		<h4 class="modal-title">Creación de negocios</h4>
 	        	</div>
 	        	<div class="modal-body">

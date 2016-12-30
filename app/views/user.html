@@ -1,14 +1,22 @@
 <div class = "container" ng-controller="UserController" ng-init = "allUsers()">
 	<hr>
 	<div class="row">
-		<h2 class=" col-md-2 col-sm-2 col-xs-3 ">Lista de Usuarios</h2>
-		<button type="button" class="btn btn-primary btn-lg col-md-3 col-sm-3 col-xs-3 col-xs-offset-6 pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="user={}; user.password='Prueba123$'">Agregar</button>
+		<h2 class="col-md-4 col-sm-4 col-xs-4"><span class="spanTextEE">Lista</span> <span class ="spanTextEEColor">de Usuarios</span></h2>
+		<button type="button" class="btn btn-primary btn-lg col-md-3 col-sm-3 col-xs-3 col-xs-offset-4 pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="user={}; user.password='Prueba123$'" id="marginButton">Agregar</button>
 	</div>
 	<span class="clearfix"></span>
 	<hr>
-	<table class="table table-hover">
+	<div class="form-group col-lg-2 col-md-2 pull-left" id="itemsMarginL">
+          <label for="Buscar">Buscar/Filtrar:</label>
+          <input type="text" class="form-control" id="Buscar" name="Buscar" ng-model="Buscar" id="Buscar">
+    </div>
+	<div class="form-group col-lg-2 col-md-2 pull-right" id="itemsMarginR">
+          <label for="ItemsPerPage"><label >Items por página:</label></label>
+          <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" id="pageSize" name="pageSize" ng-minlength="1" ng-maxlength="100">
+	</div> 	
+	<table class="table table-hover table-striped table-bordered">
 	    <thead>
-	      	<tr>
+	      	<tr class="trStyle">
 		        <th>Nombre</th>
 		        <th>Email</th>
 		        <th>Teléfono</th>
@@ -18,7 +26,7 @@
 	      	</tr>
 	    </thead>
 	    <tbody>
-	      	<tr ng-repeat = "x in users">
+		<tr dir-paginate="x in users | filter:Buscar | itemsPerPage: pageSize |  filter:query as results" >
 		        <td>{{x.name}}</td>
 		        <td>{{x.email}}</td>
 		        <td>{{x.telephone}}</td>
@@ -32,6 +40,10 @@
 	      	</tr>
 	    </tbody>
   	</table>
+   	 <div class="form-group col-lg-4 col-md-6 pull-right" id="controlMargin">
+          <label for="CreateRol" ng-if="pageSize < results.length"><label>...</label></label>
+            <dir-pagination-controls max-size="100" direction-links="true" boundary-links="true" ></dir-pagination-controls>
+     </div> 	
 
 
 	<!-- Modal -->
@@ -39,8 +51,8 @@
 	    <div class="modal-dialog">
 	      	<!-- Modal content-->
 	      	<div class="modal-content">
-	        	<div class="modal-header">
-	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        	<div class="modal-header trStyle">
+	          		<button type="button" class="close" data-dismiss="modal" id="closeColor">&times;</button>
 	          		<h4 class="modal-title">Creación de usuario</h4>
 	        	</div>
 	        	<div class="modal-body">
@@ -110,6 +122,7 @@
 						      		name="role" 
 						      		ng-options="r.id as r.description for r in roles" 
 						      		ng-model="user.role"
+						      		class="selectpicker"
 						      		required>
 						      	</select>
 						      	<p ng-show="userForm.role.$invalid && !userForm.role.$pristine" class="help-block">Seleccione un rol válido</p>
@@ -123,6 +136,7 @@
 						      		name="business" 
 						      		ng-options="b._id as b.name for b in businesses" 
 						      		ng-model="user.id_Business"
+						      		class="selectpicker"
 						      		required>
 						      	</select>
 						      	<p ng-show="userForm.role.$invalid && !userForm.role.$pristine" class="help-block">Seleccione un negocio válido</p>
@@ -135,7 +149,7 @@
 					  	</div>
 					</form>
 	        	</div>
-	        	<div class="modal-footer">
+	        	<div class="modal-footer trStyle">
 	          		<button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
 	        	</div>
 	      	</div>
