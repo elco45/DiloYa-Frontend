@@ -4,6 +4,8 @@
   "description": "angular scaffold client part",
   "main": "gulpfile.js",
   "dependencies": {
+    "angular-messages": "^1.6.1",
+    "angular-utils-pagination": "^0.11.1",
     "bower": "^1.7.0",
     "hapi": "^11.1.2",
     "inert": "^3.2.0",
@@ -11,7 +13,7 @@
     "main-bower-files": "^2.9.0"
   },
   "devDependencies": {},
-   "scripts": {
+  "scripts": {
     "prestart": "npm install",
     "start": "node server"
   },
