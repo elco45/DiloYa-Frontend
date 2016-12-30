@@ -1,7 +1,8 @@
 angular.module('MyApp.Controllers')
-  .controller('EmployeeController', ['EmployeeService', '$scope', '$state', 
-    function (EmployeeService, $scope, $state) {
-		$scope.employee = {};
+  .controller('EmployeeController', ['EmployeeService', '$scope', '$state', '$sessionStorage', 
+    function (EmployeeService, $scope, $state, $sessionStorage) {
+		$scope.$sessionStorage = $sessionStorage;
+        $scope.employee = {};
 		$scope.employees = [];
 
 		$scope.all = function(){

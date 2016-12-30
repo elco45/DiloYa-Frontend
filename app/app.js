@@ -10,8 +10,16 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/home',
             templateUrl: '/views/home.html'
         })
+        .state('login', {
+            url: '/login',
+            templateUrl: '/views/login.html'
+        })
         .state('business', {
             url: '/negocios',
             templateUrl: '/views/business.html'
+        })
+        .state('users', {
+            url: '/usuarios',
+            templateUrl: '/views/user.html'
         })
 }])

@@ -1,0 +1,164 @@
+<div class = "container" ng-controller="UserController" ng-init = "allUsers()">
+	<hr>
+	<div class="row">
+		<h2 class=" col-md-2 col-sm-2 col-xs-3 ">Lista de Usuarios</h2>
+		<button type="button" class="btn btn-primary btn-lg col-md-3 col-sm-3 col-xs-3 col-xs-offset-6 pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="user={}; user.password='Prueba123$'">Agregar</button>
+	</div>
+	<span class="clearfix"></span>
+	<hr>
+	<table class="table table-hover">
+	    <thead>
+	      	<tr>
+		        <th>Nombre</th>
+		        <th>Email</th>
+		        <th>Teléfono</th>
+		        <th>Rol</th>
+		        <th>Sucursales</th>
+		        <th>Eliminar</th>
+	      	</tr>
+	    </thead>
+	    <tbody>
+	      	<tr ng-repeat = "x in users">
+		        <td>{{x.name}}</td>
+		        <td>{{x.email}}</td>
+		        <td>{{x.telephone}}</td>
+		        <td>{{x.role == -1 ? 'Super Admin':'Business Admin'}}</td>
+		        <td>
+		        	<button type="button" class="btn btn-primary">Ver</button>
+		        </td>
+		        <td>
+		        	<button type="button" class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModalDelete" ng-click="getUser(x._id)"></button>
+		        </td>
+	      	</tr>
+	    </tbody>
+  	</table>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModalAdd" role="dialog">
+	    <div class="modal-dialog">
+	      	<!-- Modal content-->
+	      	<div class="modal-content">
+	        	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 class="modal-title">Creación de usuario</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<form class="form-horizontal" name="userFormAdd" ng-init="userFormAdd.$valid" novalidate>
+					  	<div class="form-group" ng-class="{ 'has-error' : userFormAdd.name.$invalid && !userFormAdd.name.$pristine }">
+						    <label class="control-label col-sm-4">Nombre:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="name" 
+							      	class="form-control" 
+							      	placeholder="Ingrese el nombre de la empresa"
+							      	ng-model="user.name"
+							      	limit-to="50" 
+						      		required
+					      		>
+					      		<p ng-show="userFormAdd.name.$invalid && !userFormAdd.name.$pristine" class="help-block">Porfavar llene este campo</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : userFormAdd.email.$invalid && !userFormAdd.email.$pristine }">
+						    <label class="control-label col-sm-4">Email:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="email" 
+							      	name="email" 
+							      	class="form-control" 
+							      	placeholder="algo@ejemplo.com" 
+							      	ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+							      	ng-model="user.email" 
+							      	limit-to="50" 
+							      	required
+							    >
+						      	<p ng-show="userFormAdd.email.$invalid && !userFormAdd.email.$pristine" class="help-block">Ingrese un correo válido</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group">
+						    <label class="control-label col-sm-4">Teléfono: </label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="telephone" 
+							      	class="form-control" 
+							      	placeholder="Ej. 8888-8888"
+							      	ng-model="user.telephone" 
+							      	limit-to="13"
+						      	>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && userForm.password.$touched }">
+						    <label class="control-label col-sm-4">Contraseña Default:<font color="red">* </font> </label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="password" 
+							      	class="form-control" 
+							      	placeholder="Enter password" 
+							      	ng-model="user.password" 
+							      	ng-init="user.password = 'Prueba123$'" 
+							      	required
+						      	>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.role.$invalid && !userForm.role.$pristine }">
+						    <label class="control-label col-sm-4">Rol:<font color="red">* </font> </label>
+						    <div class="col-sm-8">
+						      	<select 
+						      		name="role" 
+						      		ng-options="r.id as r.description for r in roles" 
+						      		ng-model="user.role"
+						      		required>
+						      	</select>
+						      	<p ng-show="userForm.role.$invalid && !userForm.role.$pristine" class="help-block">Seleccione un rol válido</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.business.$invalid && !userForm.business.$pristine }">
+						    <label class="control-label col-sm-4">Negocio:<font color="red">* </font> </label>
+						    <div class="col-sm-8" ng-controller="BusinessController">
+						      	<select 
+						      		ng-init="allBusinesses();" 
+						      		name="business" 
+						      		ng-options="b._id as b.name for b in businesses" 
+						      		ng-model="user.id_Business"
+						      		required>
+						      	</select>
+						      	<p ng-show="userForm.role.$invalid && !userForm.role.$pristine" class="help-block">Seleccione un negocio válido</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group"> 
+					    	<div class="col-sm-offset-2 col-sm-10">
+					      		<button type="submit" class="btn btn-success" ng-disabled="userFormAdd.$invalid" ng-click="addUser(user); resetForm(userFormAdd)" data-dismiss="modal">Crear</button>
+					    	</div>
+					  	</div>
+					</form>
+	        	</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModalDelete" role="dialog">
+	    <div class="modal-dialog">
+	      	<div class="modal-content">
+	        	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 class="modal-title">Estas Seguro?</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<strong style="color: red;">Estas apunto de eliminar este usuario...</strong>
+	        	</div>
+	        	<div class="modal-footer">
+	        		<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteUser(user._id)">Confirmar</button>
+	          		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div> 
+
+</div>

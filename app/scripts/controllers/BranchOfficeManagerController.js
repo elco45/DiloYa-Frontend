@@ -1,6 +1,7 @@
 angular.module('MyApp.Controllers')
-  .controller('BranchManagerController', ['BranchManagerService', '$scope', '$state', 
-    function (BranchManagerService, $scope, $state) {
+  .controller('BranchManagerController', ['BranchManagerService', '$scope', '$sessionStorage', 
+    function (BranchManagerService, $scope, $sessionStorage) {
+    $scope.$sessionStorage = $sessionStorage;
     $scope.branchManager = {};
     $scope.branchManagers = [];
 

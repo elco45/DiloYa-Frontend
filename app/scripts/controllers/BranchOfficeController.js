@@ -1,6 +1,7 @@
 angular.module('MyApp.Controllers')
-  .controller('BranchOfficeController', ['BranchOfficeService', '$scope', '$state', 
-    function (BranchOfficeService, $scope, $state) {
+  .controller('BranchOfficeController', ['BranchOfficeService', '$scope', '$sessionStorage', 
+    function (BranchOfficeService, $scope, $sessionStorage) {
+    $scope.$sessionStorage = $sessionStorage;
     $scope.branchOffice = {};
     $scope.branchOffices = [];
 

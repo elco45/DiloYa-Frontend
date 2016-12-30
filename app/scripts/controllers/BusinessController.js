@@ -1,6 +1,7 @@
 angular.module('MyApp.Controllers')
-  .controller('BusinessController', ['BusinessService', '$scope', '$state', '$filter',
-    function (BusinessService, $scope, $state, $filter) {
+  .controller('BusinessController', ['BusinessService', '$scope', '$state', '$filter', '$sessionStorage',
+    function (BusinessService, $scope, $state, $filter, $sessionStorage) {
+    $scope.$sessionStorage = $sessionStorage;
     $scope.business = {};
     $scope.businesses = [];
 

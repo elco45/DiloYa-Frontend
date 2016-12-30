@@ -1,8 +1,10 @@
 angular.module('MyApp.Controllers')
-  .controller('UserController', ['UserService', '$scope', '$state', 
-    function (UserService, $scope, $state) {
+  .controller('UserController', ['UserService', '$scope', '$state', '$sessionStorage',
+    function (UserService, $scope, $state, $sessionStorage) {
+    $scope.$sessionStorage = $sessionStorage;
     $scope.user = {};
     $scope.users = [];
+    $scope.roles = [{id:0, description: 'Business Admin'},{id:-1, description: 'Super Admin'}]
 
     $scope.allUsers = function(){
       UserService.All().then(function(response){
@@ -28,10 +30,11 @@ angular.module('MyApp.Controllers')
         id_Business: data.id_Business,
         role: data.role
       };
-      //user id_Business
       UserService.Add(param).then(function(response){
         $scope.user = {};
         $scope.users.push(response.data);
+      }).catch(function(err){
+        swal("Error", "No se puede repetir el mismo correo", "error");
       });
     }
 

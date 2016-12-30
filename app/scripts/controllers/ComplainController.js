@@ -1,6 +1,7 @@
 angular.module('MyApp.Controllers')
-  .controller('ComplainController', ['AuthService', '$scope', '$state', 
-    function (ComplainService, $scope, $state) {
+  .controller('ComplainController', ['AuthService', '$scope', '$state', '$sessionStorage', 
+    function (ComplainService, $scope, $state, $sessionStorage) {
+    $scope.$sessionStorage = $sessionStorage;
     $scope.activeView = 0;
     $scope.nearbyPlaces = [];
     $scope.selectedPlace = {};
@@ -42,9 +43,9 @@ angular.module('MyApp.Controllers')
     $scope.callback = function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         $scope.nearbyPlaces = results;
-        for(var i = 0;i<$scope.nearbyPlaces.length;i++){
+        /*for(var i = 0;i<$scope.nearbyPlaces.length;i++){
           console.log($scope.nearbyPlaces[i].id)
-        }
+        }*/
       }
       $scope.$apply();
     }
