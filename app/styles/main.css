@@ -1,3 +1,13 @@
+html{
+  position:relative; 
+  min-height: 100%;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+}
+
 .House{
   color:#141414;
   cursor: pointer;
@@ -102,4 +112,141 @@ input, textarea{
 {
     display: block;
     margin-top: 10px;
+}
+
+/*Modio*/
+
+.container{
+    background: #ecf0f1;
+    margin: 0 auto;
+    vertical-align:middle
+    width: 100%;
+    height: 500px;
+    margin-top: 6%;
+    text-align: center;  
+
+}  
+.container-{
+    padding:0 0 20px;
+    position:relative;
+
+}
+.account-wall{
+    background: #024f72;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 10%;
+    padding: 0;
+    text-align: center;
+
+}
+
+.profile-img{
+    padding-top: 3%;
+    padding-bottom: 3%;
+
+}
+
+
+#footer span{
+    color:#f5f5f5;
+}
+
+#footer{
+    color:#f5f5f5;    
+    text-align: center;
+    text-shadow:none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height:100px;
+    background: #024f72;
+}
+
+#footer p{
+
+    text-align: center;
+    margin-top: 3%;
+}
+
+/*.btn-primary {
+    color: #141414;
+    background-color: #ecf0f1;
+    border-color: #fff;
+}
+
+.btn-primary:hover {
+    color: #141414;
+    background-color: #fff;
+    border-color: #122b40;
+}*/
+
+.spanText{
+    /*color: #68A4C4;*/
+    color: #024f72;
+    font-style: bold;
+    font-size: 1.5em;
+}
+
+
+.spanText:hover{
+    /*color: #68A4C4;*/
+
+    color: #3498db;
+    font-style: bold;
+    font-size: 2.8em;
+    text-shadow: 1px 1px #fff;
+}
+
+.spanTextE{
+    /*color: #68A4C4;*/
+
+    color: #3498db;
+    font-style: bold;
+    font-size: 2em;
+}
+.spanTextE:hover{
+    /*color: #68A4C4;*/
+
+    color: #3498db;
+    font-style: bold;
+    font-size: 2.8em;
+    text-shadow: 1px 1px #fff;
+}
+
+#navStyle{
+    color: #fff;
+    border-color: #024f72;
+    background:#2c3e50;
+    height: 100%;
+    height: 70px;
+    padding-bottom: 5%;
+
+}
+a{
+
+    color: #FFF457;
+}
+
+#navColorText{
+       color: #FFF457; 
+}
+
+#navAlign{
+    margin-top: 1%;
+    margin-left: 11%;
+
+}
+
+#marginButton{
+
+    margin-right: 3%;
+}
+
+hr{
+    color: #fff;
+
 }

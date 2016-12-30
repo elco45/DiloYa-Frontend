@@ -11,9 +11,9 @@
     "main-bower-files": "^2.9.0"
   },
   "devDependencies": {},
-  "scripts": {
-    "start": "node server",
-    "postinstall": "bower install"
+   "scripts": {
+    "prestart": "npm install",
+    "start": "node server"
   },
   "repository": {
     "type": "git",
