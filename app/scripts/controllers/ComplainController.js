@@ -4,6 +4,8 @@ angular.module('MyApp.Controllers')
     $scope.activeView = 0;
     $scope.nearbyPlaces = [];
     $scope.selectedPlace = {};
+    $scope.complain = {};
+    $scope.complains = [];
 
     $scope.initMap = function() {
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -47,5 +49,55 @@ angular.module('MyApp.Controllers')
       $scope.$apply();
     }
 
+    $scope.allComplains = function(){
+      ComplainService.All().then(function(response){
+        $scope.complains = response.data;
+      })
+    }
 
+    $scope.getComplain = function(data){
+      var param = {
+        _id: data
+      }
+      ComplainService.Get(param).then(function(response){
+        $scope.complain = response.data;
+      })
+    }
+
+    $scope.addComplain = function(data){
+      var param = {
+        name: data.name,
+        telephone: data.telephone,
+        email: data.email,
+        subject: data.subject,
+        message: data.message,
+        table: data.table
+      };
+      ComplainService.Add(param).then(function(response){
+        $scope.complain = {};
+        $scope.complains.push(response.data);
+      });
+    }
+
+    $scope.deleteComplain = function(data){
+      ComplainService.Delete(data).then(function(response){
+        $scope.allComplains();
+      })
+    }
+
+    $scope.updateComplain = function(data){
+      var param = {
+        _id: data._id,
+        name: data.name,
+        telephone: data.telephone,
+        email: data.email,
+        subject: data.subject,
+        message: data.message,
+        table: data.table
+      };
+      ComplainService.Update(param).then(function(response){
+        $scope.complain = {};
+        $scope.allComplains();
+      })
+    }
 }]);
