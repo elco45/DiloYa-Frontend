@@ -137,6 +137,14 @@ input, textarea{
     position:relative;
 
 }
+.containerMAP{
+    height: 100%;
+    width: 100%;
+    margin-top: 5%;
+    background-color: #fff;
+    position:relative;
+
+}
 .account-wall{
     background: #024f72;
     width: 100%;
@@ -293,9 +301,16 @@ a{
 
 }
 
-hr{
-    color: #141414;
-
+hr {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #024f72 ;
+  border-style: solid none;
+  border-width: 1px 0;
+  margin: 18px 0;
 }
 
 input[type="text"], textarea {
