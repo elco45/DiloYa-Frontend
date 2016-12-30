@@ -2,9 +2,8 @@
 <html ng-app="MyApp">
   	<head>
 	    <meta charset="utf-8">
-	    <title>Dilo Ya!</title>
+	    <title>¡Dilo Ya!</title>
 	    <!-- inject:css -->
-	    <link rel="stylesheet" href="styles/main.css" type="text/css">
 	    <!-- endinject -->
 
 	    <!-- bower:css -->
@@ -12,7 +11,8 @@
 	    <link rel="stylesheet" href="/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css">
       <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
       <link rel="stylesheet" href="/bootstrap-sweetalert/dist/sweetalert.css">
-	    <!-- endinject -->
+      <link rel="stylesheet" href="styles/main.css" type="text/css">	    
+      <!-- endinject -->
 
 	    <!--home-->
 	    <meta charset="utf-8">
@@ -24,7 +24,7 @@
 
   	<body  ng-controller="LoginController" ng-class="">
       <div ng-show="$sessionStorage.currentUser">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="navStyle">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand">Dilo Ya!</a>
+                <a class="navbar-brand" id="navColorText" href="/#/home"><span class="spanTextE">¡Dilo</span> Ya!</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -51,19 +51,24 @@
                 </li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav" bs-active-link>
+            <div class="collapse navbar-collapse navbar-ex1-collapse" id="navAlign">
+                <ul class="nav navbar-nav side-nav" bs-active-link id="navColorText">
                     <li>
-                        <a href="/#/negocios"><i class="glyphicon glyphicon-usd"></i> Negocios</a>
+                        <a href="/#/negocios" id="navColorText"><i class="glyphicon glyphicon-usd" id="navColorText"></i> Negocios</a>
                     </li>
                     <li>
-                        <a href="/#/usuarios"><i class="glyphicon glyphicon-user"></i> Usuarios</a>
+                        <a href="/#/usuarios" id="navColorText"><i class="glyphicon glyphicon-user" id="navColorText"></i> Usuarios</a>
                     </li>
                 </ul>
             </div>
         </nav>
       </div>
       <div ui-view  ></div>
+        <div id ="footer">
+          <div class="container-">
+              <p>&copy; All right reserved.</p>         
+          </div>
+        </div>
   	</body>
   	<!-- bower:js -->
   	<script src="/jquery/dist/jquery.js"></script>
