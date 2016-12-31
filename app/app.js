@@ -8,19 +8,38 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
 	$stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: '/views/home.html'
+            templateUrl: '/views/home.html',
+            params:{content:undefined}
         })
         .state('login', {
             url: '/login',
-            templateUrl: '/views/login.html'
+            templateUrl: '/views/login.html',
+            params:{content:undefined}
         })
         .state('business', {
             url: '/negocios',
-            templateUrl: '/views/business.html'
+            templateUrl: '/views/business.html',
+            params:{content:undefined}
+        })
+        .state('branchOffice', {
+            url: '/sucursales',
+            templateUrl: '/views/branchOffice.html',
+            params:{content:undefined}
+        })
+        .state('businessBranchOffice', {
+            url: '/mi-negocio/sucursales',
+            templateUrl: '/views/businessBranchOffice.html',
+            params:{content:undefined}
+        })
+        .state('BranchOfficeManager', {
+            url: '/mi-negocio/sucursales/gerentes',
+            templateUrl: '/views/branchOfficeManager.html',
+            params:{content:undefined}
         })
         .state('users', {
             url: '/usuarios',
-            templateUrl: '/views/user.html'
+            templateUrl: '/views/user.html',
+            params:{content:undefined}
         })
 
        // $paginationTemplateProvider.setPath('app/dirPagination.tpl.html');

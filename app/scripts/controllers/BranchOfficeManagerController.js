@@ -1,9 +1,14 @@
 angular.module('MyApp.Controllers')
-  .controller('BranchManagerController', ['BranchManagerService', '$scope', '$sessionStorage', 
-    function (BranchManagerService, $scope, $sessionStorage) {
+  .controller('BranchManagerController', ['BranchManagerService', '$scope', '$sessionStorage', '$state',
+    function (BranchManagerService, $scope, $sessionStorage, $state) {
     $scope.$sessionStorage = $sessionStorage;
     $scope.branchManager = {};
     $scope.branchManagers = [];
+
+    if($state.params.content){
+      $scope.prueba = $state.params.content.id_BranchOffice;
+      console.log($scope.prueba)
+    }
 
     $scope.allBranchManagers = function(){
       BranchManagerService.All().then(function(response){

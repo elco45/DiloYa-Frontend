@@ -23,7 +23,7 @@
   	</head>
 
   	<body  ng-controller="LoginController" ng-class="">
-      <div ng-show="$sessionStorage.currentUser">
+      <div ng-show="$sessionStorage.currentUser" ng-cloak>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="navStyle">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" id="navColorText" href="/#/home"><span class="spanTextE">¡Dilo</span> Ya!</a>
+                <a class="navbar-brand" id="navColorText" href="/#/negocios"><span class="spanTextE">¡Dilo</span> Ya!</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav" id="marginButton">
@@ -52,7 +52,7 @@
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse" id="navAlign">
-                <ul class="nav navbar-nav side-nav" bs-active-link id="navColorText">
+                <ul class="nav navbar-nav side-nav" bs-active-link id="navColorText"  ng-show="$sessionStorage.currentUser.role == -1">
                     <li>
                         <a href="/#/negocios" id="navColorText"><i class="glyphicon glyphicon-usd" id="navColorText"></i> Negocios</a>
                     </li>
@@ -66,7 +66,7 @@
       <div ui-view  ></div>
         <div id ="footer">
           <div class="container-">
-              <p>&copy; All right reserved.</p>         
+              <p>&copy; Todos los derechos reservados.</p>         
           </div>
         </div>
   	</body>

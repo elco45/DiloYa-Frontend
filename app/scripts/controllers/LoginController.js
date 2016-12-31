@@ -24,7 +24,11 @@ angular.module('MyApp.Controllers')
     $scope.login = function(user){
         AuthService.Login(user).then(function(response){
             $sessionStorage.currentUser = response.data;
-            $state.go('business');
+            if($sessionStorage.currentUser.role == -1){
+                $state.go('business');
+            }else if($sessionStorage.currentUser.role == 0){
+                $state.go('businessBranchOffice');
+            }
         }).catch(function(err){
             alert(err.data.error + " " + err.data.message);
         });

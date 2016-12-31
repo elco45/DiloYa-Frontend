@@ -1,6 +1,6 @@
 angular.module('MyApp.Controllers')
-  .controller('BranchManagerLevelTwoController', ['BranchManagerLevelTwoService', '$scope', '$sessionStorage',
-    function (BranchManagerLevelTwoService, $scope,  $sessionStorage) {
+  .controller('BranchManagerLevelTwoController', ['BranchManagerLevelTwoService', '$scope', '$sessionStorage', '$state',
+    function (BranchManagerLevelTwoService, $scope, $sessionStorage, $state) {
     $scope.$sessionStorage = $sessionStorage;
     $scope.branchManagerLevelTwo = {};
     $scope.branchManagersLevelTwo = [];

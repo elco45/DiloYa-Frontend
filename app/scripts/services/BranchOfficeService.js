@@ -18,6 +18,9 @@ angular.module('MyApp.Services').factory('BranchOfficeService', ['$http',
 	        Update: function(payload) {
 	        	//payload = data to update
 	        	return $http.post(baseUrl + "v1/updateBranchOffice", payload);
+	        },
+	        AllBranchOfficesByBusiness: function(payload) {
+	            return $http.post(baseUrl + "v1/allBranchOfficesByBusiness", payload);
 	        }
 		};
 	}

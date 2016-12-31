@@ -29,7 +29,7 @@ angular.module('MyApp.Controllers')
           service.nearbySearch({
               location: pos,
               radius: 500,
-              types: ['restaurant','university','cafe','food','school','shopping_mall','airport']
+              types: ['restaurant','university','cafe','food','shopping_mall','airport']
           }, $scope.callback);
           // To add the marker to the map, call setMap();
           marker.setMap(map);
