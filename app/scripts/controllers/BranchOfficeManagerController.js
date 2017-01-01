@@ -1,60 +1,71 @@
 angular.module('MyApp.Controllers')
-  .controller('BranchManagerController', ['BranchManagerService', '$scope', '$sessionStorage', '$state',
-    function (BranchManagerService, $scope, $sessionStorage, $state) {
+  .controller('BranchOfficeManagerController', ['BranchOfficeManagerService', '$scope', '$sessionStorage', '$state',
+    function (BranchOfficeManagerService, $scope, $sessionStorage, $state) {
     $scope.$sessionStorage = $sessionStorage;
-    $scope.branchManager = {};
-    $scope.branchManagers = [];
+    $scope.branchOfficeManager = {};
+    $scope.branchOfficeManagers = [];
 
     if($state.params.content){
-      $scope.prueba = $state.params.content.id_BranchOffice;
-      console.log($scope.prueba)
+      $sessionStorage.params = $state.params.content;
+      $scope.prueba = $state.params.content;
+    }else{
+      $scope.prueba = $sessionStorage.params;
     }
 
-    $scope.allBranchManagers = function(){
-      BranchManagerService.All().then(function(response){
-        $scope.branchManagers = response.data;
+    $scope.allBranchOfficeManagers = function(){
+      BranchOfficeManagerService.All().then(function(response){
+        $scope.branchOfficeManagers = response.data;
       })
     }
 
-    $scope.getBranchManager = function(data){
+    $scope.getBranchOfficeManager = function(data){
       var param = {
         _id: data
       }
-      BranchManagerService.Get(param).then(function(response){
-        $scope.branchManager = response.data;
+      BranchOfficeManagerService.Get(param).then(function(response){
+        $scope.branchOfficeManager = response.data;
       })
     }
 
-    $scope.addBranchManager = function(data){
+    $scope.addBranchOfficeManager = function(data){
       var param = {
         name: data.name,
         telephone: data.telephone,
         email: data.email,
-        id_BranchOffice: data.id_BranchOffice
+        id_BranchOffice: $scope.prueba.id_BranchOffice
       };
       //param id_BranchOffice
-      BranchManagerService.Add(param).then(function(response){
-        $scope.branchManager = {};
-        $scope.branchManagers.push(response.data);
+      BranchOfficeManagerService.Add(param).then(function(response){
+        $scope.branchOfficeManager = {};
+        $scope.branchOfficeManagers.push(response.data);
       });
     }
 
-    $scope.deleteBranchManager = function(data){
-      BranchManagerService.Delete(data).then(function(response){
-        $scope.allBranchManagers();
+    $scope.deleteBranchOfficeManager = function(data){
+      BranchOfficeManagerService.Delete(data).then(function(response){
+        $scope.allBranchOfficeManagersByBranchOffice($scope.prueba.id_BranchOffice);
       })
     }
 
-    $scope.updateBranchManager = function(data){
+    $scope.updateBranchOfficeManager = function(data){
       var param = {
         _id: data._id,
         name: data.name,
         telephone: data.telephone,
         email: data.email
       };
-      BranchManagerService.Update(param).then(function(response){
-        $scope.branchManager = {};
-        $scope.allBranchManagers();
+      BranchOfficeManagerService.Update(param).then(function(response){
+        $scope.branchOfficeManager = {};
+        $scope.allBranchOfficeManagersByBranchOffice($scope.prueba.id_BranchOffice);
+      })
+    }
+
+    $scope.allBranchOfficeManagersByBranchOffice = function(data){
+      var param = {
+        id_BranchOffice: data
+      }
+      BranchOfficeManagerService.AllBranchOfficeManagersByBranchOffice(param).then(function(response){
+        $scope.branchOfficeManagers = response.data;
       })
     }
 }]);

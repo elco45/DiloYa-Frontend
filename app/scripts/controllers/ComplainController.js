@@ -72,7 +72,8 @@ angular.module('MyApp.Controllers')
         email: data.email,
         subject: data.subject,
         message: data.message,
-        table: data.table
+        table: data.table,
+        id_BranchOffice: data.id_BranchOffice
       };
       ComplainService.Add(param).then(function(response){
         $scope.complain = {};
@@ -99,6 +100,15 @@ angular.module('MyApp.Controllers')
       ComplainService.Update(param).then(function(response){
         $scope.complain = {};
         $scope.allComplains();
+      })
+    }
+
+    $scope.allComplainsByBranchOffice = function(data){
+      var param = {
+        id_BranchOffice: data.id_BranchOffice
+      }
+      ComplainService.AllComplainsByBranchOffice(param).then(function(response){
+        $scope.complains = response.data;
       })
     }
 }]);

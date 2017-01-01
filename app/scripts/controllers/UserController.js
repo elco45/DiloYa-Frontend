@@ -9,6 +9,11 @@ angular.module('MyApp.Controllers')
     $scope.allUsers = function(){
       UserService.All().then(function(response){
         $scope.users = response.data;
+        for(var i = 0; i < $scope.users.length; i++){
+          if($scope.users[i]._id === $sessionStorage.currentUser._id){
+            $scope.users.splice(i,1);
+          }
+        }
       })
     }
 
@@ -34,7 +39,7 @@ angular.module('MyApp.Controllers')
         $scope.user = {};
         $scope.users.push(response.data);
       }).catch(function(err){
-        swal("Error", "No se puede repetir el mismo correo", "error");
+        swal("Error", "Ya existe un usuario con ese correo!", "error");
       });
     }
 
@@ -49,14 +54,24 @@ angular.module('MyApp.Controllers')
         _id: data._id,
         name: data.name,
         email: data.email,
-        telephone: data.telephone,
-        password: data.password,
-        id_Business: data.id_Business,
-        role: data.role
+        telephone: data.telephone
       };
       UserService.Update(param).then(function(response){
-        $scope.user = {};
-        $scope.allUsers();
+        swal("Exito!","Su información ha sido actualizada!", "success");
       })
+    }
+
+    $scope.changePassword = function(data){
+      var param = {
+        _id: $sessionStorage.currentUser._id,
+        password: data.newPassword,
+        oldPassword: data.oldPassword
+      };
+      UserService.ChangePassword(param).then(function(response){
+        $scope.tmp = {};
+        swal("Exito!","Su contraseña ha sido actualizada!", "success");
+      }).catch(function(err){
+        swal("Error", "La contraseña vieja que ingreso es incorrecto", "error");
+      });
     }
 }]);

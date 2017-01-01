@@ -1,0 +1,111 @@
+<div class="container" ng-controller="UserController" ng-init="getUser($sessionStorage.currentUser._id)">
+	<form class="form-horizontal" name="userForm" ng-init="userForm.$valid" novalidate>
+	  	<h4><span class="spanTextEEE">Información general</span></h4>
+	  	<div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+		    <label class="control-label col-sm-3">Nombre:<font color="red">* </font></label>
+		    <div class="col-sm-9">
+		      	<input 
+			      	type="text" 
+			      	name="name" 
+			      	class="form-control" 
+			      	placeholder="Ingrese el nombre del usuario"
+			      	ng-model="user.name"
+			      	limit-to="50" 
+		      		required
+	      		>
+	      		<p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">Porfavar llene este campo</p>
+		    </div>
+	  	</div>
+	  	<div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+		    <label class="control-label col-sm-3">Email:<font color="red">* </font></label>
+		    <div class="col-sm-9">
+		      	<input 
+			      	type="email" 
+			      	name="email" 
+			      	class="form-control" 
+			      	placeholder="algo@ejemplo.com" 
+			      	ng-model="user.email" 
+			      	limit-to="50" 
+			      	required
+			    >
+		      	<p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Ingrese un correo válido</p>
+		    </div>
+	  	</div>
+	  	<div class="form-group">
+		    <label class="control-label col-sm-3">Teléfono: </label>
+		    <div class="col-sm-9">
+		      	<input 
+			      	type="text" 
+			      	name="telephone" 
+			      	class="form-control" 
+			      	placeholder="Ej. 8888-8888"
+			      	ng-model="user.telephone" 
+			      	limit-to="13"
+		      	>
+		    </div>
+	  	</div>
+	  	<div class="form-group"> 
+	    	<div class="col-sm-offset-2 col-sm-10">
+	      		<button type="submit" class="btn btn-success" ng-disabled="userForm.$invalid" ng-click="updateUser(user); resetForm(userForm)" data-dismiss="modal">Actualizar</button>
+	    	</div>
+	  	</div>
+	</form>
+
+	<hr>
+
+	<form class="form-horizontal" name="passwordChangeForm" ng-init="passwordChangeForm.$valid" novalidate>
+		<h4><span class="spanTextEEE">Cambio de contraseña</span></h4>
+	  	<div class="form-group" ng-class="{ 'has-error' : passwordChangeForm.oldPassword.$invalid && !passwordChangeForm.oldPassword.$pristine }">
+		    <label class="control-label col-sm-3">Contraseña vieja:<font color="red">* </font></label>
+		    <div class="col-sm-9">
+		      	<input 
+			      	type="password" 
+			      	name="oldPassword" 
+			      	class="form-control" 
+			      	placeholder="Contraseña vieja" 
+			      	ng-model="tmp.oldPassword" 
+			      	limit-to="25" 
+			      	required 
+			    >
+			    <p ng-show="passwordChangeForm.oldPassword.$invalid && !passwordChangeForm.oldPassword.$pristine" class="help-block">Porfavor llene este campo</p>
+		    </div>
+	  	</div>
+	  	<div class="form-group" ng-class="{ 'has-error' : passwordChangeForm.newPassword.$invalid && !passwordChangeForm.newPassword.$pristine }">
+		    <label class="control-label col-sm-3">Contraseña nueva:<font color="red">* </font></label>
+		    <div class="col-sm-9">
+		      	<input 
+			      	type="password" 
+			      	name="newPassword" 
+			      	class="form-control" 
+			      	placeholder="Contraseña nueva" 
+			      	ng-model="tmp.newPassword" 
+			      	limit-to="25"
+			      	ng-minlength="6"
+			      	required 
+			    >
+			    <p ng-show="passwordChangeForm.newPassword.$invalid && !passwordChangeForm.newPassword.$pristine" class="help-block">La contraseña debe contener al menos 6 caracteres</p>
+		    </div>
+	  	</div>
+	  	<div class="form-group" ng-class="{ 'has-error' : passwordChangeForm.newPassword2.$invalid && !passwordChangeForm.newPassword2.$pristine }">
+		    <label class="control-label col-sm-3">Confirmar contraseña:<font color="red">* </font></label>
+		    <div class="col-sm-9">
+		      	<input 
+			      	type="password" 
+			      	name="newPassword2" 
+			      	class="form-control" 
+			      	placeholder="Contraseña nueva" 
+			      	ng-model="tmp.newPassword2" 
+			      	limit-to="25"
+			      	ng-minlength="6"
+			      	required 
+			    >
+			    <p ng-show="passwordChangeForm.newPassword2.$invalid && !passwordChangeForm.newPassword2.$pristine || user.newPassword != user.newPassword2" class="help-block">La nueva contraseña no es la misma</p>
+		    </div>
+	  	</div>
+	  	<div class="form-group"> 
+	    	<div class="col-sm-offset-2 col-sm-10">
+	      		<button type="submit" class="btn btn-success" ng-disabled="passwordChangeForm.$invalid" ng-click="changePassword(tmp); resetForm(passwordChangeForm)" data-dismiss="modal">Actualizar</button>
+	    	</div>
+	  	</div>
+	</form>
+</div>

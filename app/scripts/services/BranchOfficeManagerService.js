@@ -1,23 +1,27 @@
-angular.module('MyApp.Services').factory('BranchManagerService', ['$http',
+angular.module('MyApp.Services').factory('BranchOfficeManagerService', ['$http',
 	function($http){
 		var baseUrl = 'http://localhost:8000/';
 		return {
 			All: function() {
-	            return $http.get(baseUrl + "v1/allBranchManagers");
+	            return $http.get(baseUrl + "v1/allBranchOfficeManagers");
 	        },
 	        Get: function(payload) {
-	            return $http.post(baseUrl + "v1/getBranchManager", payload);
+	            return $http.post(baseUrl + "v1/getBranchOfficeManager", payload);
 	        },
 	        Add: function(payload) {
 	        	//payload = data to add
-	            return $http.post(baseUrl + "v1/addBranchManager", payload);
+	            return $http.post(baseUrl + "v1/addBranchOfficeManager", payload);
 	        },
 	        Delete: function(payload) {
-	        	return $http.delete(baseUrl + "v1/deleteBranchManager/" + payload);
+	        	return $http.delete(baseUrl + "v1/deleteBranchOfficeManager/" + payload);
 	        },
 	        Update: function(payload) {
 	        	//payload = data to update
-	        	return $http.post(baseUrl + "v1/updateBranchManager", payload);
+	        	return $http.post(baseUrl + "v1/updateBranchOfficeManager", payload);
+	        },
+	        AllBranchOfficeManagersByBranchOffice: function(payload) {
+	        	//payload = id_Office
+	        	return $http.post(baseUrl + "v1/allBranchOfficeManagersByBranchOffice", payload);
 	        }
 		};
 	}

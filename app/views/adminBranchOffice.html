@@ -1,0 +1,41 @@
+<div class = "container" ng-controller="BranchOfficeController" ng-init = "allBranchOfficesByBusiness(prueba.id_Business)" id="container">
+	<br>
+	<div class="row">
+		<h2 >{{prueba.name}}</h2>
+		<h3 class="col-md-4 col-sm-4 col-xs-4"><span class="spanTextEEE">Lista</span> <span class ="spanTextEEColor"> sucursales</span></h3>			
+	</div>
+	<span class="clearfix"></span>
+	<hr>
+	<div class="form-group col-lg-2 col-md-2 pull-left" id="itemsMarginL">
+          <label for="Buscar">Buscar/Filtrar:</label>
+          <input type="text" class="form-control" id="Buscar" name="Buscar" ng-model="Buscar" id="Buscar">
+    </div>
+	<div class="form-group col-lg-2 col-md-2 pull-right" id="itemsMarginR">
+          <label for="ItemsPerPage"><label >Items por página:</label></label>
+          <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" id="pageSize" name="pageSize" ng-minlength="1" ng-maxlength="100">
+	</div>    
+	<table class="table table-hover table-striped table-bordered">
+	    <thead>
+	      	<tr class="trStyle">
+		        <th>Nombre</th>
+		        <th>Dirección</th>
+		        <th>Teléfono</th>
+		        <th>Quejas</th>
+	      	</tr>
+	    </thead>
+	    <tbody>
+	      	<tr dir-paginate="x in businessBranchOffices | filter:Buscar | itemsPerPage: pageSize |  filter:query as results" >
+		        <td>{{x.name}}</td>
+		        <td>{{x.direction}}</td>
+		        <td>{{x.telephone}}</td>
+		        <td>
+		        	<button type="button" class="btn btn-primary" ng-click="">Ver</button>
+		        </td>
+	      	</tr>
+	    </tbody>
+  	</table>
+  	 <div class="form-group col-lg-4 col-md-6 pull-right" id="controlMargin">
+      	<label for="CreateRol" ng-if="pageSize < results.length"><label>...</label></label>
+      	<dir-pagination-controls max-size="100" direction-links="true" boundary-links="true" ></dir-pagination-controls>
+     </div>
+</div>

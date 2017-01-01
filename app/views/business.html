@@ -1,7 +1,7 @@
 <div class = "container" ng-controller="BusinessController" ng-init = "allBusinesses()" id="container">
 	<br>
 	<div class="row">
-		<h2 class="col-md-4 col-sm-4 col-xs-4"><span class="spanTextEE">Lista</span> <span class ="spanTextEEColor">de Negocios</span></h2>
+		<h2 class="col-md-4 col-sm-4 col-xs-4"><span class="spanTextEEE">Lista</span> <span class ="spanTextEEColor">de Negocios</span></h2>
 		<button type="button" class="btn btn-primary btn-lg col-md-2 col-sm-2 col-xs-2 col-xs-offset-4 pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="business={}" id="marginButton">Agregar</button>				
 	</div>
 	<span class="clearfix"></span>
@@ -31,7 +31,7 @@
 		        	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalEdit" ng-click="getBusiness(x._id)">Edit</button>
 		        </td>
 		        <td>
-		        	<button type="button" class="btn btn-primary">Ver</button>
+		        	<button type="button" class="btn btn-primary" ng-click = "viewBranchOffices(x)">Ver</button>
 		        </td>
 	      	</tr>
 	    </tbody>
@@ -75,8 +75,7 @@
 							      	type="email" 
 							      	name="email" 
 							      	class="form-control" 
-							      	placeholder="algo@ejemplo.com" 
-							      	ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+							      	placeholder="algo@ejemplo.com"
 							      	ng-model="business.email" 
 							      	limit-to="50" 
 							      	required
@@ -155,8 +154,7 @@
 							      	type="email" 
 							      	name="email" 
 							      	class="form-control" 
-							      	placeholder="algo@ejemplo.com" 
-							      	ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+							      	placeholder="algo@ejemplo.com"
 							      	ng-model="business.email" 
 							      	limit-to="50" 
 							      	required

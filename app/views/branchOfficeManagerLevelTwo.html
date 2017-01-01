@@ -1,9 +1,9 @@
-<div class = "container" ng-controller="BranchOfficeManagerController" ng-init = "allBranchOfficeManagersByBranchOffice(prueba.id_BranchOffice)" id="container">
+<div class = "container" ng-controller="BranchOfficeManagerLevelTwoController" ng-init = "allBranchOfficeManagersLevelTwoByBusiness($sessionStorage.currentUser.id_Business)" id="container">
 	<br>
 	<div class="row">
 		<h2 ng-controller="BusinessController" ng-init="getBusiness($sessionStorage.currentUser.id_Business)">{{business.name}}</h2>
-		<h3 class="col-md-4 col-sm-4 col-xs-4"><span class="spanTextEEE">Gerentes en </span> <span class ="spanTextEEColor"> {{prueba.name}}</span></h3>
-		<button type="button" class="btn btn-primary btn-lg col-md-2 col-sm-2 col-xs-2 col-xs-offset-4 pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="branchOfficeManager={}; initMap2()" id="marginButton">Agregar</button>				
+		<h3 class="col-md-4 col-sm-4 col-xs-4"><span class="spanTextEEE">Lista </span> <span class ="spanTextEEColor"> Gerentes Nivel 2</span></h3>
+		<button type="button" class="btn btn-primary btn-lg col-md-2 col-sm-2 col-xs-2 col-xs-offset-4 pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="BranchOfficeManagerLevelTwo={}; initMap2()" id="marginButton">Agregar</button>				
 	</div>
 	<span class="clearfix"></span>
 	<hr>
@@ -26,15 +26,15 @@
 	      	</tr>
 	    </thead>
 	    <tbody>
-	      	<tr dir-paginate="x in branchOfficeManagers | filter:Buscar | itemsPerPage: pageSize |  filter:query as results" >
+	      	<tr dir-paginate="x in branchOfficeManagersLevelTwo | filter:Buscar | itemsPerPage: pageSize |  filter:query as results" >
 		        <td>{{x.name}}</td>
 		        <td>{{x.email}}</td>
 		        <td>{{x.telephone}}</td>
 		        <td>
-		        	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalEdit" ng-click="getBranchOfficeManager(x._id); initMap3()">Edit</button>
+		        	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalEdit" ng-click="getBranchOfficeManagerLevelTwo(x._id); initMap3()">Edit</button>
 		        </td>
 		        <td>
-		        	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete" ng-click="getBranchOfficeManager(x._id)">Eliminar</button>
+		        	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete" ng-click="getBranchOfficeManagerLevelTwo(x._id)">Eliminar</button>
 		        </td>
 	      	</tr>
 	    </tbody>
@@ -55,8 +55,8 @@
 	          		<h4 class="modal-title">Creación de negocios</h4>
 	        	</div>
 	        	<div class="modal-body">
-	          		<form class="form-horizontal" name="branchOfficeManagerFormAdd" ng-init="branchOfficeManagerFormAdd.$valid" novalidate>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerFormAdd.name.$invalid && !branchOfficeManagerFormAdd.name.$pristine }">
+	          		<form class="form-horizontal" name="branchOfficeManagerLevelTwoFormAdd" ng-init="branchOfficeManagerLevelTwoFormAdd.$valid" novalidate>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerLevelTwoFormAdd.name.$invalid && !branchOfficeManagerLevelTwoFormAdd.name.$pristine }">
 						    <label class="control-label col-sm-4">Nombre Completo:<font color="red">* </font></label>
 						    <div class="col-sm-8">
 						      	<input 
@@ -64,14 +64,14 @@
 						      	name="name" 
 						      	class="form-control" 
 						      	placeholder="Nombre del gerente"
-						      	ng-model="branchOfficeManager.name"
+						      	ng-model="branchOfficeManagerLevelTwo.name"
 						      	limit-to="50" 
 					      		required
 					      		>
-					      		<p ng-show="branchOfficeManagerFormAdd.name.$invalid && !branchOfficeManagerFormAdd.name.$pristine" class="help-block">Porfavar llene este campo</p>
+					      		<p ng-show="branchOfficeManagerLevelTwoFormAdd.name.$invalid && !branchOfficeManagerLevelTwoFormAdd.name.$pristine" class="help-block">Porfavar llene este campo</p>
 						    </div>
 					  	</div>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerFormAdd.email.$invalid && !branchOfficeManagerFormAdd.email.$pristine }">
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerLevelTwoFormAdd.email.$invalid && !branchOfficeManagerLevelTwoFormAdd.email.$pristine }">
 						    <label class="control-label col-sm-4">Email:<font color="red">* </font></label>
 						    <div class="col-sm-8">
 						      	<input 
@@ -80,14 +80,14 @@
 							      	class="form-control" 
 							      	placeholder="something@domain.com" 
 								    ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
-							      	ng-model="branchOfficeManager.email"
+							      	ng-model="branchOfficeManagerLevelTwo.email"
 							      	limit-to="50" 
 						      		required
 					      		>
-					      		<p ng-show="branchOfficeManagerFormAdd.email.$invalid && !branchOfficeManagerFormAdd.email.$pristine" class="help-block">Ingrese un correo válido</p>
+					      		<p ng-show="branchOfficeManagerLevelTwoFormAdd.email.$invalid && !branchOfficeManagerLevelTwoFormAdd.email.$pristine" class="help-block">Ingrese un correo válido</p>
 						    </div>
 					  	</div>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerFormAdd.telephone.$invalid && !branchOfficeManagerFormAdd.telephone.$pristine }">
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerLevelTwoFormAdd.telephone.$invalid && !branchOfficeManagerLevelTwoFormAdd.telephone.$pristine }">
 						    <label class="control-label col-sm-4">Teléfono:<font color="red">* </font></label>
 						    <div class="col-sm-8">
 						      	<input 
@@ -95,16 +95,16 @@
 							      	name="telephone" 
 							      	class="form-control" 
 							      	placeholder="Ej. 8888-8888"
-							      	ng-model="branchOfficeManager.telephone" 
+							      	ng-model="branchOfficeManagerLevelTwo.telephone" 
 							      	limit-to="13"
 							      	required 
 						      	>
 						    </div>
-						    <p ng-show="branchOfficeManagerFormAdd.telephone.$invalid && !branchOfficeManagerFormAdd.telephone.$pristine" class="help-block">Porfavar ingrese un número válido</p>
+						    <p ng-show="branchOfficeManagerLevelTwoFormAdd.telephone.$invalid && !branchOfficeManagerLevelTwoFormAdd.telephone.$pristine" class="help-block">Porfavar ingrese un número válido</p>
 					  	</div>
 					  	<div class="form-group"> 
 					    	<div class="col-sm-offset-2 col-sm-10">
-					      		<button type="submit" class="btn btn-success" ng-disabled="branchOfficeManagerFormAdd.$invalid" ng-click="addBranchOfficeManager(branchOfficeManager); resetForm(branchOfficeManagerFormAdd)" data-dismiss="modal">Crear</button>
+					      		<button type="submit" class="btn btn-success" ng-disabled="branchOfficeManagerLevelTwoFormAdd.$invalid" ng-click="addBranchOfficeManagerLevelTwo(branchOfficeManagerLevelTwo); resetForm(branchOfficeManagerLevelTwoFormAdd)" data-dismiss="modal">Crear</button>
 					    	</div>
 					  	</div>
 					</form>
@@ -126,8 +126,8 @@
 	          		<h4 class="modal-title">Editar negocio</h4>
 	        	</div>
 	        	<div class="modal-body">
-	          		<form class="form-horizontal" name="branchOfficeManagerForm" ng-init="branchOfficeManagerForm.$valid" novalidate>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerForm.name.$invalid && !branchOfficeManagerForm.name.$pristine }">
+	          		<form class="form-horizontal" name="branchOfficeManagerLevelTwoForm" ng-init="branchOfficeManagerLevelTwoForm.$valid" novalidate>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerLevelTwoForm.name.$invalid && !branchOfficeManagerLevelTwoForm.name.$pristine }">
 						    <label class="control-label col-sm-4">Nombre Completo:<font color="red">* </font></label>
 						    <div class="col-sm-8">
 						      	<input 
@@ -135,14 +135,14 @@
 						      	name="name" 
 						      	class="form-control" 
 						      	placeholder="Nombre del gerente"
-						      	ng-model="branchOfficeManager.name"
+						      	ng-model="branchOfficeManagerLevelTwo.name"
 						      	limit-to="50" 
 					      		required
 					      		>
-					      		<p ng-show="branchOfficeManagerForm.name.$invalid && !branchOfficeManagerForm.name.$pristine" class="help-block">Porfavar llene este campo</p>
+					      		<p ng-show="branchOfficeManagerLevelTwoForm.name.$invalid && !branchOfficeManagerLevelTwoForm.name.$pristine" class="help-block">Porfavar llene este campo</p>
 						    </div>
 					  	</div>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerForm.email.$invalid && !branchOfficeManagerForm.email.$pristine }">
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerLevelTwoForm.email.$invalid && !branchOfficeManagerLevelTwoForm.email.$pristine }">
 						    <label class="control-label col-sm-4">Email:<font color="red">* </font></label>
 						    <div class="col-sm-8">
 						      	<input 
@@ -151,14 +151,14 @@
 							      	class="form-control" 
 							      	placeholder="something@domain.com" 
 								    ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
-							      	ng-model="branchOfficeManager.email"
+							      	ng-model="branchOfficeManagerLevelTwo.email"
 							      	limit-to="50" 
 						      		required
 					      		>
-					      		<p ng-show="branchOfficeManagerForm.email.$invalid && !branchOfficeManagerForm.email.$pristine" class="help-block">Ingrese un correo válido</p>
+					      		<p ng-show="branchOfficeManagerLevelTwoForm.email.$invalid && !branchOfficeManagerLevelTwoForm.email.$pristine" class="help-block">Ingrese un correo válido</p>
 						    </div>
 					  	</div>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerForm.telephone.$invalid && !branchOfficeManagerForm.telephone.$pristine }">
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeManagerLevelTwoForm.telephone.$invalid && !branchOfficeManagerLevelTwoForm.telephone.$pristine }">
 						    <label class="control-label col-sm-4">Teléfono:<font color="red">* </font></label>
 						    <div class="col-sm-8">
 						      	<input 
@@ -166,16 +166,16 @@
 							      	name="telephone" 
 							      	class="form-control" 
 							      	placeholder="Ej. 8888-8888"
-							      	ng-model="branchOfficeManager.telephone" 
+							      	ng-model="branchOfficeManagerLevelTwo.telephone" 
 							      	limit-to="13"
 							      	required 
 						      	>
 						    </div>
-						    <p ng-show="branchOfficeManagerForm.telephone.$invalid && !branchOfficeManagerForm.telephone.$pristine" class="help-block">Porfavar ingrese un número válido</p>
+						    <p ng-show="branchOfficeManagerLevelTwoForm.telephone.$invalid && !branchOfficeManagerLevelTwoForm.telephone.$pristine" class="help-block">Porfavar ingrese un número válido</p>
 					  	</div>
 					  	<div class="form-group"> 
 					    	<div class="col-sm-offset-2 col-sm-10">
-					      		<button type="submit" class="btn btn-success" ng-disabled="branchOfficeManagerForm.$invalid" ng-click="updateBranchOfficeManager(branchOfficeManager); resetForm(branchOfficeManagerForm)" data-dismiss="modal">Actualizar</button>
+					      		<button type="submit" class="btn btn-success" ng-disabled="branchOfficeManagerLevelTwoForm.$invalid" ng-click="updateBranchOfficeManagerLevelTwo(branchOfficeManagerLevelTwo); resetForm(branchOfficeManagerLevelTwoForm)" data-dismiss="modal">Actualizar</button>
 					    	</div>
 					  	</div>
 					</form>
@@ -199,7 +199,7 @@
 	          		<strong style="color: red;">No hay forma de recuperar esta información...</strong>
 	        	</div>
 	        	<div class="modal-footer">
-	        		<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteBranchOfficeManager(branchOfficeManager._id)">Eliminar</button>
+	        		<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteBranchOfficeManagerLevelTwo(branchOfficeManagerLevelTwo._id)">Eliminar</button>
 	          		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 	        	</div>
 	      	</div>

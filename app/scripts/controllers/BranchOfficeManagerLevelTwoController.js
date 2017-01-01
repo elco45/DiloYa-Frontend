@@ -1,55 +1,64 @@
 angular.module('MyApp.Controllers')
-  .controller('BranchManagerLevelTwoController', ['BranchManagerLevelTwoService', '$scope', '$sessionStorage', '$state',
-    function (BranchManagerLevelTwoService, $scope, $sessionStorage, $state) {
+  .controller('BranchOfficeManagerLevelTwoController', ['BranchOfficeManagerLevelTwoService', '$scope', '$sessionStorage', '$state',
+    function (BranchOfficeManagerLevelTwoService, $scope, $sessionStorage, $state) {
     $scope.$sessionStorage = $sessionStorage;
-    $scope.branchManagerLevelTwo = {};
-    $scope.branchManagersLevelTwo = [];
+    $scope.branchOfficeManagerLevelTwo = {};
+    $scope.branchOfficeManagersLevelTwo = [];
 
-    $scope.allBranchManagersLevelTwo = function(){
-      BranchManagerLevelTwoService.All().then(function(response){
-        $scope.branchManagersLevelTwo = response.data;
+    $scope.allBranchOfficeManagersLevelTwo = function(){
+      BranchOfficeManagerLevelTwoService.All().then(function(response){
+        $scope.branchOfficeManagersLevelTwo = response.data;
       })
     }
 
-    $scope.getBranchManagerLevelTwo = function(data){
+    $scope.getBranchOfficeManagerLevelTwo = function(data){
       var param = {
         _id: data
       }
-      BranchManagerLevelTwoService.Get(param).then(function(response){
-        $scope.branchManagerLevelTwo = response.data;
+      BranchOfficeManagerLevelTwoService.Get(param).then(function(response){
+        $scope.branchOfficeManagerLevelTwo = response.data;
       })
     }
 
-    $scope.addBranchManagerLevelTwo = function(data){
+    $scope.addBranchOfficeManagerLevelTwo = function(data){
       var param = {
         name: data.name,
         telephone: data.telephone,
         email: data.email,
-        id_Business: data.id_Business
+        id_Business: $scope.$sessionStorage.currentUser.id_Business
       };
       //user id_Business
-      BranchManagerLevelTwoService.Add(param).then(function(response){
-        $scope.branchManagerLevelTwo = {};
-        $scope.branchManagersLevelTwo.push(response.data);
+      BranchOfficeManagerLevelTwoService.Add(param).then(function(response){
+        $scope.branchOfficeManagerLevelTwo = {};
+        $scope.branchOfficeManagersLevelTwo.push(response.data);
       });
     }
 
-    $scope.deleteBranchManagerLevelTwo = function(data){
-      BranchManagerLevelTwoService.Delete(data).then(function(response){
-        $scope.allBranchManagersLevelTwo();
+    $scope.deleteBranchOfficeManagerLevelTwo = function(data){
+      BranchOfficeManagerLevelTwoService.Delete(data).then(function(response){
+         $scope.allBranchOfficeManagersLevelTwoByBusiness($sessionStorage.currentUser.id_Business);
       })
     }
 
-    $scope.updateBranchManagerLevelTwo = function(data){
+    $scope.updateBranchOfficeManagerLevelTwo = function(data){
       var param = {
         _id: data._id,
         name: data.name,
         telephone: data.telephone,
         email: data.email
       };
-      BranchManagerLevelTwoService.Update(param).then(function(response){
-        $scope.branchManagerLevelTwo = {};
-        $scope.allBranchManagersLevelTwo();
+      BranchOfficeManagerLevelTwoService.Update(param).then(function(response){
+        $scope.branchOfficeManagerLevelTwo = {};
+        $scope.allBranchOfficeManagersLevelTwoByBusiness($sessionStorage.currentUser.id_Business);
+      })
+    }
+
+    $scope.allBranchOfficeManagersLevelTwoByBusiness = function(data){
+      var param = {
+        id_Business: data
+      }
+      BranchOfficeManagerLevelTwoService.AllBranchOfficeManagersLevelTwoByBusiness(param).then(function(response){
+        $scope.branchOfficeManagersLevelTwo = response.data;
       })
     }
 }]);

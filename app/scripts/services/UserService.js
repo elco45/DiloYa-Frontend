@@ -18,6 +18,10 @@ angular.module('MyApp.Services').factory('UserService', ['$http',
 	        Update: function(payload) {
 	        	//payload = data to update
 	        	return $http.post(baseUrl + "v1/updateUser", payload);
+	        },
+	        ChangePassword: function(payload) {
+	        	//payload = data to update
+	        	return $http.post(baseUrl + "v1/changePassword", payload);
 	        }
 		};
 	}

@@ -58,4 +58,14 @@ angular.module('MyApp.Controllers')
         $scope.allBusinesses();
       })
     }
+
+    $scope.viewBranchOffices = function(data){
+      $state.go('adminBranchOffice', 
+        {content:
+          {
+            id_Business: data._id,
+            name: data.name
+          }
+      })
+    }
 }]);

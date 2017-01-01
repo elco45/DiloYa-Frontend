@@ -27,11 +27,19 @@ angular.module('MyApp.Controllers')
             if($sessionStorage.currentUser.role == -1){
                 $state.go('business');
             }else if($sessionStorage.currentUser.role == 0){
-                $state.go('businessBranchOffice');
+                $state.go('branchOffice');
             }
         }).catch(function(err){
             alert(err.data.error + " " + err.data.message);
         });
+    }
+
+    $scope.redirect = function(){
+        if($scope.$sessionStorage.currentUser.role == -1){
+            $state.go('business');
+        }else if($scope.$sessionStorage.currentUser.role == 0){
+            $state.go('branchOffice');
+        }
     }
 
 }]);

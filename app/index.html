@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" id="navColorText" href="/#/negocios"><span class="spanTextE">¡Dilo</span> Ya!</a>
+                <a class="navbar-brand" id="navColorText" ng-click="redirect()"><span class="spanTextE">¡Dilo</span> Ya!</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav" id="marginButton">
@@ -41,7 +41,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{$sessionStorage.currentUser.name}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Ajustes</a>
+                            <a href="/#/ajustes"><i class="fa fa-fw fa-gear"></i> Manejar cuenta</a>
                         </li>
                         <li class="divider"></li>
                         <li ng-click="logout()">
@@ -60,15 +60,23 @@
                         <a href="/#/usuarios" id="navColorText"><i class="glyphicon glyphicon-user" id="navColorText"></i> Usuarios</a>
                     </li>
                 </ul>
+                <ul class="nav navbar-nav side-nav" bs-active-link id="navColorText"  ng-show="$sessionStorage.currentUser.role == 0">
+                    <li>
+                        <a href="/#/sucursales" id="navColorText"><i class="glyphicon glyphicon-home" id="navColorText"></i> Sucursales</a>
+                    </li>
+                    <li>
+                        <a href="/#/gerentes/nivel2" id="navColorText"><i class="glyphicon glyphicon-user" id="navColorText"></i> Gerentes Nivel 2</a>
+                    </li>
+                </ul>
             </div>
         </nav>
       </div>
       <div ui-view  ></div>
-        <div id ="footer">
-          <div class="container-">
-              <p>&copy; Todos los derechos reservados.</p>         
-          </div>
+      <div id ="footer">
+        <div class="container-">
+            <p>&copy; Todos los derechos reservados.</p>         
         </div>
+      </div>
   	</body>
   	<!-- bower:js -->
   	<script src="/jquery/dist/jquery.js"></script>

@@ -26,13 +26,18 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: '/views/branchOffice.html',
             params:{content:undefined}
         })
-        .state('businessBranchOffice', {
-            url: '/mi-negocio/sucursales',
-            templateUrl: '/views/businessBranchOffice.html',
+        .state('adminBranchOffice', {
+            url: '/sucursales/todos',
+            templateUrl: '/views/adminBranchOffice.html',
             params:{content:undefined}
         })
-        .state('BranchOfficeManager', {
-            url: '/mi-negocio/sucursales/gerentes',
+        .state('branchOfficeManagerLevelTwo', {
+            url: '/gerentes/nivel2',
+            templateUrl: '/views/branchOfficeManagerLevelTwo.html',
+            params:{content:undefined}
+        })
+        .state('branchOfficeManager', {
+            url: '/sucursales/gerentes',
             templateUrl: '/views/branchOfficeManager.html',
             params:{content:undefined}
         })
@@ -41,6 +46,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: '/views/user.html',
             params:{content:undefined}
         })
+        .state('setting', {
+            url: '/ajustes',
+            templateUrl: '/views/setting.html',
+            params:{content:undefined}
+        })
+
 
        // $paginationTemplateProvider.setPath('app/dirPagination.tpl.html');
 }])

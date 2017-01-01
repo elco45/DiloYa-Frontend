@@ -18,6 +18,10 @@ angular.module('MyApp.Services').factory('ComplainService', ['$http',
 	        Update: function(payload) {
 	        	//payload = data to update
 	        	return $http.post(baseUrl + "v1/updateComplain", payload);
+	        },
+	        AllComplainsByBranchOffice: function(payload) {
+	        	//payload = id_BranchOffice
+	        	return $http.post(baseUrl + "v1/allComplainsByBranchOffice", payload);
 	        }
 		};
 	}
