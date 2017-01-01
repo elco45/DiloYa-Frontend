@@ -76,22 +76,6 @@
 					      	>
 					    </div>
 				  	</div>
-				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.subject.$invalid && !complainForm.subject.$pristine }">
-				  		<label class="control-label col-sm-3">Asunto:<font color="red">* </font></label>
-					    <div class="col-sm-9">
-				  			<input 
-				  				type="text" 
-				  				name="subject" 
-				  				class="form-control" 
-				  				placeholder="Asunto" 
-				  				ng-maxlength="100"
-				  				ng-model="complain.subject"
-				  				limit-to="100"
-				  				required 
-				  			>
-				  		</div>
-				  		<p ng-show="complainForm.subject.$invalid && !complainForm.subject.$pristine" class="help-block">El asunto no puede estar vacío</p>
-				  	</div>
 		        	<div class="form-group" ng-class="{ 'has-error' : complainForm.message.$invalid && !complainForm.message.$pristine }">
 		        		<label class="control-label col-sm-3">Mensaje:<font color="red">* </font></label>
 				    	<div class="col-sm-9">

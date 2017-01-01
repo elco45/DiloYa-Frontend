@@ -66,19 +66,19 @@
 					  		<p id="map2"></p>
 					  	</div>
 					  	</br><hr>
-					  	<p class="col-sm-12"><small>Lugares ubicados a 500m de donde está</small></p>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeFormAdd.place.$invalid && !branchOfficeFormAdd.place.$pristine }">
-						  	<label class="control-label col-sm-3">Nombre en mapa:<font color="red">* </font></label>
-						    <div class="col-sm-9">
-						      	<select
-						      		name="place" 
-						      		class="form-control" 
-						      		ng-options="place.id as place.name for place in nearbyPlaces" 
-						      		ng-model="branchOffice.id_location"
-						      		required>
-								</select>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.coordinates.$invalid && !branchOfficeForm.coordinates.$pristine }">
+						    <label class="control-label col-sm-4">Coordenadas:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="coordinates" 
+							      	class="form-control"
+							      	ng-model="branchOffice.coordinates"
+							      	limit-to="50" 
+							      	readonly
+						      		required
+					      		>
 						    </div>
-						    <p ng-show="branchOfficeFormAdd.place.$invalid && !branchOfficeFormAdd.place.$pristine" class="help-block">Seleccione un negocio válido</p>
 					  	</div>
 					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeFormAdd.name.$invalid && !branchOfficeFormAdd.name.$pristine }">
 						    <label class="control-label col-sm-4">Nombre oficial:<font color="red">* </font></label>
@@ -169,19 +169,19 @@
 					  		<p id="map3"></p>
 					  	</div>
 					  	</br><hr>
-					  	<p class="col-sm-12"><small>Lugares ubicados a 100m de donde está ubicado</small></p>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.place.$invalid && !branchOfficeForm.place.$pristine }">
-						  	<label class="control-label col-sm-3">Nombre en mapa:<font color="red">* </font></label>
-						    <div class="col-sm-9">
-						      	<select
-						      		name="place" 
-						      		class="form-control" 
-						      		ng-options="place.id as place.name for place in nearbyPlaces" 
-						      		ng-model="branchOffice.id_location"
-						      		required>
-								</select>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.coordinates.$invalid && !branchOfficeForm.coordinates.$pristine }">
+						    <label class="control-label col-sm-4">Coordenadas:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="coordinates" 
+							      	class="form-control"
+							      	ng-model="branchOffice.coordinates"
+							      	limit-to="50" 
+							      	readonly
+						      		required
+					      		>
 						    </div>
-						    <p ng-show="branchOfficeForm.place.$invalid && !branchOfficeForm.place.$pristine" class="help-block">Seleccione un negocio válido</p>
 					  	</div>
 					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.name.$invalid && !branchOfficeForm.name.$pristine }">
 						    <label class="control-label col-sm-4">Nombre oficial:<font color="red">* </font></label>

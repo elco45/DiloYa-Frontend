@@ -67,13 +67,12 @@ angular.module('MyApp.Controllers')
 
     $scope.addComplain = function(data){
       var param = {
-        name: data.name,
         telephone: data.telephone,
         email: data.email,
-        subject: data.subject,
         message: data.message,
         table: data.table,
-        id_BranchOffice: data.id_BranchOffice
+        id_BranchOffice: data.id_BranchOffice,
+        extraDescription: null
       };
       ComplainService.Add(param).then(function(response){
         $scope.complain = {};
@@ -90,7 +89,6 @@ angular.module('MyApp.Controllers')
     $scope.updateComplain = function(data){
       var param = {
         _id: data._id,
-        name: data.name,
         telephone: data.telephone,
         email: data.email,
         subject: data.subject,

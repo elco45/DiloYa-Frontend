@@ -95,17 +95,13 @@ angular.module('MyApp.Controllers')
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-            
+            $scope.branchOffice.coordinates = JSON.stringify(pos);
+            $scope.$apply()
             var marker = new google.maps.Marker({
                 position: pos,
                 title:"Hello World!"
             });
-            var service = new google.maps.places.PlacesService(map2);
-            service.nearbySearch({
-                location: pos,
-                radius: 500,
-                types: ['restaurant','university','cafe','food','shopping_mall','airport']
-            }, $scope.callback2);
+            
             // To add the marker to the map, call setMap();
             marker.setMap(map2);
             map2.setCenter(pos);
@@ -134,17 +130,13 @@ angular.module('MyApp.Controllers')
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-            
+            $scope.branchOffice.coordinates = JSON.stringify(pos);
+            $scope.$apply()
             var marker = new google.maps.Marker({
                 position: pos,
                 title:"Hello World"
             });
-            var service = new google.maps.places.PlacesService(map3);
-            service.nearbySearch({
-                location: pos,
-                radius: 500,
-                types: ['restaurant','university','cafe','food','shopping_mall','airport']
-            }, $scope.callback2);
+           
             // To add the marker to the map, call setMap();
             marker.setMap(map3);
             map3.setCenter(pos);
@@ -162,12 +154,6 @@ angular.module('MyApp.Controllers')
         });
       });
 
-      $scope.callback2 = function(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          $scope.nearbyPlaces = results;
-        }
-        $scope.$apply();
-      }
     }
 
     $scope.viewBranchOfficeManager = function(data){
