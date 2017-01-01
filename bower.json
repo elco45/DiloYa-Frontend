@@ -28,6 +28,7 @@
     "gulp": "latest",
     "bootstrap-css": "latest",
     "ngstorage": "latest",
-    "bootstrap3-dialog": "latest"
+    "bootstrap3-dialog": "latest",
+    "ngmap": "latest"
   }
 }

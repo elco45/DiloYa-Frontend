@@ -1,14 +1,68 @@
 <div class="container" ng-controller="ComplainController" ng-init="timeout()">
   <h1>¿Solucionado?</h1>
+  </hr>
+  <div class="row">
+    <button data-toggle="modal" data-target="#myModalYes" class="btn btn-primary btn-lg" type="submit">Si</button>
+  </div>
+  </br>
+  <div class="row">
+    <button id="no_help" data-toggle="modal" data-target="#myModalNo" class="btn btn-danger btn-lg" type="submit" disabled>
+      <span class="col-xs-12">No</span>
+      <span id="countdown" class="col-xs-12"></span>
+    </button>
+  </div>
 
-  <div class="row">
-    <textarea ng-model="complain.extraDescription"></textarea>
+  <!--Modal-->
+  <div class="modal fade" id="myModalYes" role="dialog">
+      <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header trStyle">
+                <button type="button" class="close" data-dismiss="modal" id="closeColor">&times;</button>
+                <h4 class="modal-title">Si se solucionó el problema</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal">
+                <div class="form-group"> 
+                  <label class="control-label">Comentario: </label>
+                  <textarea ng-model="complain.extraDescription" class="form-control"></textarea>
+                </div>
+                <div class="form-group"> 
+                  <button type="submit" class="btn btn-success" ng-click= "saveComplainSolved()">Enviar</button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer trStyle">
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+            </div>
+          </div>
+      </div>
   </div>
-  <div class="row">
-    <button ng-click= "saveComplainSolved()"  class="btn btn-primary" type="submit">Si</button>
+
+  <!--Modal-->
+  <div class="modal fade" id="myModalNo" role="dialog">
+      <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header trStyle">
+                <button type="button" class="close" data-dismiss="modal" id="closeColor">&times;</button>
+                <h4 class="modal-title">Si se solucionó el problema</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal">
+                <div class="form-group"> 
+                  <label class="control-label">Comentario: </label>
+                  <textarea ng-model="complain.extraDescription" class="form-control"></textarea>
+                </div>
+                <div class="form-group"> 
+                  <button type="submit" class="btn btn-success" ng-click= "sendSecondComplain()">Enviar</button>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer trStyle">
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Cancelar</button>
+            </div>
+          </div>
+      </div>
   </div>
-  <div class="row">
-    <button id="no_help" ng-click= "sendSecondComplain()" class="btn btn-danger" type="submit" disabled>No</button>
-  </div>
-  <div id="countdown"></div>
 </div>

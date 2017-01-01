@@ -152,38 +152,35 @@ angular.module('MyApp.Controllers')
             alert('No se pudo conseguir la información ' + error.message);
         }, options);
       })
-
     }
 
     $scope.calculateDerivedPosition = function(latitude,longitude,distance,bearing){
-        var EarthRadius = 6371000; // m
-        var latA = toRad(latitude);
-        var lonA = toRad(longitude);
-        var angularDistance = distance / EarthRadius;
-        var trueCourse = toRad(bearing);
+      var EarthRadius = 6371000; // m
+      var latA = toRad(latitude);
+      var lonA = toRad(longitude);
+      var angularDistance = distance / EarthRadius;
+      var trueCourse = toRad(bearing);
 
-        var latB = Math.asin(
-                Math.sin(latA) * Math.cos(angularDistance) +
-                        Math.cos(latA) * Math.sin(angularDistance)
-                        * Math.cos(trueCourse));
+      var latB = Math.asin(
+              Math.sin(latA) * Math.cos(angularDistance) +
+                      Math.cos(latA) * Math.sin(angularDistance)
+                      * Math.cos(trueCourse));
 
-        var dlon = Math.atan2(
-                Math.sin(trueCourse) * Math.sin(angularDistance)
-                        * Math.cos(latA),
-                Math.cos(angularDistance) - Math.sin(latA) * Math.sin(latB));
+      var dlon = Math.atan2(
+              Math.sin(trueCourse) * Math.sin(angularDistance)
+                      * Math.cos(latA),
+              Math.cos(angularDistance) - Math.sin(latA) * Math.sin(latB));
 
-        var lonB = ((lonA + dlon + Math.PI) % (Math.PI * 2)) - Math.PI;
+      var lonB = ((lonA + dlon + Math.PI) % (Math.PI * 2)) - Math.PI;
 
-        latB = toDeg(latB);
-        lonB = toDeg(lonB);
+      latB = toDeg(latB);
+      lonB = toDeg(lonB);
 
-        var newPoint = {
-          lat: latB,
-          lon: lonB
-        }
-
-        return newPoint;
-
+      var newPoint = {
+        lat: latB,
+        lon: lonB
+      }
+      return newPoint;
     }
 
     $scope.getDistanceBetweenTwoPoints = function( latitudeA,longitudeA,latitudeB,longitudeB) {
@@ -215,6 +212,7 @@ angular.module('MyApp.Controllers')
       }
       console.log($scope.$sessionStorage)
       ComplainService.Update(temp).then(function(response){
+         $('#myModalYes').modal('hide');
         $state.go("home");
       })
     }
@@ -231,6 +229,7 @@ angular.module('MyApp.Controllers')
           contact: response.data
         }
         ComplainService.SendSecondComplain(content).then(function(response2){
+           $('#myModalNo').modal('hide');
           $state.go("home")
         })
 
@@ -261,7 +260,7 @@ angular.module('MyApp.Controllers')
       function updateTimer(){
         msLeft = endTime - (+new Date);
         if ( msLeft < 1000 ) {
-            element.innerHTML = "Se acabo el tiempo!";
+
         } else {
             time = new Date( msLeft );
             hours = time.getUTCHours();
