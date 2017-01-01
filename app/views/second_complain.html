@@ -1,0 +1,14 @@
+<div class="container" ng-controller="ComplainController" ng-init="timeout()">
+  <h1>¿Solucionado?</h1>
+
+  <div class="row">
+    <textarea ng-model="complain.extraDescription"></textarea>
+  </div>
+  <div class="row">
+    <button ng-click= "saveComplainSolved()"  class="btn btn-primary" type="submit">Si</button>
+  </div>
+  <div class="row">
+    <button id="no_help" ng-click= "sendSecondComplain()" class="btn btn-danger" type="submit" disabled>No</button>
+  </div>
+  <div id="countdown"></div>
+</div>

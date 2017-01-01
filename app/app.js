@@ -1,4 +1,4 @@
-var app = angular.module('MyApp', ['ui.router','ngStorage','MyApp.Services', 'MyApp.Controllers','angularUtils.directives.dirPagination']);
+var app = angular.module('MyApp', ['ui.router','ngStorage','MyApp.Services', 'MyApp.Controllers','angularUtils.directives.dirPagination','ngMap']);
   
 angular.module('MyApp.Controllers', []);
 angular.module('MyApp.Services', []);
@@ -49,6 +49,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         .state('setting', {
             url: '/ajustes',
             templateUrl: '/views/setting.html',
+            params:{content:undefined}
+        })
+        .state('second_complain', {
+            url: '/second_complain',
+            templateUrl: '/views/second_complain.html',
             params:{content:undefined}
         })
 

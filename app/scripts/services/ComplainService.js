@@ -22,6 +22,10 @@ angular.module('MyApp.Services').factory('ComplainService', ['$http',
 	        AllComplainsByBranchOffice: function(payload) {
 	        	//payload = id_BranchOffice
 	        	return $http.post(baseUrl + "v1/allComplainsByBranchOffice", payload);
+	        },
+	        SendSecondComplain: function(payload) {
+	        	//payload = data to add
+	            return $http.post(baseUrl + "v1/sendSecondComplain", payload);
 	        }
 		};
 	}

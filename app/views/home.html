@@ -1,11 +1,13 @@
-<div class ="container" ng-controller="ComplainController" ng-init="initMap()">
+<div class ="container" ng-controller="ComplainController" ng-init="getBranchOffice()">
 	<div class="pull-left" ng-show = "activeView == 1">
 		<button class="btn btn-success glyphicon glyphicon-arrow-left" ng-click="activeView = 0"></button>
 	</div>
 	<div class="containerMAP">
 		<div class="text-center col-md-4 col-md-offset-4" >
 			<div ng-show = "activeView == 0">
-				<p id="map"></p>
+				<ng-map center="current-location" zoom="17" ng-click="getpos()">
+		          <marker visible="true" animation="Animation.BOUNCE" position="current-location" draggable="true"></marker>
+		        </ng-map>
 				</br>
 				<hr>
 				<form class="form-horizontal" name="complainActivateForm" ng-init="complainActivateForm.$valid" novalidate>
@@ -14,8 +16,8 @@
 					      	<select
 					      		name="place" 
 					      		class="form-control" 
-					      		ng-options="place.id as place.name for place in nearbyPlaces" 
-					      		ng-model="selectedPlace"
+					      		ng-options="place as place.name for place in branch_office" 
+					      		ng-model="complain.branchOffice"
 					      		required>
 							</select>
 					    </div>
@@ -108,7 +110,7 @@
 				</form>
 				<div class="form-group"> 
 			    	<div class="col-sm-offset-2 col-sm-9">
-			      		<button type="submit" class="btn btn-primary" ng-disabled="complainForm.$invalid" ng-click="addcomplain(complain); resetForm(complainForm)">Enviar</button>
+			      		<button type="submit" class="btn btn-primary" ng-disabled="complainForm.$invalid" ng-click="addComplain(complain); resetForm(complainForm)">Enviar</button>
 			    	</div>
 			  	</div>
 			</div>

@@ -32,6 +32,7 @@ angular.module('MyApp.Controllers')
       var param = {
         name: data.name,
         id_location: data.id_location,
+        coordinates: data.coordinates,
         telephone: data.telephone,
         direction: data.direction,
         id_Business: $scope.$sessionStorage.currentUser.id_Business,
@@ -64,6 +65,7 @@ angular.module('MyApp.Controllers')
         _id: data._id,
         name: data.name,
         id_location: data.id_location,
+        coordinates: data.coordinates,
         telephone: data.telephone,
         direction: data.direction,
         maxWaitTime: data.maxWaitTime

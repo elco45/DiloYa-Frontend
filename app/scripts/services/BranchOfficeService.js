@@ -21,6 +21,9 @@ angular.module('MyApp.Services').factory('BranchOfficeService', ['$http',
 	        },
 	        AllBranchOfficesByBusiness: function(payload) {
 	            return $http.post(baseUrl + "v1/allBranchOfficesByBusiness", payload);
+	        },
+	        GetOffice: function(payload) {
+	            return $http.post(baseUrl + "v1/getOffice", payload);
 	        }
 		};
 	}
