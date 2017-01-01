@@ -115,31 +115,24 @@ angular.module('MyApp.Controllers')
           var mult=1.1;
           var radius = 5000;//distancia
 
-          /*var p1 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 0);
+          var p1 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 0);
           var p2 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 90);
           var p3 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 180);
-          var p4 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 270);*/
+          var p4 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 270);
 
           //obtener toda las coordenadas de los sucursales
-          var coordenadas_temp = []
+          var coordenadas_sucursales = [];
           for (var i = 0; i < response.data.length; i++) {
-            var temp = [];
-            temp = response.data[i].coordinates.split(",");
-            for (var j = 0; j < temp.length; j++) {
-              var temp2 = [];
-              temp2 = temp[j].split(":")
-              coordenadas_temp.push(temp2[1].substr(0))
-            };
+            var temp = JSON.parse(response.data[i].coordinates)
+            /*console.log(p3.lat+ "<" + temp.lat + "<" + p1.lat)
+            console.log(p4.lon+ "<" + temp.lng + "<" + p2.lon)*/
+            if((Number(temp.lat) > Number(p3.lat)) && (Number(temp.lat) < Number(p1.lat)) 
+              && (Number(temp.lng) > Number(p4.lon)) && (Number(temp.lng) < Number(p2.lon))){
+                coordenadas_sucursales.push(temp);
+            }
+            
           };
 
-          var coordenadas_sucursales = [];
-          for (var i = 0; i < coordenadas_temp.length-1; i+=2) {
-            var temp = {
-              lat: coordenadas_temp[i],
-              lng: coordenadas_temp[i+1].substr(0,coordenadas_temp[i+1].length-1)
-            };
-            coordenadas_sucursales.push(temp);
-          };
           //obtener los sucursales afiliados que esten cerca
           for (var i = 0; i < coordenadas_sucursales.length; i++) {
             if($scope.getDistanceBetweenTwoPoints(parseFloat(coordenadas_sucursales[i].lat),parseFloat(coordenadas_sucursales[i].lng),lat1,lon1) <= radius){
@@ -155,7 +148,7 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.calculateDerivedPosition = function(latitude,longitude,distance,bearing){
-      var EarthRadius = 6371000; // m
+      var EarthRadius = 6371000;
       var latA = toRad(latitude);
       var lonA = toRad(longitude);
       var angularDistance = distance / EarthRadius;
@@ -184,7 +177,7 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.getDistanceBetweenTwoPoints = function( latitudeA,longitudeA,latitudeB,longitudeB) {
-        var R = 6371000; // m
+        var R = 6371000; 
         var dLat = toRad(latitudeB - latitudeA);
         var dLon = toRad(longitudeB - longitudeA);
         var lat1 = toRad(latitudeA);
@@ -260,7 +253,7 @@ angular.module('MyApp.Controllers')
       function updateTimer(){
         msLeft = endTime - (+new Date);
         if ( msLeft < 1000 ) {
-
+          element.innerHTML = "";
         } else {
             time = new Date( msLeft );
             hours = time.getUTCHours();
