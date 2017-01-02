@@ -150,11 +150,12 @@ angular.module('MyApp.Controllers')
             if($scope.getDistanceBetweenTwoPoints(parseFloat(coordenadas_sucursales[i].lat),parseFloat(coordenadas_sucursales[i].lng),lat1,lon1) <= radius){
               $scope.branch_office.push(response.data[i]);
             }
-          };
-        }, 
+          }
+          $scope.$apply();
+        },  
         function(error) {    
-            $scope.branch_office = response.data;                
-            alert('No se pudo conseguir la información ' + error.message);
+            $scope.branch_office = response.data;     
+            swal("Alerta!", "Active su GPS para mostrar los lugares cercanos a usted.", "warning");
         }, options);
       })
     }

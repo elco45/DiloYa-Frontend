@@ -22,13 +22,17 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "latest",
+    "jquery": "^2.2.4",
+    "jquery-ui": "latest",
     "angular": "latest",
     "angular-ui-router": "latest",
     "gulp": "latest",
-    "bootstrap-css": "latest",
     "ngstorage": "latest",
+    "bootstrap": "latest",
+    "bootstrap-css": "latest",
     "bootstrap3-dialog": "latest",
-    "ngmap": "latest"
+    "bootstrap-sweetalert": "latest",
+    "ngmap": "latest",
+    "font-awesome": "latest"
   }
 }
