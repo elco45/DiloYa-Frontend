@@ -284,7 +284,7 @@ angular.module('MyApp.Controllers')
       function updateTimer(){
         msLeft = endTime - (+new Date);
         if ( msLeft < 1000 ) {
-            element.innerHTML = "Se acabo el tiempo!";
+            element.innerHTML = "";
         } else {
             time = new Date( msLeft );
             hours = time.getUTCHours();
