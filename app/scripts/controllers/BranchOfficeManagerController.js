@@ -6,10 +6,18 @@ angular.module('MyApp.Controllers')
     $scope.branchOfficeManagers = [];
 
     if($state.params.content){
-      $sessionStorage.params = $state.params.content;
-      $scope.prueba = $state.params.content;
-    }else{
-      $scope.prueba = $sessionStorage.params;
+      if($state.params.content.id_Business){
+        $scope.$sessionStorage.params.id_Business = $state.params.content.id_Business;
+      }
+      if($state.params.content.businessName){
+        $scope.$sessionStorage.params.businessName = $state.params.content.businessName;
+      }
+      if($state.params.content.id_BranchOffice){
+        $scope.$sessionStorage.params.id_BranchOffice = $state.params.content.id_BranchOffice;
+      }
+      if($state.params.content.bracnhOfficeName){
+        $scope.$sessionStorage.params.bracnhOfficeName = $state.params.content.bracnhOfficeName;
+      }
     }
 
     $scope.allBranchOfficeManagers = function(){

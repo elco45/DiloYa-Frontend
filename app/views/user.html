@@ -12,7 +12,7 @@
     </div>
 	<div class="form-group col-lg-2 col-md-2 pull-right" id="itemsMarginR">
           <label for="ItemsPerPage"><label >Items por página:</label></label>
-          <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" id="pageSize" name="pageSize" ng-minlength="1" ng-maxlength="100">
+          <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" ng-init="pageSize = 7" id="pageSize" name="pageSize" ng-minlength="1" ng-maxlength="100">
 	</div> 	
 	<table class="table table-hover table-striped table-bordered">
 	    <thead>
@@ -20,7 +20,7 @@
 		        <th>Nombre</th>
 		        <th>Email</th>
 		        <th>Teléfono</th>
-		        <th>Rol</th>
+		        <th>Empresa</th>
 		        <th>Eliminar</th>
 	      	</tr>
 	    </thead>
@@ -29,7 +29,7 @@
 		        <td>{{x.name}}</td>
 		        <td>{{x.email}}</td>
 		        <td>{{x.telephone}}</td>
-		        <td>{{x.role == -1 ? 'Super Admin':'Business Admin'}}</td>
+		        <td>{{x.businessName}}</td>
 		        <td>
 		        	<button type="button" class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModalDelete" ng-click="getUser(x._id)"></button>
 		        </td>
@@ -106,8 +106,10 @@
 							      	placeholder="Enter password" 
 							      	ng-model="user.password" 
 							      	ng-init="user.password = 'Prueba123$'" 
+							      	ng-minlength="6"
 							      	required
 						      	>
+						      	<p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">La contraseña tiene que tener al menos 6 caracteres</p>
 						    </div>
 					  	</div>
 					  	<div class="form-group" ng-class="{ 'has-error' : userForm.role.$invalid && !userForm.role.$pristine }">

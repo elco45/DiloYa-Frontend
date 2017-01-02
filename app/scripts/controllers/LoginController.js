@@ -1,7 +1,8 @@
 angular.module('MyApp.Controllers')
-  .controller('LoginController', ['AuthService', '$scope', '$state', '$location','$sessionStorage',
-    function (AuthService, $scope, $state, $location, $sessionStorage) {
+  .controller('LoginController', ['AuthService','BusinessService', '$scope', '$state', '$location','$sessionStorage',
+    function (AuthService, BusinessService, $scope, $state, $location, $sessionStorage) {
     $scope.$sessionStorage = $sessionStorage;
+    $state.entered = false;
 
     $scope.resetForm = function(form) {
         form.$setPristine();
@@ -15,9 +16,10 @@ angular.module('MyApp.Controllers')
     $scope.logout = function(){
         AuthService.Logout().then(function(response){
             $sessionStorage.$reset();
+            $scope.entered = false;
             $state.go('login');
         }).catch(function(err){
-            alert(err.data.error + " " + err.data.message);
+            
         })
     }
 
@@ -25,12 +27,25 @@ angular.module('MyApp.Controllers')
         AuthService.Login(user).then(function(response){
             $sessionStorage.currentUser = response.data;
             if($sessionStorage.currentUser.role == -1){
+                $scope.$sessionStorage.currentUser.entered = true;
+                $scope.$sessionStorage.params = {};
                 $state.go('business');
             }else if($sessionStorage.currentUser.role == 0){
-                $state.go('branchOffice');
+                var param = {
+                    _id: $sessionStorage.currentUser.id_Business
+                }
+                BusinessService.Get(param).then(function(response){
+                    if(response.data.active == true){
+                        $scope.$sessionStorage.currentUser.entered = true;
+                        $state.go('branchOffice');
+                    }else{
+                        $scope.$sessionStorage.currentUser.entered = false;
+                        swal("Espere!","Porfavor pague el servicio para poder continuar con esta aplicación","warning");
+                    } 
+                })
             }
         }).catch(function(err){
-            alert(err.data.error + " " + err.data.message);
+            swal("Error!","Correo o contraseña mal ingresado!","error");
         });
     }
 

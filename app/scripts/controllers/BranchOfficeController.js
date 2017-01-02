@@ -7,10 +7,18 @@ angular.module('MyApp.Controllers')
     $scope.businessBranchOffices = [];
 
     if($state.params.content){
-      $sessionStorage.params = $state.params.content;
-      $scope.prueba = $state.params.content;
-    }else{
-      $scope.prueba = $sessionStorage.params;
+      if($state.params.content.id_Business){
+        $scope.$sessionStorage.params.id_Business = $state.params.content.id_Business;
+      }
+      if($state.params.content.businessName){
+        $scope.$sessionStorage.params.businessName = $state.params.content.businessName;
+      }
+      if($state.params.content.id_BranchOffice){
+        $scope.$sessionStorage.params.id_BranchOffice = $state.params.content.id_BranchOffice;
+      }
+      if($state.params.content.bracnhOfficeName){
+        $scope.$sessionStorage.params.bracnhOfficeName = $state.params.content.bracnhOfficeName;
+      }
     }
 
     $scope.allBranchOffices = function(){
@@ -163,7 +171,17 @@ angular.module('MyApp.Controllers')
         {content:
           {
             id_BranchOffice: data._id,
-            name: data.name
+            branchOfficeName: data.name
+          }
+      })
+    }
+
+    $scope.viewComplain = function(data){
+      $state.go('complain', 
+        {content:
+          {
+            id_BranchOffice: data._id,
+            branchOfficeName: data.name
           }
       })
     }

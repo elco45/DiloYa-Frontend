@@ -1,6 +1,6 @@
 angular.module('MyApp.Controllers')
-  .controller('ComplainController', ['ComplainService','BranchOfficeService','BranchOfficeManagerService','BranchOfficeManagerLevelTwoService','$scope', '$state', '$sessionStorage', '$timeout',
-    function (ComplainService, BranchOfficeService,BranchOfficeManagerService ,BranchOfficeManagerLevelTwoService,$scope, $state, $sessionStorage,$timeout) {
+  .controller('ComplainController', ['ComplainService','BranchOfficeService','BranchOfficeManagerService','BranchOfficeManagerLevelTwoService','$scope', '$state', '$sessionStorage', '$timeout', '$filter',
+    function (ComplainService, BranchOfficeService, BranchOfficeManagerService, BranchOfficeManagerLevelTwoService, $scope, $state, $sessionStorage, $timeout, $filter) {
     $scope.$sessionStorage = $sessionStorage;
     $scope.activeView = 0;
     $scope.nearbyPlaces = [];
@@ -9,13 +9,24 @@ angular.module('MyApp.Controllers')
     $scope.complains = [];
     $scope.branch_office = [];
 
+    if($state.params.content){
+      if($state.params.content.id_Business){
+        $scope.$sessionStorage.params.id_Business = $state.params.content.id_Business;
+      }
+      if($state.params.content.businessName){
+        $scope.$sessionStorage.params.businessName = $state.params.content.businessName;
+      }
+      if($state.params.content.id_BranchOffice){
+        $scope.$sessionStorage.params.id_BranchOffice = $state.params.content.id_BranchOffice;
+      }
+      if($state.params.content.bracnhOfficeName){
+        $scope.$sessionStorage.params.bracnhOfficeName = $state.params.content.bracnhOfficeName;
+      }
+    }
 
     $scope.callback = function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         $scope.nearbyPlaces = results;
-        /*for(var i = 0;i<$scope.nearbyPlaces.length;i++){
-          console.log($scope.nearbyPlaces[i].id)
-        }*/
       }
       $scope.$apply();
     }
@@ -45,9 +56,11 @@ angular.module('MyApp.Controllers')
           email: data.email,
           message: data.message,
           table: data.table,
+          name: data.name,
           branchOffice: data.branchOffice,
           extraDescription: null,
-          contact: response.data
+          contact: response.data,
+          date: $filter('date')(new Date(), 'MM/dd/yyyy')
         }
         ComplainService.Add(content).then(function(response2){
           var complain_content = {
@@ -91,6 +104,7 @@ angular.module('MyApp.Controllers')
       }
       ComplainService.AllComplainsByBranchOffice(param).then(function(response){
         $scope.complains = response.data;
+        $scope.complains.reverse();
       })
     }
 
@@ -124,8 +138,6 @@ angular.module('MyApp.Controllers')
           var coordenadas_sucursales = [];
           for (var i = 0; i < response.data.length; i++) {
             var temp = JSON.parse(response.data[i].coordinates)
-            /*console.log(p3.lat+ "<" + temp.lat + "<" + p1.lat)
-            console.log(p4.lon+ "<" + temp.lng + "<" + p2.lon)*/
             if((Number(temp.lat) > Number(p3.lat)) && (Number(temp.lat) < Number(p1.lat)) 
               && (Number(temp.lng) > Number(p4.lon)) && (Number(temp.lng) < Number(p2.lon))){
                 coordenadas_sucursales.push(temp);
@@ -203,10 +215,19 @@ angular.module('MyApp.Controllers')
         id: $scope.$sessionStorage.complain.id_complain,
         queja: $scope.complain.extraDescription
       }
-      console.log($scope.$sessionStorage)
       ComplainService.Update(temp).then(function(response){
-         $('#myModalYes').modal('hide');
-        $state.go("home");
+        $('#myModalYes').modal('hide');
+        swal({
+          title: "Exito",
+          text: "Gracias por su paciencia!",
+          type: "success",
+          confirmButtonClass: "btn-primary",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: true
+        },
+        function(){
+          $state.go("home")
+        });
       })
     }
 
@@ -214,7 +235,6 @@ angular.module('MyApp.Controllers')
       var temp = {
         id_Business: $scope.$sessionStorage.complain.id_business
       }
-      console.log($scope.$sessionStorage)
       BranchOfficeManagerLevelTwoService.AllBranchOfficeManagersLevelTwoByBusiness(temp).then(function(response){
         var content = {
           id: $scope.$sessionStorage.complain.id_complain,
@@ -222,8 +242,18 @@ angular.module('MyApp.Controllers')
           contact: response.data
         }
         ComplainService.SendSecondComplain(content).then(function(response2){
-           $('#myModalNo').modal('hide');
-          $state.go("home")
+          $('#myModalNo').modal('hide');
+          swal({
+            title: "Lo sentimos!",
+            text: "Se ha enviado un mensaje a un gerente de mayor rango, pronto se pondrá en contacto con usted.",
+            type: "success",
+            confirmButtonClass: "btn-primary",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true
+          },
+          function(){
+            $state.go("home")
+          });
         })
 
       })
@@ -253,7 +283,7 @@ angular.module('MyApp.Controllers')
       function updateTimer(){
         msLeft = endTime - (+new Date);
         if ( msLeft < 1000 ) {
-          element.innerHTML = "";
+            element.innerHTML = "Se acabo el tiempo!";
         } else {
             time = new Date( msLeft );
             hours = time.getUTCHours();
@@ -268,4 +298,7 @@ angular.module('MyApp.Controllers')
       updateTimer();
     }
 
+    $scope.viewBranchOffice = function(){
+      $state.go('adminBranchOffice')
+    }
 }]);

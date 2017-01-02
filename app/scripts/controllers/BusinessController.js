@@ -64,7 +64,7 @@ angular.module('MyApp.Controllers')
         {content:
           {
             id_Business: data._id,
-            name: data.name
+            businessName: data.name
           }
       })
     }

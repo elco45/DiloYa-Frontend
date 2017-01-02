@@ -56,6 +56,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: '/views/second_complain.html',
             params:{content:undefined}
         })
+        .state('complain', {
+            url: '/sucural/quejas',
+            templateUrl: '/views/complain.html',
+            params:{content:undefined}
+        })
 
 
        // $paginationTemplateProvider.setPath('app/dirPagination.tpl.html');

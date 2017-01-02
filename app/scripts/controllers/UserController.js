@@ -1,6 +1,6 @@
 angular.module('MyApp.Controllers')
-  .controller('UserController', ['UserService', '$scope', '$state', '$sessionStorage',
-    function (UserService, $scope, $state, $sessionStorage) {
+  .controller('UserController', ['UserService', 'BusinessService', '$scope', '$state', '$sessionStorage',
+    function (UserService, BusinessService, $scope, $state, $sessionStorage) {
     $scope.$sessionStorage = $sessionStorage;
     $scope.user = {};
     $scope.users = [];
@@ -12,6 +12,23 @@ angular.module('MyApp.Controllers')
         for(var i = 0; i < $scope.users.length; i++){
           if($scope.users[i]._id === $sessionStorage.currentUser._id){
             $scope.users.splice(i,1);
+          }
+        }
+        for(var i = 0; i < $scope.users.length; i++){
+          
+          if($scope.users[i].id_Business){
+            var param = {
+              _id: $scope.users[i].id_Business
+            };
+
+            BusinessService.Get(param).then(function(response2){
+              for (var j = 0; j < $scope.users.length; j++) {
+                if($scope.users[j].id_Business == response2.data._id){
+                  $scope.users[j].businessName = response2.data.name;
+                  break;
+                }
+              }
+            })
           }
         }
       })

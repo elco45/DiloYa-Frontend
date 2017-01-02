@@ -33,7 +33,7 @@
 			<div ng-show = "activeView == 1">
 				<form class="form-horizontal" name="complainForm" ng-init="complainForm.$valid" novalidate>
 				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.name.$invalid && !complainForm.name.$pristine }">
-					    <label class="control-label col-sm-3">Nombre: </label>
+					    <label class="control-label col-sm-3">Nombre:<font color="red">* </font></label>
 					    <div class="col-sm-9">
 					      	<input 
 						      	type="text" 
@@ -47,7 +47,7 @@
 					    </div>
 				  	</div>
 				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.email.$invalid && !complainForm.email.$pristine }">
-					    <label class="control-label col-sm-3">Email:<font color="red">* </font></label>
+					    <label class="control-label col-sm-3">Email:</label>
 					    <div class="col-sm-9">
 					      	<input 
 						      	type="email" 
@@ -57,25 +57,25 @@
 						      	ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
 						      	ng-model="complain.email" 
 						      	limit-to="50" 
-						      	required
 						    >
 					      	<p ng-show="complainForm.email.$invalid && !complainForm.email.$pristine" class="help-block">Ingrese un correo válido</p>
 					    </div>
 				  	</div>
-				  	<div class="form-group">
-					    <label class="control-label col-sm-3">Teléfono: </label>
+				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.telephone.$invalid && !complainForm.telephone.$pristine }">
+					    <label class="control-label col-sm-3">Teléfono:<font color="red">* </font></label>
 					    <div class="col-sm-9">
 					      	<input 
 						      	type="text" 
 						      	name="telephone" 
 						      	class="form-control" 
-						      	placeholder="Ingrese su número de teléfono"
-						      	ng-minlength="8"
-						      	ng-maxlength="8"
+						      	placeholder="Ej. 88888888"
 						      	ng-pattern="/^\d+$/"
 						      	ng-model="complain.telephone" 
+						      	ng-minlength="8"
 						      	limit-to="8"
+						      	required 
 					      	>
+					      	<p ng-show="complainForm.telephone.$invalid && !complainForm.telephone.$pristine" class="help-block">Porfavor ingrese un número válido</p>
 					    </div>
 				  	</div>
 		        	<div class="form-group" ng-class="{ 'has-error' : complainForm.message.$invalid && !complainForm.message.$pristine }">

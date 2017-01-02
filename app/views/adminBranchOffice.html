@@ -1,7 +1,7 @@
-<div class = "container" ng-controller="BranchOfficeController" ng-init = "allBranchOfficesByBusiness(prueba.id_Business)" id="container">
+<div class = "container" ng-controller="BranchOfficeController" ng-init = "allBranchOfficesByBusiness($sessionStorage.params.id_Business)" id="container">
 	<br>
 	<div class="row">
-		<h2 >{{prueba.name}}</h2>
+		<h2 >{{$sessionStorage.params.businessName}}</h2>
 		<h3 class="col-md-4 col-sm-4 col-xs-4"><span class="spanTextEEE">Lista</span> <span class ="spanTextEEColor"> sucursales</span></h3>			
 	</div>
 	<span class="clearfix"></span>
@@ -12,7 +12,7 @@
     </div>
 	<div class="form-group col-lg-2 col-md-2 pull-right" id="itemsMarginR">
           <label for="ItemsPerPage"><label >Items por página:</label></label>
-          <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" id="pageSize" name="pageSize" ng-minlength="1" ng-maxlength="100">
+          <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" ng-init="pageSize = 7" id="pageSize" name="pageSize" ng-minlength="1" ng-maxlength="100">
 	</div>    
 	<table class="table table-hover table-striped table-bordered">
 	    <thead>
@@ -29,7 +29,7 @@
 		        <td>{{x.direction}}</td>
 		        <td>{{x.telephone}}</td>
 		        <td>
-		        	<button type="button" class="btn btn-primary" ng-click="">Ver</button>
+		        	<button type="button" class="btn btn-primary" ng-click="viewComplain(x)">Ver</button>
 		        </td>
 	      	</tr>
 	    </tbody>
