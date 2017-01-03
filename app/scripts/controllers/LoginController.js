@@ -26,17 +26,18 @@ angular.module('MyApp.Controllers')
     $scope.login = function(user){
         AuthService.Login(user).then(function(response){
             $sessionStorage.currentUser = response.data;
-            if($sessionStorage.currentUser.role == -1){
+            if($sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
                 $scope.$sessionStorage.currentUser.entered = true;
                 $scope.$sessionStorage.params = {};
                 $state.go('business');
-            }else if($sessionStorage.currentUser.role == 0){
+            }else if($sessionStorage.currentUser.scope.indexOf('admin') > -1){
                 var param = {
                     _id: $sessionStorage.currentUser.id_Business
                 }
                 BusinessService.Get(param).then(function(response){
                     if(response.data.active == true){
                         $scope.$sessionStorage.currentUser.entered = true;
+                        $scope.$sessionStorage.params = {};
                         $state.go('branchOffice');
                     }else{
                         $scope.$sessionStorage.currentUser.entered = false;
@@ -50,11 +51,31 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.redirect = function(){
-        if($scope.$sessionStorage.currentUser.role == -1){
+        if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
             $state.go('business');
-        }else if($scope.$sessionStorage.currentUser.role == 0){
+        }else if($scope.$sessionStorage.currentUser.scope.indexOf('admin') > -1){
             $state.go('branchOffice');
         }
+    }
+
+    $scope.goSetting = function(){
+        $state.go("setting");
+    }
+
+    $scope.goNegocio = function(){
+        $state.go("business");
+    }
+
+    $scope.goUsuarios = function(){
+        $state.go("users");
+    }
+
+    $scope.goSucursales = function(){
+        $state.go("branchOffice");
+    }
+
+    $scope.goGerentesNivel2 = function(){
+        $state.go("branchOfficeManagerLevelTwo");
     }
 
 }]);

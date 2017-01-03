@@ -41,31 +41,31 @@
                     <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{$sessionStorage.currentUser.name}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="/#/ajustes"><i class="fa fa-fw fa-gear"></i> Manejar cuenta</a>
+                            <a ng-click="goSetting()" ><i class="fa fa-fw fa-gear"></i> Manejar cuenta</a>
                         </li>
                         <li class="divider"></li>
                         <li ng-click="logout()">
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
+                            <a><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse" id="navAlign">
-                <ul class="nav navbar-nav side-nav" bs-active-link id="navColorText"  ng-show="$sessionStorage.currentUser.role == -1">
+                <ul class="nav navbar-nav side-nav" bs-active-link id="navColorText"  ng-show="$sessionStorage.currentUser.scope.indexOf('superAdmin')>-1">
                     <li>
-                        <a href="/#/negocios" id="navColorText"><i class="glyphicon glyphicon-usd" id="navColorText"></i> Negocios</a>
+                        <a ng-click="goNegocio()" id="navColorText"><i class="glyphicon glyphicon-usd" id="navColorText"></i> Negocios</a>
                     </li>
                     <li>
-                        <a href="/#/usuarios" id="navColorText"><i class="glyphicon glyphicon-user" id="navColorText"></i> Usuarios</a>
+                        <a ng-click="goUsuarios()" id="navColorText"><i class="glyphicon glyphicon-user" id="navColorText"></i> Usuarios</a>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav side-nav" bs-active-link id="navColorText"  ng-show="$sessionStorage.currentUser.role == 0">
+                <ul class="nav navbar-nav side-nav" bs-active-link id="navColorText"  ng-show="$sessionStorage.currentUser.scope.indexOf('admin')>-1">
                     <li>
-                        <a href="/#/sucursales" id="navColorText"><i class="glyphicon glyphicon-home" id="navColorText"></i> Sucursales</a>
+                        <a ng-click="goSucursales()"  id="navColorText"><i class="glyphicon glyphicon-home" id="navColorText"></i> Sucursales</a>
                     </li>
                     <li>
-                        <a href="/#/gerentes/nivel2" id="navColorText"><i class="glyphicon glyphicon-user" id="navColorText"></i> Gerentes Nivel 2</a>
+                        <a ng-click="goGerentesNivel2()"  id="navColorText"><i class="glyphicon glyphicon-user" id="navColorText"></i> Gerentes Nivel 2</a>
                     </li>
                 </ul>
             </div>

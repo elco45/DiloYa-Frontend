@@ -15,12 +15,13 @@ angular.module('MyApp.Controllers')
       if($state.params.content.id_BranchOffice){
         $scope.$sessionStorage.params.id_BranchOffice = $state.params.content.id_BranchOffice;
       }
-      if($state.params.content.bracnhOfficeName){
-        $scope.$sessionStorage.params.bracnhOfficeName = $state.params.content.bracnhOfficeName;
+      if($state.params.content.branchOfficeName){
+        $scope.$sessionStorage.params.branchOfficeName = $state.params.content.branchOfficeName;
       }
     }
 
     $scope.allBranchOfficeManagers = function(){
+
       BranchOfficeManagerService.All().then(function(response){
         $scope.branchOfficeManagers = response.data;
       })
@@ -40,7 +41,7 @@ angular.module('MyApp.Controllers')
         name: data.name,
         telephone: data.telephone,
         email: data.email,
-        id_BranchOffice: $scope.prueba.id_BranchOffice
+        id_BranchOffice: $scope.$sessionStorage.params.id_BranchOffice
       };
       //param id_BranchOffice
       BranchOfficeManagerService.Add(param).then(function(response){
@@ -51,7 +52,7 @@ angular.module('MyApp.Controllers')
 
     $scope.deleteBranchOfficeManager = function(data){
       BranchOfficeManagerService.Delete(data).then(function(response){
-        $scope.allBranchOfficeManagersByBranchOffice($scope.prueba.id_BranchOffice);
+        $scope.allBranchOfficeManagersByBranchOffice($scope.$sessionStorage.params.id_BranchOffice);
       })
     }
 
@@ -64,7 +65,7 @@ angular.module('MyApp.Controllers')
       };
       BranchOfficeManagerService.Update(param).then(function(response){
         $scope.branchOfficeManager = {};
-        $scope.allBranchOfficeManagersByBranchOffice($scope.prueba.id_BranchOffice);
+        $scope.allBranchOfficeManagersByBranchOffice($scope.$sessionStorage.params.id_BranchOffice);
       })
     }
 

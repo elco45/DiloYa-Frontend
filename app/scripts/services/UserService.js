@@ -1,7 +1,7 @@
 angular.module('MyApp.Services').factory('UserService', ['$http',
 	function($http){
-		//var baseUrl = 'http://localhost:8000/';
-		var baseUrl = 'https://dilo-ya-backend.herokuapp.com/';
+		var baseUrl = 'http://localhost:8000/';
+		//var baseUrl = 'https://dilo-ya-backend.herokuapp.com/';
 		return {
 			All: function() {
 	            return $http.get(baseUrl + "v1/allUsers");
@@ -11,6 +11,7 @@ angular.module('MyApp.Services').factory('UserService', ['$http',
 	        },
 	        Add: function(payload) {
 	        	//payload = data to add
+	        	console.log(payload)
 	            return $http.post(baseUrl + "v1/addUser", payload);
 	        },
 	        Delete: function(payload) {

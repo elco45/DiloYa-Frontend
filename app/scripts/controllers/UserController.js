@@ -4,7 +4,7 @@ angular.module('MyApp.Controllers')
     $scope.$sessionStorage = $sessionStorage;
     $scope.user = {};
     $scope.users = [];
-    $scope.roles = [{id:0, description: 'Business Admin'},{id:-1, description: 'Super Admin'}]
+    $scope.roles = [{id:"admin", description: 'Business Admin'},{id:"superAdmin", description: 'Super Admin'}]
 
     $scope.allUsers = function(){
       UserService.All().then(function(response){
@@ -50,7 +50,7 @@ angular.module('MyApp.Controllers')
         telephone: data.telephone,
         password: data.password,
         id_Business: data.id_Business,
-        role: data.role
+        scope: [data.role]
       };
       UserService.Add(param).then(function(response){
         $scope.user = {};

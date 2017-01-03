@@ -71,7 +71,17 @@ angular.module('MyApp.Controllers')
           $scope.complain = {};
           $scope.complains.push(response.data);
           $scope.$sessionStorage.complain = complain_content
-          $state.go("second_complain")
+          swal({
+            title: "Exito",
+            text: "Se ha enviado su mensaje al gerente, pronto lo atenderemos!",
+            type: "success",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true
+          },
+          function(){
+            $state.go("second_complain")
+          });
+         
         })
 
       })
