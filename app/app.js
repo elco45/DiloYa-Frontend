@@ -61,7 +61,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: '/views/complain.html',
             params:{content:undefined}
         })
-
+        .state('404', {
+            url: '/404.html',
+            templateUrl: '/views/404.html',
+            params:{content:undefined}
+        })
 
        // $paginationTemplateProvider.setPath('app/dirPagination.tpl.html');
 }])

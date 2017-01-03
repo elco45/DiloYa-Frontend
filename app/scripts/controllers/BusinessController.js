@@ -6,9 +6,17 @@ angular.module('MyApp.Controllers')
     $scope.businesses = [];
 
     $scope.allBusinesses = function(){
-      BusinessService.All().then(function(response){
-        $scope.businesses = response.data;
-      })
+      if($scope.$sessionStorage.currentUser){
+        if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
+          BusinessService.All().then(function(response){
+            $scope.businesses = response.data;
+          })
+        }else{
+          $state.go('branchOffice');
+        }
+      }else{
+        $state.go('home');
+      }
     }
 
     $scope.getBusiness = function(data){

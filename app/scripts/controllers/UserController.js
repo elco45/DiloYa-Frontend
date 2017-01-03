@@ -1,37 +1,45 @@
 angular.module('MyApp.Controllers')
-  .controller('UserController', ['UserService', 'BusinessService', '$scope', '$state', '$sessionStorage',
-    function (UserService, BusinessService, $scope, $state, $sessionStorage) {
+  .controller('UserController', ['UserService', 'BusinessService', '$scope', '$state', '$sessionStorage','$rootScope',
+    function (UserService, BusinessService, $scope, $state, $sessionStorage, $rootScope) {
     $scope.$sessionStorage = $sessionStorage;
     $scope.user = {};
     $scope.users = [];
-    $scope.roles = [{id:"admin", description: 'Business Admin'},{id:"superAdmin", description: 'Super Admin'}]
+    $scope.roles = [{id:"admin", description: 'Business Admin'},{id:"superAdmin", description: 'Super Admin'}];
 
     $scope.allUsers = function(){
-      UserService.All().then(function(response){
-        $scope.users = response.data;
-        for(var i = 0; i < $scope.users.length; i++){
-          if($scope.users[i]._id === $sessionStorage.currentUser._id){
-            $scope.users.splice(i,1);
-          }
-        }
-        for(var i = 0; i < $scope.users.length; i++){
-          
-          if($scope.users[i].id_Business){
-            var param = {
-              _id: $scope.users[i].id_Business
-            };
-
-            BusinessService.Get(param).then(function(response2){
-              for (var j = 0; j < $scope.users.length; j++) {
-                if($scope.users[j].id_Business == response2.data._id){
-                  $scope.users[j].businessName = response2.data.name;
-                  break;
-                }
+      if($scope.$sessionStorage.currentUser){
+        if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
+          UserService.All().then(function(response){
+            $scope.users = response.data;
+            for(var i = 0; i < $scope.users.length; i++){
+              if($scope.users[i]._id === $sessionStorage.currentUser._id){
+                $scope.users.splice(i,1);
               }
-            })
-          }
+            }
+            for(var i = 0; i < $scope.users.length; i++){
+              
+              if($scope.users[i].id_Business){
+                var param = {
+                  _id: $scope.users[i].id_Business
+                };
+
+                BusinessService.Get(param).then(function(response2){
+                  for (var j = 0; j < $scope.users.length; j++) {
+                    if($scope.users[j].id_Business == response2.data._id){
+                      $scope.users[j].businessName = response2.data.name;
+                      break;
+                    }
+                  }
+                })
+              }
+            }
+          })
+        }else{
+          $state.go('branchOffice');
         }
-      })
+      }else{
+        $state.go('home');
+      }
     }
 
     $scope.getUser = function(data){
