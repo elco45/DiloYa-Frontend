@@ -125,42 +125,18 @@ angular.module('MyApp.Controllers')
         };
 
         navigator.geolocation.getCurrentPosition(function(pos) {
-          $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-          var coordenadas = JSON.stringify($scope.position).split(",")
-          var coordenadas2 = []
-          for (var i = 0; i < coordenadas.length; i++) {
-            var temp = [];
-            temp = coordenadas[i].split(":")
-            coordenadas2.push(temp[1])
-          };
-
-          var lat1 = coordenadas2[0];
-          var lon1 = coordenadas2[1].substr(0,coordenadas2[1].length - 1);
-          var mult=1.1;
-          var radius = 5000;//distancia
-
-          var p1 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 0);
-          var p2 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 90);
-          var p3 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 180);
-          var p4 = $scope.calculateDerivedPosition(lat1,lon1, mult * radius, 270);
-
-          //obtener toda las coordenadas de los sucursales
-          var coordenadas_sucursales = [];
+          var distance = 100;//distancia
+          
           for (var i = 0; i < response.data.length; i++) {
             var temp = JSON.parse(response.data[i].coordinates)
-            if((Number(temp.lat) > Number(p3.lat)) && (Number(temp.lat) < Number(p1.lat)) 
-              && (Number(temp.lng) > Number(p4.lon)) && (Number(temp.lng) < Number(p2.lon))){
-                coordenadas_sucursales.push(temp);
-            }
+            var nuevo = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),new google.maps.LatLng(temp.lat, temp.lng));
             
-          };
-
-          //obtener los sucursales afiliados que esten cerca
-          for (var i = 0; i < coordenadas_sucursales.length; i++) {
-            if($scope.getDistanceBetweenTwoPoints(parseFloat(coordenadas_sucursales[i].lat),parseFloat(coordenadas_sucursales[i].lng),lat1,lon1) <= radius){
+            if(nuevo < distance){
               $scope.branch_office.push(response.data[i]);
             }
-          }
+
+          };
+
           $scope.$apply();
         },  
         function(error) {    
@@ -168,57 +144,6 @@ angular.module('MyApp.Controllers')
             swal("Alerta!", "Active su GPS para mostrar los lugares cercanos a usted.", "warning");
         }, options);
       })
-    }
-
-    $scope.calculateDerivedPosition = function(latitude,longitude,distance,bearing){
-      var EarthRadius = 6371000;
-      var latA = toRad(latitude);
-      var lonA = toRad(longitude);
-      var angularDistance = distance / EarthRadius;
-      var trueCourse = toRad(bearing);
-
-      var latB = Math.asin(
-              Math.sin(latA) * Math.cos(angularDistance) +
-                      Math.cos(latA) * Math.sin(angularDistance)
-                      * Math.cos(trueCourse));
-
-      var dlon = Math.atan2(
-              Math.sin(trueCourse) * Math.sin(angularDistance)
-                      * Math.cos(latA),
-              Math.cos(angularDistance) - Math.sin(latA) * Math.sin(latB));
-
-      var lonB = ((lonA + dlon + Math.PI) % (Math.PI * 2)) - Math.PI;
-
-      latB = toDeg(latB);
-      lonB = toDeg(lonB);
-
-      var newPoint = {
-        lat: latB,
-        lon: lonB
-      }
-      return newPoint;
-    }
-
-    $scope.getDistanceBetweenTwoPoints = function( latitudeA,longitudeA,latitudeB,longitudeB) {
-        var R = 6371000; 
-        var dLat = toRad(latitudeB - latitudeA);
-        var dLon = toRad(longitudeB - longitudeA);
-        var lat1 = toRad(latitudeA);
-        var lat2 = toRad(latitudeB);
-
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2)
-                * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c;
-
-        return d;
-    }
-
-    function toRad(Value) {
-      return Value * (Math.PI / 180);
-    }
-    function toDeg(Value) {
-      return Value * (180 / Math.PI);
     }
 
     $scope.saveComplainSolved = function(){
