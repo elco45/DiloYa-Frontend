@@ -21,6 +21,7 @@
 		        <th>Dirección</th>
 		        <th>Teléfono</th>
 		        <th>Quejas</th>
+		        <th>Reporte</th>
 	      	</tr>
 	    </thead>
 	    <tbody>
@@ -31,6 +32,9 @@
 		        <td>
 		        	<button type="button" class="btn btn-primary" ng-click="viewComplain(x)">Ver</button>
 		        </td>
+		        <td>
+		        	<button type="button" class="btn  btn-success glyphicon glyphicon-align-left" data-toggle="modal" data-target="#myModalGraphBranchOffice" ng-click = "getBranchReport(x._id)"></button>	
+		        </td>
 	      	</tr>
 	    </tbody>
   	</table>
@@ -38,4 +42,28 @@
       	<label for="CreateRol" ng-if="pageSize < results.length"><label>...</label></label>
       	<dir-pagination-controls max-size="100" direction-links="true" boundary-links="true" ></dir-pagination-controls>
      </div>
+
+     <!-- Modal Porcentaje de quejas resueltos-->
+	<div class="modal fade" id="myModalGraphBranchOffice" role="dialog">
+	    <div class="modal-dialog">
+	      	<!-- Modal content-->
+	      	<div class="modal-content">
+	        	<div class="modal-header trStyle">
+	          		<button type="button" class="close" data-dismiss="modal" id="closeColor">&times;</button>
+	          		<h4 class="modal-title">% de quejas atendidas</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<canvas id="pie" class="chart chart-pie"
+					  chart-data="information" chart-labels="labels" chart-options="options" chart-colors="colores" chart-options="options">
+					</canvas> 
+				</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+
 </div>
+
+

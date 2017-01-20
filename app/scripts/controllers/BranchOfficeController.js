@@ -1,10 +1,14 @@
 angular.module('MyApp.Controllers')
-  .controller('BranchOfficeController', ['BranchOfficeService', 'BranchOfficeManagerService', '$scope', '$sessionStorage', '$state', '$rootScope',
-    function (BranchOfficeService, BranchOfficeManagerService, $scope, $sessionStorage, $state, $rootScope) {
+  .controller('BranchOfficeController', ['BranchOfficeService', 'BranchOfficeManagerService', 'ComplainService','$scope', '$sessionStorage', '$state', '$rootScope',
+    function (BranchOfficeService, BranchOfficeManagerService, ComplainService,$scope, $sessionStorage, $state, $rootScope) {
     $scope.$sessionStorage = $sessionStorage;
     $scope.branchOffice = {};
     $scope.branchOffices = [];
     $scope.businessBranchOffices = [];
+    $scope.colores = ['#cce6ff','#0000ff','#ff0000']
+    $scope.options = { legend: { display: true } };
+    $scope.labels = ["Pendiente", "Resuelto", "No atendido"];
+    $scope.information = [];
 
     if($state.params.content){
       if($state.params.content.id_Business){
@@ -185,4 +189,27 @@ angular.module('MyApp.Controllers')
           }
       })
     }
+
+    $scope.getBranchReport = function(data){
+      var branch_id = {
+        id_BranchOffice: data
+      }
+      var cont_pendiente = 0;
+      var cont_resuelto = 0;
+      var cont_no_resuelto = 0;
+
+      ComplainService.AllComplainsByBranchOffice(branch_id).then(function(response1){
+        for (var i = 0; i < response1.data.length; i++) {
+          if(response1.data[i].solved == 0){
+            cont_pendiente++;
+          }else if(response1.data[i].solved == 1){
+            cont_resuelto++;
+          }else if(response1.data[i].solved == 2){
+            cont_no_resuelto++;
+          }
+        };
+        $scope.information = [cont_pendiente,cont_resuelto,cont_no_resuelto];
+      }) 
+    }
+
 }]);
