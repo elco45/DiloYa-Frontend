@@ -182,7 +182,7 @@ angular.module('MyApp.Controllers')
           swal({
             title: "Lo sentimos!",
             text: "Se ha enviado un mensaje a un gerente de mayor rango, pronto se pondrá en contacto con usted.",
-            type: "success",
+            type: "warning",
             confirmButtonClass: "btn-primary",
             confirmButtonText: "Aceptar",
             closeOnConfirm: true
