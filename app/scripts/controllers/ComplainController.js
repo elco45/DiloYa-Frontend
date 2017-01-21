@@ -59,8 +59,7 @@ angular.module('MyApp.Controllers')
           name: data.name,
           branchOffice: data.branchOffice,
           extraDescription: null,
-          contact: response.data,
-          date: $filter('date')(new Date(), 'MM/dd/yyyy')
+          contact: response.data
         }
         ComplainService.Add(content).then(function(response2){
           var complain_content = {
