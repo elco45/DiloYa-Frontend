@@ -93,7 +93,7 @@ angular.module('MyApp.Controllers')
                     swal({
                         title: "Success",
                         text: "Se ha enviado un mensaje a su correo, porfavor reviselo!",
-                        type: "success"
+                        type: "success",
                         confirmButtonText: "Aceptar",
                         closeOnConfirm: true
                     })
