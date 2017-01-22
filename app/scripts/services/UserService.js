@@ -28,6 +28,12 @@ angular.module('MyApp.Services').factory('UserService', ['$http',
 	        ModifyUser: function(payload) {
 	        	//payload = data to update
 	        	return $http.post(baseUrl + "v1/modifyUser", payload);
+	        },
+	        GetByEmail: function(payload) {
+	            return $http.post(baseUrl + "v1/getUserByEmail", payload);
+	        },
+	        ResetPassword: function(payload) {
+	            return $http.post(baseUrl + "v1/resetPassword", payload);
 	        }
 		};
 	}

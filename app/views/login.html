@@ -12,8 +12,29 @@
                     <br>
                     <button class="btn btn-lg btn-success btn-block" ng-click="login(user)" type="submit">Entrar</button>
                     <br>
+                    <a data-toggle="modal" data-target="#myModalForgotPassword">Recuperar Contraseña</a>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="myModalForgotPassword" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header trStyle">
+                    <button type="button" class="close" data-dismiss="modal" id="closeColor">&times;</button>
+                    <h4 class="modal-title">Recuperar Contraseña</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Ingrese su correo: </label>
+                    <input type="text" class="form-control" placeholder="Email" ng-model="fp.email" required autofocus>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "resetPassword(fp.email)">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
