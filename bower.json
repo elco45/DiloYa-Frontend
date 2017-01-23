@@ -34,6 +34,7 @@
     "bootstrap-sweetalert": "latest",
     "ngmap": "latest",
     "font-awesome": "latest",
+    "chart.js": "npm:chart.js#^2.2.1",
     "angular-chart.js": "^1.1.1"
   }
 }
