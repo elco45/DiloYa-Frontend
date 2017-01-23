@@ -48,6 +48,7 @@ angular.module('MyApp.Controllers')
       }
       UserService.Get(param).then(function(response){
         $scope.user = response.data;
+        $scope.user.password = "";
       })
     }
 
@@ -97,6 +98,26 @@ angular.module('MyApp.Controllers')
         swal("Exito!","Su contraseña ha sido actualizada!", "success");
       }).catch(function(err){
         swal("Error", "La contraseña vieja que ingreso es incorrecto", "error");
+      });
+    }
+
+    $scope.modifyUser = function(data){
+      console.log(data)
+      var param = {
+        id: data._id,
+        name: data.name,
+        email: data.email,
+        telephone: data.telephone,
+        password: data.password,
+        id_Business: data.id_Business,
+        scope: [data.role]
+      };
+
+      UserService.ModifyUser(param).then(function(response){
+        $scope.user = {};
+        $scope.users.push(response.data);
+      }).catch(function(err){
+        swal("Error", "Ya existe un usuario con ese correo!", "error");
       });
     }
 }]);

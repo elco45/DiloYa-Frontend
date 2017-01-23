@@ -33,6 +33,7 @@
     "bootstrap3-dialog": "latest",
     "bootstrap-sweetalert": "latest",
     "ngmap": "latest",
-    "font-awesome": "latest"
+    "font-awesome": "latest",
+    "angular-chart.js": "^1.1.1"
   }
 }

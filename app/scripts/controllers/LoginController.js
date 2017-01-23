@@ -1,8 +1,9 @@
 angular.module('MyApp.Controllers')
-  .controller('LoginController', ['AuthService','BusinessService', '$scope', '$state', '$location','$sessionStorage',
-    function (AuthService, BusinessService, $scope, $state, $location, $sessionStorage) {
+  .controller('LoginController', ['AuthService','BusinessService','UserService', '$scope', '$state', '$location','$sessionStorage',
+    function (AuthService, BusinessService, UserService, $scope, $state, $location, $sessionStorage) {
     $scope.$sessionStorage = $sessionStorage;
     $state.entered = false;
+    $scope.fp = {};
 
     $scope.resetForm = function(form) {
         form.$setPristine();
@@ -76,6 +77,41 @@ angular.module('MyApp.Controllers')
 
     $scope.goGerentesNivel2 = function(){
         $state.go("branchOfficeManagerLevelTwo");
+    }
+
+    $scope.resetPassword = function(fp_email){
+        var temp = {
+            email: fp_email
+        }
+        UserService.GetByEmail(temp).then(function(response){
+            if(response.data != 'ok'){
+                console.log(response.data)
+                var id_usuario = {
+                    id: response.data
+                }
+                UserService.ResetPassword(id_usuario).then(function(response1){
+                    swal({
+                        title: "Success",
+                        text: "Se ha enviado un mensaje a su correo, porfavor reviselo!",
+                        type: "success",
+                        confirmButtonText: "Aceptar",
+                        closeOnConfirm: true
+                    })
+                })
+            }else{
+                swal({
+                    title: "Error",
+                    text: "El correo que ingreso no existe!",
+                    type: "error",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: true
+                },
+                function(){
+                    $scope.fp = {};
+                });
+            }
+           
+        })
     }
 
 }]);

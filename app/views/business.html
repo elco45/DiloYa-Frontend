@@ -21,6 +21,7 @@
 		        <th>Activo</th>
 		        <th>Editar</th>
 		        <th>Sucursales</th>
+		        <th>Reportes</th>
 	      	</tr>
 	    </thead>
 	    <tbody>
@@ -33,6 +34,9 @@
 		        <td>
 		        	<button type="button" class="btn btn-primary" ng-click = "viewBranchOffices(x)">Ver</button>
 		        </td>
+		        <td>
+		        	<button type="button" class="btn  btn-success glyphicon glyphicon-align-left" data-toggle="modal" data-target="#myModalGraphBusiness" ng-click = "getBusinessReport(x._id)"></button>	
+		        </td>
 	      	</tr>
 	    </tbody>
   	</table>
@@ -42,7 +46,7 @@
      </div>
 
 
-	<!-- Modal -->
+	<!-- Modal Agregar Negocio-->
 	<div class="modal fade" id="myModalAdd" role="dialog">
 	    <div class="modal-dialog">
 	      	<!-- Modal content-->
@@ -122,7 +126,7 @@
 	    </div>
 	</div>
 
-	<!-- Modal -->
+	
 	<div class="modal fade" id="myModalEdit" role="dialog">
 	    <div class="modal-dialog">
 	      	<!-- Modal content-->
@@ -227,6 +231,27 @@
 	        	</div>
 	        	<div class="modal-footer">
 	          		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+
+	<!-- Modal Porcentaje de quejas resueltos-->
+	<div class="modal fade" id="myModalGraphBusiness" role="dialog">
+	    <div class="modal-dialog">
+	      	<!-- Modal content-->
+	      	<div class="modal-content">
+	        	<div class="modal-header trStyle">
+	          		<button type="button" class="close" data-dismiss="modal" id="closeColor">&times;</button>
+	          		<h4 class="modal-title">% de quejas atendidas</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<canvas id="pie" class="chart chart-pie"
+					  chart-data="information" chart-labels="labels" chart-options="options" chart-colors="colores" chart-options="options">
+					</canvas> 
+				</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>
 	        	</div>
 	      	</div>
 	    </div>

@@ -1,9 +1,13 @@
 angular.module('MyApp.Controllers')
-  .controller('BusinessController', ['BusinessService', '$scope', '$state', '$filter', '$sessionStorage',
-    function (BusinessService, $scope, $state, $filter, $sessionStorage) {
+  .controller('BusinessController', ['BusinessService', 'BranchOfficeService','ComplainService','$scope', '$state', '$filter', '$sessionStorage',
+    function (BusinessService, BranchOfficeService, ComplainService, $scope, $state, $filter, $sessionStorage) {
     $scope.$sessionStorage = $sessionStorage;
     $scope.business = {};
     $scope.businesses = [];
+    $scope.colores = ['#cce6ff','#0000ff','#ff0000']
+    $scope.options = { legend: { display: true } };
+    $scope.labels = ["Pendiente", "Resuelto", "No atendido"];
+    $scope.information = [];
 
     $scope.allBusinesses = function(){
       if($scope.$sessionStorage.currentUser){
@@ -76,4 +80,36 @@ angular.module('MyApp.Controllers')
           }
       })
     }
+
+    $scope.getBusinessReport = function(idBusiness){
+      var business_id = {
+        id_Business: idBusiness
+      }
+      var cont_pendiente = 0;
+      var cont_resuelto = 0;
+      var cont_no_resuelto = 0;
+
+      BranchOfficeService.AllBranchOfficesByBusiness(business_id).then(function(response){
+        console.log(response.data)
+        for (var i = 0; i < response.data.length; i++) {
+          var branchOffice_id = {
+            id_BranchOffice: response.data[i]
+          }
+          ComplainService.AllComplainsByBranchOffice(branchOffice_id).then(function(response1){
+            for (var i = 0; i < response1.data.length; i++) {
+              if(response1.data[i].solved == 0){
+                cont_pendiente++;
+              }else if(response1.data[i].solved == 1){
+                cont_resuelto++;
+              }else if(response1.data[i].solved == 2){
+                cont_no_resuelto++;
+              }
+            };
+            $scope.information = [cont_pendiente,cont_resuelto,cont_no_resuelto];
+          }) 
+        };
+      })
+
+    }
+
 }]);

@@ -59,8 +59,7 @@ angular.module('MyApp.Controllers')
           name: data.name,
           branchOffice: data.branchOffice,
           extraDescription: null,
-          contact: response.data,
-          date: $filter('date')(new Date(), 'MM/dd/yyyy')
+          contact: response.data
         }
         ComplainService.Add(content).then(function(response2){
           var complain_content = {
@@ -182,7 +181,7 @@ angular.module('MyApp.Controllers')
           swal({
             title: "Lo sentimos!",
             text: "Se ha enviado un mensaje a un gerente de mayor rango, pronto se pondrá en contacto con usted.",
-            type: "success",
+            type: "warning",
             confirmButtonClass: "btn-primary",
             confirmButtonText: "Aceptar",
             closeOnConfirm: true

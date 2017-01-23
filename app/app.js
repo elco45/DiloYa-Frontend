@@ -1,4 +1,4 @@
-var app = angular.module('MyApp', ['ui.router','ngStorage','MyApp.Services', 'MyApp.Controllers','angularUtils.directives.dirPagination','ngMap']);
+var app = angular.module('MyApp', ['ui.router','ngStorage','MyApp.Services', 'MyApp.Controllers','angularUtils.directives.dirPagination','ngMap','chart.js']);
   
 angular.module('MyApp.Controllers', []);
 angular.module('MyApp.Services', []);
