@@ -14,9 +14,18 @@ html,body{
 }
 
 @media only screen and (max-width: 760px), (min-width: 768px) and (max-width: 1024px) {
-    select {
-        width: 50% !important;
-    }
+  select {
+    width: 60% !important;
+  }
+  input, textarea {
+    width: 60% !important;
+  }
+  control-label {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+  }
 }
 
 

@@ -1,7 +1,4 @@
 <div class ="container" ng-controller="ComplainController" ng-init="getBranchOffice()">
-	<div class="pull-left" ng-show = "activeView == 1">
-		<button class="btn btn-success glyphicon glyphicon-arrow-left" ng-click="activeView = 0"></button>
-	</div>
 	<div class="containerMAP">
 		<div class="text-center col-md-4 col-md-offset-4" >
 			<div ng-show = "activeView == 0">
@@ -31,9 +28,13 @@
 				</form>
 			</div>
 			<div ng-show = "activeView == 1">
-				<form class="form-horizontal" name="complainForm" ng-init="complainForm.$valid" novalidate>
+				<div class="pull-left row" >
+					<button class="btn btn-success glyphicon glyphicon-arrow-left" ng-click="activeView = 0"></button>
+				</div>
+				</br>
+				<form class="form-horizontal row" name="complainForm" ng-init="complainForm.$valid" novalidate>
 				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.name.$invalid && !complainForm.name.$pristine }">
-					    <label class="control-label col-sm-3">Nombre:<font color="red">* </font></label>
+					    <label class="control-label col-sm-3 col-xs-12">Nombre:<font color="red">* </font></label>
 					    <div class="col-sm-9">
 					      	<input 
 						      	type="text" 
@@ -47,7 +48,7 @@
 					    </div>
 				  	</div>
 				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.email.$invalid && !complainForm.email.$pristine }">
-					    <label class="control-label col-sm-3">Email:</label>
+					    <label class="control-label col-sm-3 col-xs-12">Email:</label>
 					    <div class="col-sm-9">
 					      	<input 
 						      	type="email" 
@@ -62,7 +63,7 @@
 					    </div>
 				  	</div>
 				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.telephone.$invalid && !complainForm.telephone.$pristine }">
-					    <label class="control-label col-sm-3">Teléfono:<font color="red">* </font></label>
+					    <label class="control-label col-sm-3 col-xs-12">Teléfono:<font color="red">* </font></label>
 					    <div class="col-sm-9">
 					      	<input 
 						      	type="text" 
@@ -79,7 +80,7 @@
 					    </div>
 				  	</div>
 		        	<div class="form-group" ng-class="{ 'has-error' : complainForm.message.$invalid && !complainForm.message.$pristine }">
-		        		<label class="control-label col-sm-3">Mensaje:<font color="red">* </font></label>
+		        		<label class="control-label col-sm-3 col-xs-12">Mensaje:<font color="red">* </font></label>
 				    	<div class="col-sm-9">
 		    				<textarea 
 		    					name="message" 
@@ -93,7 +94,7 @@
 		    			<p ng-show="complainForm.message.$invalid && !complainForm.message.$pristine" class="help-block">El mensaje no puede estar vacío</p>
 		        	</div>
 		        	<div class="form-group" ng-class="{ 'has-error' : complainForm.table.$invalid && !complainForm.table.$pristine }">
-		        		<label class="control-label col-sm-3">Mesa:<font color="red">* </font></label>
+		        		<label class="control-label col-sm-3 col-xs-12">Mesa:<font color="red">* </font></label>
 				    	<div class="col-sm-9">
 		    				<input 
 				  				type="text"

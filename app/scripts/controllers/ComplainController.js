@@ -117,32 +117,41 @@ angular.module('MyApp.Controllers')
       })
     }
 
-    $scope.getBranchOffice = function(){
-      BranchOfficeService.All().then(function(response){
-        var options = {
+    $scope.getBranchOffice = function(){ 
+      if ($scope.$sessionStorage.currentUser){
+        if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
+          $state.go('business');
+        }else if($scope.$sessionStorage.currentUser.scope.indexOf('admin') > -1){
+          $state.go('branchOffice');
+        }
+      }else{ 
+        $scope.branch_office = [];
+        BranchOfficeService.All().then(function(response){
+          var options = {
             enableHighAccuracy: true
-        };
-
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          var distance = 100;//distancia
-          
-          for (var i = 0; i < response.data.length; i++) {
-            var temp = JSON.parse(response.data[i].coordinates)
-            var nuevo = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),new google.maps.LatLng(temp.lat, temp.lng));
-            
-            if(nuevo < distance){
-              $scope.branch_office.push(response.data[i]);
-            }
-
           };
 
-          $scope.$apply();
-        },  
-        function(error) {    
-            $scope.branch_office = response.data;     
-            swal("Alerta!", "Active su GPS para mostrar los lugares cercanos a usted.", "warning");
-        }, options);
-      })
+          navigator.geolocation.getCurrentPosition(function(pos) {
+            var distance = 100;//distancia
+            
+            for (var i = 0; i < response.data.length; i++) {
+              var temp = JSON.parse(response.data[i].coordinates)
+              var nuevo = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),new google.maps.LatLng(temp.lat, temp.lng));
+              
+              if(nuevo < distance){
+                $scope.branch_office.push(response.data[i]);
+              }
+
+            };
+
+            $scope.$apply();
+          },  
+          function(error) {    
+              $scope.branch_office = response.data;     
+              swal("Alerta!", "Active su GPS para mostrar los lugares cercanos a usted.", "warning");
+          }, options);
+        })
+      }
     }
 
     $scope.saveComplainSolved = function(){
