@@ -13,6 +13,10 @@ html,body{
   cursor: pointer;
 }
 
+.forgot-password-text:hover{
+  color:white;
+}
+
 @media only screen and (max-width: 760px), (min-width: 768px) and (max-width: 1024px) {
   select {
     width: 60% !important;
