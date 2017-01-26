@@ -66,6 +66,16 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             templateUrl: '/views/404.html',
             params:{content:undefined}
         })
+        .state('reports', {
+            url: '/reports_business.html',
+            templateUrl: '/views/reports_business.html',
+            params:{content:undefined}
+        })
+        .state('reportsBranch', {
+            url: '/reports_branch.html',
+            templateUrl: '/views/reports_branch.html',
+            params:{content:undefined}
+        })
 
        // $paginationTemplateProvider.setPath('app/dirPagination.tpl.html');
 }])

@@ -73,7 +73,7 @@ angular.module('MyApp.Controllers')
           swal({
             title: "Exito",
             text: "Se ha enviado su mensaje al gerente, pronto lo atenderemos!",
-            type: "success",
+            type: "info",
             confirmButtonText: "Aceptar",
             closeOnConfirm: true
           },
@@ -164,7 +164,7 @@ angular.module('MyApp.Controllers')
         swal({
           title: "Exito",
           text: "Gracias por su paciencia!",
-          type: "success",
+          type: "info",
           confirmButtonClass: "btn-primary",
           confirmButtonText: "Aceptar",
           closeOnConfirm: true

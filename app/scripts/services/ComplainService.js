@@ -11,6 +11,7 @@ angular.module('MyApp.Services').factory('ComplainService', ['$http',
 	        },
 	        Add: function(payload) {
 	        	//payload = data to add
+	        	console.log(payload)
 	            return $http.post(baseUrl + "v1/addComplain", payload);
 	        },
 	        Delete: function(payload) {

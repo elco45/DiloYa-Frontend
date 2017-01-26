@@ -5,10 +5,13 @@ angular.module('MyApp.Controllers')
     $scope.branchOffice = {};
     $scope.branchOffices = [];
     $scope.businessBranchOffices = [];
-    $scope.colores = ['#cce6ff','#0000ff','#ff0000']
-    $scope.options = { legend: { display: true } };
-    $scope.labels = ["Pendiente", "Resuelto", "No atendido"];
-    $scope.information = [];
+
+    $scope.cont_pendiente = 0;
+    $scope.cont_resuelto = 0;
+    $scope.cont_no_resuelto = 0;
+    $scope.array_resuelto = [];
+    $scope.array_pending = [];
+    $scope.array_no_resuelto = [];
 
     if($state.params.content){
       if($state.params.content.id_Business){
@@ -190,26 +193,119 @@ angular.module('MyApp.Controllers')
       })
     }
 
-    $scope.getBranchReport = function(data){
+    $scope.goReportsBranch = function(data){
+      $scope.$sessionStorage.currentBranch = data;
+      $state.go("reportsBranch");
+    }
+
+    $scope.getBranchReport = function(){
       var branch_id = {
-        id_BranchOffice: data
+        id_BranchOffice: $scope.$sessionStorage.currentBranch
       }
-      var cont_pendiente = 0;
-      var cont_resuelto = 0;
-      var cont_no_resuelto = 0;
+      $scope.cont_pendiente = 0;
+      $scope.cont_resuelto = 0;
+      $scope.cont_no_resuelto = 0;
+      $scope.array_resuelto = [];
+      $scope.array_pending = [];
+      $scope.array_no_resuelto = [];
 
       ComplainService.AllComplainsByBranchOffice(branch_id).then(function(response1){
         for (var i = 0; i < response1.data.length; i++) {
           if(response1.data[i].solved == 0){
-            cont_pendiente++;
+            $scope.cont_pendiente++;
+            $scope.array_pending.push([Date.parse(response1.data[i].date_sent),$scope.cont_pendiente])
           }else if(response1.data[i].solved == 1){
-            cont_resuelto++;
+            $scope.cont_resuelto++;
+            $scope.array_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_resuelto])
           }else if(response1.data[i].solved == 2){
-            cont_no_resuelto++;
+            $scope.cont_no_resuelto++;
+            $scope.array_no_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_no_resuelto])
           }
         };
-        $scope.information = [cont_pendiente,cont_resuelto,cont_no_resuelto];
-      }) 
+        $scope.lineGraph();
+        
+        
+
+      })//fin complain 
+    }
+
+    $scope.lineGraph = function(){
+      Highcharts.chart('businessGraph', {
+        title: {
+            text: 'Porcentaje de quejas',
+            x: -20 //center
+        },
+        xAxis: {
+            type: 'datetime'  ,
+            title: {
+                text: 'Date'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Cantidad'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Pendientes',
+            data: $scope.array_pending
+        }, {
+            name: 'Resuelto',
+            data: $scope.array_resuelto
+        }, {
+            name: 'No Resuelto',
+            data: $scope.array_no_resuelto
+        }]
+      });//fin highcharts
+    }
+
+    $scope.pieChart = function(){
+      Highcharts.chart('businessGraphPie', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Resultado de Quejas'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Quejas',
+            colorByPoint: true,
+            data: [{
+                name: 'Resuelto',
+                y: $scope.cont_resuelto
+            }, 
+            {
+                name: 'Pendientes',
+                y: $scope.cont_pendiente
+            }, 
+            {
+                name: 'No Resuelto',
+                y: $scope.cont_no_resuelto
+            }]
+        }]
+      });
     }
 
 }]);
