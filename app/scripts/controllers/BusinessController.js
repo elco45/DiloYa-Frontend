@@ -127,13 +127,13 @@ angular.module('MyApp.Controllers')
     $scope.lineGraph = function(){
       Highcharts.chart('businessGraph', {
         chart: {
-             events: {
-                        load: function() {
-                             $timeout(function() {
-                                  $('#businessGraph').highcharts().reflow();   
-                             });
-                      }
-                  }
+            events: {
+              load: function() {
+                $timeout(function() {
+                  $('#businessGraph').highcharts().reflow();   
+               });
+              }
+            }
         },
         title: {
             text: 'Porcentaje de quejas',

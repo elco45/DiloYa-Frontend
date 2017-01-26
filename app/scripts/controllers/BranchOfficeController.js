@@ -1,6 +1,6 @@
 angular.module('MyApp.Controllers')
-  .controller('BranchOfficeController', ['BranchOfficeService', 'BranchOfficeManagerService', 'ComplainService','$scope', '$sessionStorage', '$state', '$rootScope',
-    function (BranchOfficeService, BranchOfficeManagerService, ComplainService,$scope, $sessionStorage, $state, $rootScope) {
+  .controller('BranchOfficeController', ['BranchOfficeService', 'BranchOfficeManagerService', 'ComplainService','$scope', '$sessionStorage', '$state', '$rootScope','$timeout',
+    function (BranchOfficeService, BranchOfficeManagerService, ComplainService,$scope, $sessionStorage, $state, $rootScope,$timeout) {
     $scope.$sessionStorage = $sessionStorage;
     $scope.branchOffice = {};
     $scope.branchOffices = [];
@@ -231,6 +231,15 @@ angular.module('MyApp.Controllers')
 
     $scope.lineGraph = function(){
       Highcharts.chart('businessGraph', {
+        chart: {
+            events: {
+              load: function() {
+                $timeout(function() {
+                  $('#businessGraph').highcharts().reflow();   
+               });
+              }
+            }
+        },
         title: {
             text: 'Porcentaje de quejas',
             x: -20 //center
@@ -268,7 +277,8 @@ angular.module('MyApp.Controllers')
     $scope.pieChart = function(){
       Highcharts.chart('businessGraphPie', {
         chart: {
-            type: 'pie'
+            type: 'pie',
+            width: $('#businessGraph').width()
         },
         title: {
             text: 'Resultado de Quejas'
