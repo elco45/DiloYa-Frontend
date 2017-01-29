@@ -32,6 +32,9 @@ html,body{
   }
 }
 
+.tab{
+  background-color: gray;
+}
 
 #map, #map2, #map3{
   height: 250px;

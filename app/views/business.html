@@ -246,10 +246,14 @@
 	          		<h4 class="modal-title">% de quejas atendidas</h4>
 	        	</div>
 	        	<div class="modal-body">
-	        		<div id="container" ></div>
-	          		<!--<canvas id="pie" class="chart chart-pie"
-					  chart-data="information" chart-labels="labels" chart-options="options" chart-colors="colores" chart-options="options">
-					</canvas> -->
+	        		<div id="container" >
+	        			<div class="row">
+	        				<button type="button" class="btn btn-info col-md-offset-4 col-md-2 col-xs-12 active" data-dismiss="modal" ng-click="sel = 1">Pie Chart</button>
+	        				<button type="button" class="btn btn-info col-md-offset-1 col-md-2 col-xs-12" data-dismiss="modal" ng-click="sel = 2">Line Chart</button>
+	        			</div>
+	        			<div ng-show = "sel == 1" id = "businessGraph"></div>
+	        			<div ng-show = "sel == 2" id = "businessGraphPie"></div>
+	        		</div>
 				</div>
 	        	<div class="modal-footer">
 	          		<button type="button" class="btn btn-default" data-dismiss="modal" >Cerrar</button>

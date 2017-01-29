@@ -28,6 +28,15 @@ angular.module('MyApp.Controllers')
       }
     }
 
+    if($scope.$sessionStorage.currentBranch){
+      var tmp = {
+        "_id": $scope.$sessionStorage.currentBranch
+      }
+      BranchOfficeService.Get(tmp).then(function(response){
+        $scope.actualBranch = response.data.name;
+      })
+    }
+
     $scope.allBranchOffices = function(){
       BranchOfficeService.All().then(function(response){
         $scope.branchOffices = response.data;
@@ -92,85 +101,97 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.allBranchOfficesByBusiness = function(data){
-      var param = {
-        id_Business: data
+      if(data){
+        if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
+          var param = {
+            id_Business: data
+          }
+          BranchOfficeService.AllBranchOfficesByBusiness(param).then(function(response){
+            $scope.businessBranchOffices = response.data;
+          })
+        }else{
+          $state.go('branchOffice');
+        }
+      }else{
+        $state.go('home');
       }
-      BranchOfficeService.AllBranchOfficesByBusiness(param).then(function(response){
-        $scope.businessBranchOffices = response.data;
-      })
     }
 
-    if($sessionStorage.currentUser.scope.indexOf('admin') > -1){
-      var map2 = new google.maps.Map(document.getElementById('map2'), {
-        center: {lat: -33.8688, lng: 151.2195},
-        zoom: 17
-      });
-      $scope.initMap2 = function() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            $scope.branchOffice.coordinates = JSON.stringify(pos);
-            $scope.$apply()
-            var marker = new google.maps.Marker({
-                position: pos,
-                title:"Hello World!"
-            });
-            
-            // To add the marker to the map, call setMap();
-            marker.setMap(map2);
-            map2.setCenter(pos);
-          });
-        } else {
-          alert('browser not supported!')
-        }    
-      }
-
-      $(function() {
-        $('#myModalAdd').on('shown.bs.modal', function () {
-          var center=map2.getCenter();
-          google.maps.event.trigger(map2, "resize");
-          map2.setCenter(center);
+    if($sessionStorage.currentUser){
+      if($sessionStorage.currentUser.scope.indexOf('admin') > -1){
+        var map2 = new google.maps.Map(document.getElementById('map2'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 17
         });
-      });
-
-      var map3 = new google.maps.Map(document.getElementById('map3'), {
-        center: {lat: -33.8688, lng: 151.2195},
-        zoom: 17
-      });
-      $scope.initMap3 = function() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            $scope.branchOffice.coordinates = JSON.stringify(pos);
-            $scope.$apply()
-            var marker = new google.maps.Marker({
-                position: pos,
-                title:"Hello World"
+        $scope.initMap2 = function() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+              $scope.branchOffice.coordinates = JSON.stringify(pos);
+              $scope.$apply()
+              var marker = new google.maps.Marker({
+                  position: pos,
+                  title:"Hello World!"
+              });
+              
+              // To add the marker to the map, call setMap();
+              marker.setMap(map2);
+              map2.setCenter(pos);
             });
-           
-            // To add the marker to the map, call setMap();
-            marker.setMap(map3);
-            map3.setCenter(pos);
+          } else {
+            alert('browser not supported!')
+          }    
+        }
+
+        $(function() {
+          $('#myModalAdd').on('shown.bs.modal', function () {
+            var center=map2.getCenter();
+            google.maps.event.trigger(map2, "resize");
+            map2.setCenter(center);
           });
-        } else {
-          alert('browser not supported!')
-        }    
-      }
-
-      $(function() {
-        $('#myModalEdit').on('shown.bs.modal', function () {
-          var center=map3.getCenter();
-          google.maps.event.trigger(map3, "resize");
-          map3.setCenter(center);
         });
-      });
 
+        var map3 = new google.maps.Map(document.getElementById('map3'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 17
+        });
+
+        $scope.initMap3 = function() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+              $scope.branchOffice.coordinates = JSON.stringify(pos);
+              $scope.$apply()
+              var marker = new google.maps.Marker({
+                  position: pos,
+                  title:"Hello World"
+              });
+             
+              // To add the marker to the map, call setMap();
+              marker.setMap(map3);
+              map3.setCenter(pos);
+            });
+          } else {
+            alert('browser not supported!')
+          }    
+        }
+
+        $(function() {
+          $('#myModalEdit').on('shown.bs.modal', function () {
+            var center=map3.getCenter();
+            google.maps.event.trigger(map3, "resize");
+            map3.setCenter(center);
+          });
+        });
+      }
+    }else{
+      $state.go('home')
     }
 
     $scope.viewBranchOfficeManager = function(data){
@@ -199,34 +220,40 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.getBranchReport = function(){
-      var branch_id = {
-        id_BranchOffice: $scope.$sessionStorage.currentBranch
+      if($scope.$sessionStorage.currentBranch){
+        var branch_id = {
+          id_BranchOffice: $scope.$sessionStorage.currentBranch
+        }
+        $scope.cont_pendiente = 0;
+        $scope.cont_resuelto = 0;
+        $scope.cont_no_resuelto = 0;
+        $scope.array_resuelto = [];
+        $scope.array_pending = [];
+        $scope.array_no_resuelto = [];
+
+        ComplainService.AllComplainsByBranchOffice(branch_id).then(function(response1){
+          for (var i = 0; i < response1.data.length; i++) {
+            if(response1.data[i].solved == 0){
+              $scope.cont_pendiente++;
+              $scope.array_pending.push([Date.parse(response1.data[i].date_sent),$scope.cont_pendiente])
+            }else if(response1.data[i].solved == 1){
+              $scope.cont_resuelto++;
+              $scope.array_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_resuelto])
+            }else if(response1.data[i].solved == 2){
+              $scope.cont_no_resuelto++;
+              $scope.array_no_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_no_resuelto])
+            }
+          };
+          $scope.lineGraph();
+        })//fin complain 
+      }else{
+        if($scope.$sessionStorage.currentUser){
+          $state.go('business');
+        }else{
+          $state.go('login');
+        }
       }
-      $scope.cont_pendiente = 0;
-      $scope.cont_resuelto = 0;
-      $scope.cont_no_resuelto = 0;
-      $scope.array_resuelto = [];
-      $scope.array_pending = [];
-      $scope.array_no_resuelto = [];
-
-      ComplainService.AllComplainsByBranchOffice(branch_id).then(function(response1){
-        for (var i = 0; i < response1.data.length; i++) {
-          if(response1.data[i].solved == 0){
-            $scope.cont_pendiente++;
-            $scope.array_pending.push([Date.parse(response1.data[i].date_sent),$scope.cont_pendiente])
-          }else if(response1.data[i].solved == 1){
-            $scope.cont_resuelto++;
-            $scope.array_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_resuelto])
-          }else if(response1.data[i].solved == 2){
-            $scope.cont_no_resuelto++;
-            $scope.array_no_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_no_resuelto])
-          }
-        };
-        $scope.lineGraph();
-        
-        
-
-      })//fin complain 
+      
     }
 
     $scope.lineGraph = function(){
@@ -241,7 +268,7 @@ angular.module('MyApp.Controllers')
             }
         },
         title: {
-            text: 'Porcentaje de quejas',
+            text: 'Quejas',
             x: -20 //center
         },
         xAxis: {
@@ -281,7 +308,7 @@ angular.module('MyApp.Controllers')
             width: $('#businessGraph').width()
         },
         title: {
-            text: 'Resultado de Quejas'
+            text: 'Quejas'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -316,6 +343,16 @@ angular.module('MyApp.Controllers')
             }]
         }]
       });
+    }
+
+    $scope.goBranchOffice = function(){
+      $state.go('adminBranchOffice', 
+        {content:
+          {
+            id_Business: $scope.$sessionStorage.params.id_Business,
+            businessName: $scope.$sessionStorage.params.businessName
+          }
+      })
     }
 
 }]);
