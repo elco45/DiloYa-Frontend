@@ -11,6 +11,16 @@ angular.module('MyApp.Controllers')
     $scope.array_pending = [];
     $scope.array_no_resuelto = [];
 
+    if($scope.$sessionStorage.currentBusinessReport){
+      console.log($scope.$sessionStorage.currentBusinessReport)
+      var tmp = {
+        "_id": $scope.$sessionStorage.currentBusinessReport
+      }
+      BusinessService.Get(tmp).then(function(response){
+        $scope.actualBusiness = response.data.name;
+      })
+    }
+
     $scope.allBusinesses = function(){
       if($scope.$sessionStorage.currentUser){
         if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
@@ -89,39 +99,46 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.getBusinessReport = function(){
-      var business_id = {
-        id_Business: $scope.$sessionStorage.currentBusinessReport
+      if($scope.$sessionStorage.currentBusinessReport){
+        var business_id = {
+          id_Business: $scope.$sessionStorage.currentBusinessReport
+        }
+        $scope.cont_pendiente = 0;
+        $scope.cont_resuelto = 0;
+        $scope.cont_no_resuelto = 0;
+        $scope.array_resuelto = [];
+        $scope.array_pending = [];
+        $scope.array_no_resuelto = [];
+        
+        BranchOfficeService.AllBranchOfficesByBusiness(business_id).then(function(response){
+          for (var i = 0; i < response.data.length; i++) {
+            var branchOffice_id = {
+              id_BranchOffice: response.data[i]
+            }
+            ComplainService.AllComplainsByBranchOffice(branchOffice_id).then(function(response1){
+              for (var i = 0; i < response1.data.length; i++) {
+                if(response1.data[i].solved == 0){
+                  $scope.cont_pendiente++;
+                  $scope.array_pending.push([Date.parse(response1.data[i].date_sent),$scope.cont_pendiente])
+                }else if(response1.data[i].solved == 1){
+                  $scope.cont_resuelto++;
+                  $scope.array_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_resuelto])
+                }else if(response1.data[i].solved == 2){
+                  $scope.cont_no_resuelto++;
+                  $scope.array_no_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_no_resuelto])
+                }
+              };
+              $scope.lineGraph();
+            }) //fin del complain
+          };//fin for
+        })//fin de branch
+      }else{
+        if($scope.$sessionStorage.currentUser){
+          $state.go('business');
+        }else{
+          $state.go('login');
+        }
       }
-      $scope.cont_pendiente = 0;
-      $scope.cont_resuelto = 0;
-      $scope.cont_no_resuelto = 0;
-      $scope.array_resuelto = [];
-      $scope.array_pending = [];
-      $scope.array_no_resuelto = [];
-      
-      BranchOfficeService.AllBranchOfficesByBusiness(business_id).then(function(response){
-        for (var i = 0; i < response.data.length; i++) {
-          var branchOffice_id = {
-            id_BranchOffice: response.data[i]
-          }
-          ComplainService.AllComplainsByBranchOffice(branchOffice_id).then(function(response1){
-            for (var i = 0; i < response1.data.length; i++) {
-              if(response1.data[i].solved == 0){
-                $scope.cont_pendiente++;
-                $scope.array_pending.push([Date.parse(response1.data[i].date_sent),$scope.cont_pendiente])
-              }else if(response1.data[i].solved == 1){
-                $scope.cont_resuelto++;
-                $scope.array_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_resuelto])
-              }else if(response1.data[i].solved == 2){
-                $scope.cont_no_resuelto++;
-                $scope.array_no_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_no_resuelto])
-              }
-            };
-            $scope.lineGraph();
-          }) //fin del complain
-        };//fin for
-      })//fin de branch
-
     }
 
     $scope.lineGraph = function(){
@@ -136,7 +153,7 @@ angular.module('MyApp.Controllers')
             }
         },
         title: {
-            text: 'Porcentaje de quejas',
+            text: 'Quejas',
             x: -20 //center
         },
         xAxis: {
@@ -180,7 +197,7 @@ angular.module('MyApp.Controllers')
             width: $('#businessGraph').width()
         },
         title: {
-            text: 'Resultado de Quejas'
+            text: 'Quejas'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -216,4 +233,9 @@ angular.module('MyApp.Controllers')
         }]
       });
     }
+
+    $scope.goBusiness = function(){
+      $state.go('business')
+    }
+
 }]);
