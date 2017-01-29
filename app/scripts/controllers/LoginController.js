@@ -114,6 +114,16 @@ angular.module('MyApp.Controllers')
         })
     }
 
+    $scope.verifySession = function(){
+        if($scope.$sessionStorage.currentUser){
+            if($sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
+                $state.go('business');
+            }else if($sessionStorage.currentUser.scope.indexOf('admin') > -1){
+                $state.go('branchOffice');
+            }
+        }
+    }
+
 }]);
 
 //directives
