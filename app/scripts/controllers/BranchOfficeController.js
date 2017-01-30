@@ -119,79 +119,83 @@ angular.module('MyApp.Controllers')
 
     if($sessionStorage.currentUser){
       if($sessionStorage.currentUser.scope.indexOf('admin') > -1){
-        var map2 = new google.maps.Map(document.getElementById('map2'), {
-          center: {lat: -33.8688, lng: 151.2195},
-          zoom: 17
-        });
-        $scope.initMap2 = function() {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
-              $scope.branchOffice.coordinates = JSON.stringify(pos);
-              $scope.$apply()
-              var marker = new google.maps.Marker({
-                  position: pos,
-                  title:"Hello World!"
-              });
-              
-              // To add the marker to the map, call setMap();
-              marker.setMap(map2);
-              map2.setCenter(pos);
-            });
-          } else {
-            alert('browser not supported!')
-          }    
-        }
-
-        $(function() {
-          $('#myModalAdd').on('shown.bs.modal', function () {
-            var center=map2.getCenter();
-            google.maps.event.trigger(map2, "resize");
-            map2.setCenter(center);
+        try{
+          var map2 = new google.maps.Map(document.getElementById('map2'), {
+            center: {lat: -33.8688, lng: 151.2195},
+            zoom: 17
           });
-        });
-
-        var map3 = new google.maps.Map(document.getElementById('map3'), {
-          center: {lat: -33.8688, lng: 151.2195},
-          zoom: 17
-        });
-
-        $scope.initMap3 = function() {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
-              $scope.branchOffice.coordinates = JSON.stringify(pos);
-              $scope.$apply()
-              var marker = new google.maps.Marker({
-                  position: pos,
-                  title:"Hello World"
+          $scope.initMap2 = function() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+                $scope.branchOffice.coordinates = JSON.stringify(pos);
+                $scope.$apply()
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    title:"Hello World!"
+                });
+                
+                // To add the marker to the map, call setMap();
+                marker.setMap(map2);
+                map2.setCenter(pos);
               });
-             
-              // To add the marker to the map, call setMap();
-              marker.setMap(map3);
-              map3.setCenter(pos);
-            });
-          } else {
-            alert('browser not supported!')
-          }    
-        }
+            } else {
+              alert('browser not supported!')
+            }    
+          }
 
-        $(function() {
-          $('#myModalEdit').on('shown.bs.modal', function () {
-            var center=map3.getCenter();
-            google.maps.event.trigger(map3, "resize");
-            map3.setCenter(center);
+          $(function() {
+            $('#myModalAdd').on('shown.bs.modal', function () {
+              var center=map2.getCenter();
+              google.maps.event.trigger(map2, "resize");
+              map2.setCenter(center);
+            });
           });
-        });
+
+          var map3 = new google.maps.Map(document.getElementById('map3'), {
+            center: {lat: -33.8688, lng: 151.2195},
+            zoom: 17
+          });
+
+          $scope.initMap3 = function() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+                $scope.branchOffice.coordinates = JSON.stringify(pos);
+                $scope.$apply()
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    title:"Hello World"
+                });
+               
+                // To add the marker to the map, call setMap();
+                marker.setMap(map3);
+                map3.setCenter(pos);
+              });
+            } else {
+              alert('browser not supported!')
+            }    
+          }
+
+          $(function() {
+            $('#myModalEdit').on('shown.bs.modal', function () {
+              var center=map3.getCenter();
+              google.maps.event.trigger(map3, "resize");
+              map3.setCenter(center);
+            });
+          });
+        }catch(err){
+          swal("Alerta!", "Se necesita que active su GPS para poder agregar un sucursal.", "warning");
+        }
+      }else{
+        $state.go('home')
       }
-    }else{
-      $state.go('home')
     }
 
     $scope.viewBranchOfficeManager = function(data){
