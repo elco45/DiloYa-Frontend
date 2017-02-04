@@ -23,8 +23,8 @@ angular.module('MyApp.Controllers')
       if($state.params.content.id_BranchOffice){
         $scope.$sessionStorage.params.id_BranchOffice = $state.params.content.id_BranchOffice;
       }
-      if($state.params.content.bracnhOfficeName){
-        $scope.$sessionStorage.params.bracnhOfficeName = $state.params.content.bracnhOfficeName;
+      if($state.params.content.branchOfficeName){
+        $scope.$sessionStorage.params.branchOfficeName = $state.params.content.branchOfficeName;
       }
     }
 
@@ -102,7 +102,7 @@ angular.module('MyApp.Controllers')
 
     $scope.allBranchOfficesByBusiness = function(data){
       if(data){
-        if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
+        if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1 || $sessionStorage.currentUser.scope.indexOf('admin') > -1 ){
           var param = {
             id_Business: data
           }
@@ -193,9 +193,9 @@ angular.module('MyApp.Controllers')
         }catch(err){
           swal("Alerta!", "Se necesita que active su GPS para poder agregar un sucursal.", "warning");
         }
-      }else{
-        $state.go('home')
       }
+    }else{
+      $state.go('home');
     }
 
     $scope.viewBranchOfficeManager = function(data){
@@ -248,7 +248,7 @@ angular.module('MyApp.Controllers')
               $scope.array_no_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_no_resuelto])
             }
           };
-          $scope.lineGraph();
+          $scope.pieChart();
         })//fin complain 
       }else{
         if($scope.$sessionStorage.currentUser){

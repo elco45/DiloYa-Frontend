@@ -20,6 +20,8 @@
 	    <title></title>
 	    <meta name="description" content="">
 	    <meta name="viewport" content="width=device-width">
+
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_h7MKshyQR2tvZDNN12CI-QRnLc_Qiso&libraries=places,geometry" async defer></script>
   	</head>
 
   	<body  ng-controller="LoginController" ng-class="">
@@ -72,11 +74,6 @@
         </nav>
       </div>
       <div ui-view  ></div>
-      <div id ="footer">
-        <div class="container-">
-            <p>&copy; Todos los derechos reservados.</p>         
-        </div>
-      </div>
   	</body>
   	<!-- bower:js -->
   	<script src="/jquery/dist/jquery.js"></script>
@@ -109,10 +106,5 @@
     <script src="scripts/services/ComplainService.js"></script>
     <script src="scripts/controllers/UserController.js"></script>
     <script src="scripts/services/UserService.js"></script>
-
-    
   	<!-- endinject -->
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_h7MKshyQR2tvZDNN12CI-QRnLc_Qiso&libraries=places,geometry" async defer></script>
-
 </html>

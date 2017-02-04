@@ -109,13 +109,12 @@ angular.module('MyApp.Controllers')
         email: data.email,
         telephone: data.telephone,
         password: data.password,
-        id_Business: data.id_Business,
-        scope: [data.role]
+        id_Business: data.id_Business
       };
 
       UserService.ModifyUser(param).then(function(response){
         $scope.user = {};
-        $scope.users.push(response.data);
+        $scope.allUsers();
       }).catch(function(err){
         swal("Error", "Ya existe un usuario con ese correo!", "error");
       });

@@ -84,6 +84,7 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.viewBranchOffices = function(data){
+      console.log("data")
       $state.go('adminBranchOffice', 
         {content:
           {
@@ -128,7 +129,7 @@ angular.module('MyApp.Controllers')
                   $scope.array_no_resuelto.push([Date.parse(response1.data[i].date_sent),$scope.cont_no_resuelto])
                 }
               };
-              $scope.lineGraph();
+              $scope.pieChart();
             }) //fin del complain
           };//fin for
         })//fin de branch
