@@ -1,6 +1,6 @@
 angular.module('MyApp.Services').factory('BusinessService', ['$http',
 	function($http){
-		var baseUrl = 'http://localhost:8000/';
+		var baseUrl = 'http://ubuntu-dilo-ya:8000/';
 		//var baseUrl = 'https://dilo-ya-backend.herokuapp.com/';
 		return {
 			All: function() {
