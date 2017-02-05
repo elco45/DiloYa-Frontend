@@ -1,6 +1,6 @@
 angular.module('MyApp.Services').factory('BranchOfficeService', ['$http',
 	function($http){
-		var baseUrl = 'http://ubuntu-dilo-ya:8000/';
+		var baseUrl = 'https://ubuntu-dilo-ya:8000/';
 		//var baseUrl = 'https://dilo-ya-backend.herokuapp.com/';
 		return {
 			All: function() {
