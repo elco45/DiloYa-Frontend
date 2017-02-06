@@ -24,11 +24,15 @@
             <div class="modal-body">
               <form class="form-horizontal">
                 <div class="form-group"> 
-                  <label class="control-label">Comentario: </label>
-                  <textarea ng-model="complain.extraDescription" class="form-control textarea-class"></textarea>
+                  <label class="control-label col-sm-3 col-xs-12">Comentario: </label>
+                  <div class="col-sm-9">
+                    <textarea ng-model="complain.extraDescription" class="form-control textarea-class"></textarea>
+                  </div>
                 </div>
                 <div class="form-group"> 
-                  <button type="submit" class="btn btn-success" ng-click= "saveComplainSolved()">Enviar</button>
+                  <div class="col-sm-offset-2 col-sm-9">
+                    <button type="submit" class="btn btn-success" ng-click= "saveComplainSolved()">Enviar</button>
+                  </div>
                 </div>
               </form>
             </div>
@@ -51,11 +55,15 @@
             <div class="modal-body">
               <form class="form-horizontal">
                 <div class="form-group"> 
-                  <label class="control-label">Comentario: </label>
-                  <textarea ng-model="complain.extraDescription" class="form-control"></textarea>
+                  <label class="control-label col-sm-3 col-xs-12">Comentario: </label>
+                  <div class="col-sm-9">
+                    <textarea ng-model="complain.extraDescription" class="form-control textarea-class"></textarea>
+                  </div>
                 </div>
                 <div class="form-group"> 
-                  <button type="submit" class="btn btn-success" ng-click= "sendSecondComplain()">Enviar</button>
+                  <div class="col-sm-offset-2 col-sm-9">
+                    <button type="submit" class="btn btn-success" ng-click= "sendSecondComplain()">Enviar</button>
+                  </div>
                 </div>
               </form>
             </div>
