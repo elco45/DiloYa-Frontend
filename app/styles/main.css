@@ -24,12 +24,6 @@ html,body{
   input, textarea {
     width: 60% !important;
   }
-  control-label {
-    margin: auto;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
-  }
 }
 
 .tab{
@@ -143,6 +137,10 @@ input, textarea{
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+.control-label {
+  position: relative;
+  text-align: left;
 }
 .account-wall
 {
