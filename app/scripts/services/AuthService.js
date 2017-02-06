@@ -1,7 +1,7 @@
 angular.module('MyApp.Services').factory('AuthService', ['$http',
 	function($http){
-		var baseUrl = 'https://dilo-ya.com/app2/';
-		//var baseUrl = 'https://dilo-ya-backend.herokuapp.com/';
+		//var baseUrl = 'https://dilo-ya.com/app2/';
+		var baseUrl = 'https://dilo-ya-backend.herokuapp.com/';
 		return {
 			Logout: function(){
 				return $http.get(baseUrl + "v1/logout");

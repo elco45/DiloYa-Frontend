@@ -102,7 +102,6 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.modifyUser = function(data){
-      console.log(data)
       var param = {
         id: data._id,
         name: data.name,

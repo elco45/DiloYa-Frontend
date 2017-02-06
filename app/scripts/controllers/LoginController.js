@@ -26,7 +26,6 @@ angular.module('MyApp.Controllers')
 
     $scope.login = function(user){
         AuthService.Login(user).then(function(response){
-            console.log(response.data)
             $sessionStorage.currentUser = response.data;
             if($sessionStorage.currentUser.scope.indexOf('superAdmin') > -1){
                 $scope.$sessionStorage.currentUser.entered = true;
