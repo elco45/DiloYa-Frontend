@@ -62,14 +62,14 @@ angular.module('MyApp.Controllers')
           contact: response.data
         }
         ComplainService.Add(content).then(function(response2){
+          console.log(response2)
           var complain_content = {
             id_complain: response2.data._id,
             id_business: data.branchOffice.id_Business,
             id_sucursal: data.branchOffice._id
           }
           $scope.complain = {};
-          $scope.complains.push(response.data);
-          $scope.$sessionStorage.complain = complain_content
+          $scope.$sessionStorage.complain = complain_content;
           swal({
             title: "Exito",
             text: "Se ha enviado su mensaje al gerente, pronto lo atenderemos!",

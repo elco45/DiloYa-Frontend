@@ -17,13 +17,11 @@ html,body{
   color:white;
 }
 
-@media only screen and (max-width: 760px), (min-width: 768px) and (max-width: 1024px) {
-  select {
-    width: 60% !important;
-  }
-  input, textarea {
-    width: 60% !important;
-  }
+.select-class {
+  width: 60% !important;
+}
+.input-class, .textarea-class {
+  width: 60% !important;
 }
 
 .tab{

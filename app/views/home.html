@@ -12,7 +12,7 @@
 					    <div class="col-sm-9">
 					      	<select
 					      		name="place" 
-					      		class="form-control" 
+					      		class="form-control select-class" 
 					      		ng-options="place as place.name for place in branch_office" 
 					      		ng-model="complain.branchOffice"
 					      		required>
@@ -39,7 +39,7 @@
 					      	<input 
 						      	type="text" 
 						      	name="name" 
-						      	class="form-control" 
+						      	class="form-control input-class" 
 						      	placeholder="Ingrese su nombre completo" 
 						      	ng-model="complain.name" 
 						      	limit-to="25" 
@@ -53,7 +53,7 @@
 					      	<input 
 						      	type="email" 
 						      	name="email" 
-						      	class="form-control" 
+						      	class="form-control input-class" 
 						      	placeholder="algo@ejemplo.com" 
 						      	ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
 						      	ng-model="complain.email" 
@@ -68,7 +68,7 @@
 					      	<input 
 						      	type="text" 
 						      	name="telephone" 
-						      	class="form-control" 
+						      	class="form-control input-class" 
 						      	placeholder="Ej. 88888888"
 						      	ng-pattern="/^\d+$/"
 						      	ng-model="complain.telephone" 
@@ -84,7 +84,7 @@
 				    	<div class="col-sm-9">
 		    				<textarea 
 		    					name="message" 
-		    					class="form-control" 
+		    					class="form-control textarea-class" 
 		    					placeholder="Mensaje" 
 				  				ng-maxlength="500"
 				  				ng-model="complain.message"
@@ -99,7 +99,7 @@
 		    				<input 
 				  				type="text"
 		    					name="table" 
-		    					class="form-control" 
+		    					class="form-control input-class" 
 		    					placeholder="Número de mesa" 
 				  				ng-maxlength="5"
 				  				ng-model="complain.table"
