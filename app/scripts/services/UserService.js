@@ -11,7 +11,6 @@ angular.module('MyApp.Services').factory('UserService', ['$http',
 	        },
 	        Add: function(payload) {
 	        	//payload = data to add
-	        	console.log(payload)
 	            return $http.post(baseUrl + "v1/addUser", payload);
 	        },
 	        Delete: function(payload) {

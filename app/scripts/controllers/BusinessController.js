@@ -12,7 +12,6 @@ angular.module('MyApp.Controllers')
     $scope.array_no_resuelto = [];
 
     if($scope.$sessionStorage.currentBusinessReport){
-      console.log($scope.$sessionStorage.currentBusinessReport)
       var tmp = {
         "_id": $scope.$sessionStorage.currentBusinessReport
       }
@@ -84,7 +83,6 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.viewBranchOffices = function(data){
-      console.log("data")
       $state.go('adminBranchOffice', 
         {content:
           {

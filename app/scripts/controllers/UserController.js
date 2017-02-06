@@ -63,7 +63,7 @@ angular.module('MyApp.Controllers')
       };
       UserService.Add(param).then(function(response){
         $scope.user = {};
-        $scope.users.push(response.data);
+        $scope.allUsers();
       }).catch(function(err){
         swal("Error", "Ya existe un usuario con ese correo!", "error");
       });
