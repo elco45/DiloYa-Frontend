@@ -140,6 +140,21 @@
 					      		<p ng-show="branchOfficeFormAdd.maxWaitTime.$invalid && !branchOfficeFormAdd.maxWaitTime.$pristine" class="help-block">Introduzca un valor válido</p>
 						    </div>
 					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeFormAdd.station.$invalid && !branchOfficeFormAdd.station.$pristine }" ng-init= "branchOffice.station = 'Mesa'">
+						    <label class="control-label col-sm-4">Estación: <font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="station" 
+							      	class="form-control" 
+							      	placeholder="Ej. Mesa"
+							      	ng-model="branchOffice.station" 
+							      	limit-to="20"
+							      	required 
+						      	>
+						    </div>
+						    <p ng-show="branchOfficeFormAdd.telephone.$invalid && !branchOfficeFormAdd.telephone.$pristine" class="help-block">Porfavar ingrese una estación válida</p>
+					  	</div>
 					  	<div class="form-group"> 
 					    	<div class="col-sm-offset-2 col-sm-10">
 					      		<button type="submit" class="btn btn-success" ng-disabled="branchOfficeFormAdd.$invalid" ng-click="addBranchOffice(branchOffice); resetForm(branchOfficeFormAdd)" data-dismiss="modal">Crear</button>
@@ -228,7 +243,7 @@
 						    </div>
 						    <p ng-show="branchOfficeForm.telephone.$invalid && !branchOfficeForm.telephone.$pristine" class="help-block">Porfavar ingrese un número válido</p>
 					  	</div>
-					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeFormAdd.maxWaitTime.$invalid && !branchOfficeFormAdd.maxWaitTime.$pristine }">
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.maxWaitTime.$invalid && !branchOfficeForm.maxWaitTime.$pristine }">
 						    <label class="control-label col-sm-4">Tiempo límite de espera (minutos):<font color="red">* </font></label>
 						    <div class="col-sm-8">
 						      	<input 
@@ -239,8 +254,23 @@
 							      	limit-to="50" 
 						      		required
 					      		>
-					      		<p ng-show="branchOfficeFormAdd.maxWaitTime.$invalid && !branchOfficeFormAdd.maxWaitTime.$pristine" class="help-block">Introduzca un valor válido</p>
+					      		<p ng-show="branchOfficeForm.maxWaitTime.$invalid && !branchOfficeForm.maxWaitTime.$pristine" class="help-block">Introduzca un valor válido</p>
 						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.station.$invalid && !branchOfficeForm.station.$pristine }">
+						    <label class="control-label col-sm-4">Estación: <font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="station" 
+							      	class="form-control" 
+							      	placeholder="Ej. Mesa"
+							      	ng-model="branchOffice.station" 
+							      	limit-to="20"
+							      	required 
+						      	>
+						    </div>
+						    <p ng-show="branchOfficeForm.station.$invalid && !branchOfficeForm.station.$pristine" class="help-block">Porfavar ingrese una estación válida</p>
 					  	</div>
 					  	<div class="form-group"> 
 					    	<div class="col-sm-offset-2 col-sm-10">

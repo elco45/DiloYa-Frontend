@@ -53,15 +53,23 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.addBranchOffice = function(data){
+      console.log(data);
       var param = {
         name: data.name,
-        id_location: data.id_location,
         coordinates: data.coordinates,
         telephone: data.telephone,
         direction: data.direction,
-        id_Business: $scope.$sessionStorage.currentUser.id_Business,
-        maxWaitTime: data.maxWaitTime
+        maxWaitTime: data.maxWaitTime,
+        station: data.station
       };
+      if ($scope.$sessionStorage.params.businessName) {
+        console.log("1")
+        param.id_Business = $scope.$sessionStorage.params.id_Business;
+      }else{
+        console.log("2")
+        param.id_Business = $scope.$sessionStorage.currentUser.id_Business;
+      }
+      console.log(param);
       //user id_Business
       BranchOfficeService.Add(param).then(function(response){
         $scope.branchOffice = {};
@@ -88,12 +96,13 @@ angular.module('MyApp.Controllers')
       var param = {
         _id: data._id,
         name: data.name,
-        id_location: data.id_location,
         coordinates: data.coordinates,
         telephone: data.telephone,
         direction: data.direction,
-        maxWaitTime: data.maxWaitTime
+        maxWaitTime: data.maxWaitTime,
+        station: data.station
       };
+      console.log(param)
       BranchOfficeService.Update(param).then(function(response){
         $scope.branchOffice = {};
         $scope.allBranchOfficesByBusiness($scope.$sessionStorage.currentUser.id_Business)
@@ -118,13 +127,13 @@ angular.module('MyApp.Controllers')
     }
 
     if($sessionStorage.currentUser){
-      if($sessionStorage.currentUser.scope.indexOf('admin') > -1){
         try{
-          var map2 = new google.maps.Map(document.getElementById('map2'), {
-            center: {lat: -33.8688, lng: 151.2195},
-            zoom: 17
-          });
+          
           $scope.initMap2 = function() {
+            var map2 = new google.maps.Map(document.getElementById('map2'), {
+              center: {lat: -33.8688, lng: 151.2195},
+              zoom: 17
+            });
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = {
@@ -135,32 +144,30 @@ angular.module('MyApp.Controllers')
                 $scope.$apply()
                 var marker = new google.maps.Marker({
                     position: pos,
-                    title:"Hello World!"
+                    draggable: false
                 });
                 
                 // To add the marker to the map, call setMap();
                 marker.setMap(map2);
+                google.maps.event.trigger(map2, "resize");
                 map2.setCenter(pos);
               });
             } else {
               alert('browser not supported!')
             }    
           }
-
           $(function() {
             $('#myModalAdd').on('shown.bs.modal', function () {
-              var center=map2.getCenter();
-              google.maps.event.trigger(map2, "resize");
-              map2.setCenter(center);
             });
           });
 
-          var map3 = new google.maps.Map(document.getElementById('map3'), {
-            center: {lat: -33.8688, lng: 151.2195},
-            zoom: 17
-          });
+          
 
           $scope.initMap3 = function() {
+            var map3 = new google.maps.Map(document.getElementById('map3'), {
+              center: {lat: -33.8688, lng: 151.2195},
+              zoom: 17
+            });
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = {
@@ -171,11 +178,12 @@ angular.module('MyApp.Controllers')
                 $scope.$apply()
                 var marker = new google.maps.Marker({
                     position: pos,
-                    title:"Hello World"
+                    draggable: false
                 });
                
                 // To add the marker to the map, call setMap();
                 marker.setMap(map3);
+                google.maps.event.trigger(map3, "resize");
                 map3.setCenter(pos);
               });
             } else {
@@ -185,15 +193,14 @@ angular.module('MyApp.Controllers')
 
           $(function() {
             $('#myModalEdit').on('shown.bs.modal', function () {
-              var center=map3.getCenter();
-              google.maps.event.trigger(map3, "resize");
-              map3.setCenter(center);
             });
           });
+
+
         }catch(err){
+          console.log(err)
           swal("Alerta!", "Se necesita que active su GPS para poder agregar un sucursal.", "warning");
         }
-      }
     }else{
       $state.go('home');
     }
