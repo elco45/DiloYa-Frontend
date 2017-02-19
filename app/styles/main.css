@@ -184,6 +184,17 @@ input, textarea{
   text-align: center;  
 }
 
+.container-fluid{
+  background: #ecf0f1;
+  margin-top: 6%;
+  text-align: center;  
+}
+
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
 #containerT{
   height: 100%;
   padding-bottom: 5%;
