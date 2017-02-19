@@ -87,7 +87,6 @@ angular.module('MyApp.Controllers')
         }
         UserService.GetByEmail(temp).then(function(response){
             if(response.data != 'ok'){
-                console.log(response.data)
                 var id_usuario = {
                     id: response.data
                 }

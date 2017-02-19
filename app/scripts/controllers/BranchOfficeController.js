@@ -53,7 +53,6 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.addBranchOffice = function(data){
-      console.log(data);
       var param = {
         name: data.name,
         coordinates: data.coordinates,
@@ -63,13 +62,10 @@ angular.module('MyApp.Controllers')
         station: data.station
       };
       if ($scope.$sessionStorage.params.businessName) {
-        console.log("1")
         param.id_Business = $scope.$sessionStorage.params.id_Business;
       }else{
-        console.log("2")
         param.id_Business = $scope.$sessionStorage.currentUser.id_Business;
       }
-      console.log(param);
       //user id_Business
       BranchOfficeService.Add(param).then(function(response){
         $scope.branchOffice = {};
@@ -102,7 +98,6 @@ angular.module('MyApp.Controllers')
         maxWaitTime: data.maxWaitTime,
         station: data.station
       };
-      console.log(param)
       BranchOfficeService.Update(param).then(function(response){
         $scope.branchOffice = {};
         $scope.allBranchOfficesByBusiness($scope.$sessionStorage.currentUser.id_Business)
@@ -198,7 +193,6 @@ angular.module('MyApp.Controllers')
 
 
         }catch(err){
-          console.log(err)
           swal("Alerta!", "Se necesita que active su GPS para poder agregar un sucursal.", "warning");
         }
     }else{
