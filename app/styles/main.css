@@ -180,10 +180,6 @@ input, textarea{
 
 .container{
   background: #ecf0f1;
-  margin: 0 auto;
-  vertical-align:middle
-  width: 100%;
-  height: 80%;
   margin-top: 6%;
   text-align: center;  
 }

@@ -22,7 +22,7 @@
 		        <th>Email</th>
 		        <th>Teléfono</th>
 		        <th>Editar</th>
-		        <th>Borrar</th>
+		        <th>Eliminar</th>
 	      	</tr>
 	    </thead>
 	    <tbody>
@@ -31,10 +31,10 @@
 		        <td>{{x.email}}</td>
 		        <td>{{x.telephone}}</td>
 		        <td>
-		        	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalEdit" ng-click="getBranchOfficeManager(x._id); initMap3()">Edit</button>
+		        	<button type="button" class="btn btn-info glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModalEdit" ng-click="getBranchOfficeManager(x._id); initMap3()"></button>
 		        </td>
 		        <td>
-		        	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete" ng-click="getBranchOfficeManager(x._id)">Eliminar</button>
+		        	<button type="button" class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModalDelete" ng-click="getBranchOfficeManager(x._id)"></button>
 		        </td>
 	      	</tr>
 	    </tbody>

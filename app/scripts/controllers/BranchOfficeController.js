@@ -79,11 +79,17 @@ angular.module('MyApp.Controllers')
       }
       BranchOfficeManagerService.AllBranchOfficeManagersByBranchOffice(param).then(function(response){
         for(var i = 0; i<response.data.length; i++){
-          BranchOfficeManagerService.Delete(response.data[i]._id).then(function(response){
+          BranchOfficeManagerService.Delete(response.data[i]._id).then(function(response2){
           })
         }
-        BranchOfficeService.Delete(data).then(function(response){
-          $scope.allBranchOfficesByBusiness($scope.$sessionStorage.currentUser.id_Business)
+        ComplainService.AllComplainsByBranchOffice(param).then(function(response3){
+          for(var i = 0; i<response3.data.length; i++){
+            ComplainService.Delete(response3.data[i]._id).then(function(response4){
+            })
+          }
+          BranchOfficeService.Delete(data).then(function(response5){
+            $scope.allBranchOfficesByBusiness($scope.$sessionStorage.currentUser.id_Business)
+          })
         })
       })
     }

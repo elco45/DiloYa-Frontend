@@ -29,10 +29,10 @@
 		        <td>{{x.name}}</td>
 		        <td>{{x.active==true ? "Si":"No"}}</td>
 		        <td>
-		        	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalEdit" ng-click="getBusiness(x._id)">Edit</button>
+		        	<button type="button" class="btn btn-info glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModalEdit" ng-click="getBusiness(x._id)"></button>
 		        </td>
 		        <td>
-		        	<button type="button" class="btn btn-primary" ng-click = "viewBranchOffices(x)">Ver</button>
+		        	<button type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click = "viewBranchOffices(x)"></button>
 		        </td>
 		        <td>
 		        	<button type="button" class="btn  btn-success glyphicon glyphicon-align-left" ng-click = "goReportsBusiness(x._id)"></button>	

@@ -97,7 +97,7 @@ angular.module('MyApp.Controllers')
         $scope.tmp = {};
         swal("Exito!","Su contraseña ha sido actualizada!", "success");
       }).catch(function(err){
-        swal("Error", "La contraseña vieja que ingreso es incorrecto", "error");
+        swal("Error", "La contraseña vieja que ingresó es incorrecto", "error");
       });
     }
 
@@ -115,7 +115,7 @@ angular.module('MyApp.Controllers')
         $scope.user = {};
         $scope.allUsers();
       }).catch(function(err){
-        swal("Error", "Ya existe un usuario con ese correo!", "error");
+        swal("Error", "Ya existe un usuario con este correo!", "error");
       });
     }
 }]);

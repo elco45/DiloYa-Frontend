@@ -21,6 +21,8 @@
 		        <th>Nombre</th>
 		        <th>Dirección</th>
 		        <th>Teléfono</th>
+		        <th>Editar</th>
+		        <th>Eliminar</th>
 		        <th>Quejas</th>
 		        <th>Reporte</th>
 	      	</tr>
@@ -31,7 +33,13 @@
 		        <td>{{x.direction}}</td>
 		        <td>{{x.telephone}}</td>
 		        <td>
-		        	<button type="button" class="btn btn-primary" ng-click="viewComplain(x)">Ver</button>
+		        	<button type="button" class="btn btn-info glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModalEdit" ng-click="getBranchOffice(x._id); initMap3()"></button>
+		        </td>
+		        <td>
+		        	<button type="button" class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModalDelete" ng-click="getBranchOffice(x._id)"></button>
+		        </td>
+		        <td>
+		        	<button type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="viewComplain(x)"></button>
 		        </td>
 		        <td>
 		        	<button type="button" class="btn  btn-success glyphicon glyphicon-align-left" ng-click = "goReportsBranch(x._id)"></button>	
@@ -161,6 +169,140 @@
 	      	</div>
 	    </div>
 	</div>
+
+	<div class="modal fade" id="myModalEdit" role="dialog">
+	    <div class="modal-dialog">
+	      	<div class="modal-content">
+	        	<div class="modal-header trStyle">
+	          		<button type="button" class="close" data-dismiss="modal" id="closeColor">&times;</button>
+	          		<h4 class="modal-title">Editar negocio</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<form class="form-horizontal" name="branchOfficeForm" ng-init="branchOfficeForm.$valid" novalidate>
+					  	<div>
+					  		<p id="map3"></p>
+					  	</div>
+					  	</br><hr>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.coordinates.$invalid && !branchOfficeForm.coordinates.$pristine }">
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="hidden" 
+							      	name="coordinates" 
+							      	class="form-control"
+							      	ng-model="branchOffice.coordinates"
+							      	limit-to="50" 
+							      	readonly
+						      		required
+					      		>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.name.$invalid && !branchOfficeForm.name.$pristine }">
+						    <label class="control-label col-sm-4">Nombre oficial:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+						      	type="text" 
+						      	name="name" 
+						      	class="form-control" 
+						      	placeholder="Nombre de la empresa"
+						      	ng-model="branchOffice.name"
+						      	limit-to="50" 
+					      		required
+					      		>
+					      		<p ng-show="branchOfficeForm.name.$invalid && !branchOfficeForm.name.$pristine" class="help-block">Porfavar llene este campo</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.direction.$invalid && !branchOfficeForm.direction.$pristine }">
+						    <label class="control-label col-sm-4">Dirección detallada:<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+						      	type="text" 
+						      	name="direction" 
+						      	class="form-control" 
+						      	placeholder="Ubicación de la empresa"
+						      	ng-model="branchOffice.direction"
+						      	limit-to="50" 
+					      		required
+					      		>
+					      		<p ng-show="branchOfficeForm.direction.$invalid && !branchOfficeForm.direction.$pristine" class="help-block">Porfavar llene este campo</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.telephone.$invalid && !branchOfficeForm.telephone.$pristine }">
+						    <label class="control-label col-sm-4">Teléfono: </label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="telephone" 
+							      	class="form-control" 
+							      	placeholder="Ej. 88888888"
+							      	ng-model="branchOffice.telephone" 
+							      	ng-pattern="/^\d+$/"
+							      	limit-to="8"
+							      	required 
+						      	>
+						    </div>
+						    <p ng-show="branchOfficeForm.telephone.$invalid && !branchOfficeForm.telephone.$pristine" class="help-block">Porfavar ingrese un número válido</p>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.maxWaitTime.$invalid && !branchOfficeForm.maxWaitTime.$pristine }">
+						    <label class="control-label col-sm-4">Tiempo límite de espera (minutos):<font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="number" 
+							      	name="maxWaitTime" 
+							      	class="form-control" 
+							      	ng-model="branchOffice.maxWaitTime"
+							      	limit-to="50" 
+						      		required
+					      		>
+					      		<p ng-show="branchOfficeForm.maxWaitTime.$invalid && !branchOfficeForm.maxWaitTime.$pristine" class="help-block">Introduzca un valor válido</p>
+						    </div>
+					  	</div>
+					  	<div class="form-group" ng-class="{ 'has-error' : branchOfficeForm.station.$invalid && !branchOfficeForm.station.$pristine }">
+						    <label class="control-label col-sm-4">Estación: <font color="red">* </font></label>
+						    <div class="col-sm-8">
+						      	<input 
+							      	type="text" 
+							      	name="station" 
+							      	class="form-control" 
+							      	placeholder="Ej. Mesa"
+							      	ng-model="branchOffice.station" 
+							      	limit-to="20"
+							      	required 
+						      	>
+						    </div>
+						    <p ng-show="branchOfficeForm.station.$invalid && !branchOfficeForm.station.$pristine" class="help-block">Porfavar ingrese una estación válida</p>
+					  	</div>
+					  	<div class="form-group"> 
+					    	<div class="col-sm-offset-2 col-sm-10">
+					      		<button type="submit" class="btn btn-success" ng-disabled="branchOfficeForm.$invalid" ng-click="updateBranchOffice(branchOffice); resetForm(branchOfficeForm)" data-dismiss="modal">Actualizar</button>
+					    	</div>
+					  	</div>
+					</form>
+	        	</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModalDelete" role="dialog">
+	    <div class="modal-dialog">
+	      	<div class="modal-content">
+	        	<div class="modal-header">
+	          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+	          		<h4 class="modal-title">Esta seguro?</h4>
+	        	</div>
+	        	<div class="modal-body">
+	          		<strong style="color: red;">No hay forma de recuperar esta información...</strong>
+	        	</div>
+	        	<div class="modal-footer">
+	        		<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteBranchOffice(branchOffice._id)">Eliminar</button>
+	          		<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	        	</div>
+	      	</div>
+	    </div>
+	</div> 
 </div>
 
 

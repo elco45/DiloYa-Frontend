@@ -22,6 +22,7 @@
 		        <th>Dirección</th>
 		        <th>Teléfono</th>
 		        <th>Tiempo límite de espera</th>
+		        <th>Estación</th>
 		        <th>Editar</th>
 		        <th>Gerentes</th>
 		        <th>Borrar</th>
@@ -33,14 +34,15 @@
 		        <td>{{x.direction}}</td>
 		        <td>{{x.telephone}}</td>
 		        <td>{{x.maxWaitTime}} Minutos</td>
+		        <td>{{x.station}}</td>
 		        <td>
-		        	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalEdit" ng-click="getBranchOffice(x._id); initMap3()">Edit</button>
+		        	<button type="button" class="btn btn-info glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModalEdit" ng-click="getBranchOffice(x._id); initMap3()"></button>
 		        </td>
 		        <td>
-		        	<button type="button" class="btn btn-primary" ng-click="viewBranchOfficeManager(x)">Ver</button>
+		        	<button type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="viewBranchOfficeManager(x)"></button>
 		        </td>
 		        <td>
-		        	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete" ng-click="getBranchOffice(x._id)">Eliminar</button>
+		        	<button type="button" class="btn btn-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#myModalDelete" ng-click="getBranchOffice(x._id)"></button>
 		        </td>
 	      	</tr>
 	    </tbody>

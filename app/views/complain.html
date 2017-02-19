@@ -20,7 +20,6 @@
 	      	<tr class="trStyle">
 		        <th>Nombre</th>
 		        <th>Teléfono</th>
-		        <th>Fecha</th>
 		        <th>Mensaje</th>
 		        <th>Comentario</th>
 	      	</tr>
@@ -29,7 +28,6 @@
 		<tr dir-paginate="x in complains | filter:Buscar | itemsPerPage: pageSize |  filter:query as results" >
 		        <td>{{x.name}}</td>
 		        <td>{{x.telephone}}</td>
-		        <td>{{x.date | date : 'MM-dd-yyyy'}}</td>
 		        <td>{{x.message}}</td>
 		        <td>{{x.extraDescription}}</td>
 	      	</tr>
