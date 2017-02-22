@@ -52,6 +52,16 @@ angular.module('MyApp.Controllers')
       })
     }
 
+    $scope.getBranchOfficeWithMap = function(data){
+      var param = {
+        _id: data
+      }
+      BranchOfficeService.Get(param).then(function(response){
+        $scope.branchOffice = response.data;
+        $scope.initMap3($scope.branchOffice.coordinates);
+      })
+    }
+
     $scope.addBranchOffice = function(data){
       var param = {
         name: data.name,
@@ -132,7 +142,6 @@ angular.module('MyApp.Controllers')
           
           $scope.initMap2 = function() {
             var map2 = new google.maps.Map(document.getElementById('map2'), {
-              center: {lat: -33.8688, lng: 151.2195},
               zoom: 17
             });
             if (navigator.geolocation) {
@@ -164,19 +173,12 @@ angular.module('MyApp.Controllers')
 
           
 
-          $scope.initMap3 = function() {
+          $scope.initMap3 = function(position) {
             var map3 = new google.maps.Map(document.getElementById('map3'), {
-              center: {lat: -33.8688, lng: 151.2195},
               zoom: 17
             });
             if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude
-                };
-                $scope.branchOffice.coordinates = JSON.stringify(pos);
-                $scope.$apply()
+                var pos = JSON.parse(position)
                 var marker = new google.maps.Marker({
                     position: pos,
                     draggable: false
@@ -186,7 +188,6 @@ angular.module('MyApp.Controllers')
                 marker.setMap(map3);
                 google.maps.event.trigger(map3, "resize");
                 map3.setCenter(pos);
-              });
             } else {
               alert('browser not supported!')
             }    
@@ -303,10 +304,10 @@ angular.module('MyApp.Controllers')
             name: 'Pendientes',
             data: $scope.array_pending
         }, {
-            name: 'Resuelto',
+            name: 'Solucionado',
             data: $scope.array_resuelto
         }, {
-            name: 'No Resuelto',
+            name: 'Intervención de gerente nivel dos',
             data: $scope.array_no_resuelto
         }]
       });//fin highcharts
@@ -341,7 +342,7 @@ angular.module('MyApp.Controllers')
             name: 'Quejas',
             colorByPoint: true,
             data: [{
-                name: 'Resuelto',
+                name: 'Solucionado',
                 y: $scope.cont_resuelto
             }, 
             {
@@ -349,7 +350,7 @@ angular.module('MyApp.Controllers')
                 y: $scope.cont_pendiente
             }, 
             {
-                name: 'No Resuelto',
+                name: 'Intervención de gerente nivel 2',
                 y: $scope.cont_no_resuelto
             }]
         }]
@@ -364,6 +365,10 @@ angular.module('MyApp.Controllers')
             businessName: $scope.$sessionStorage.params.businessName
           }
       })
+    }
+
+    $scope.goBusiness = function(){
+      $state.go('business');
     }
 
 }]);

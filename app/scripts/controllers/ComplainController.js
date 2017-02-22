@@ -169,6 +169,7 @@ angular.module('MyApp.Controllers')
           closeOnConfirm: true
         },
         function(){
+          $scope.$sessionStorage.complain = undefined;
           $state.go("home")
         });
       })
@@ -195,6 +196,7 @@ angular.module('MyApp.Controllers')
             closeOnConfirm: true
           },
           function(){
+            $scope.$sessionStorage.complain = undefined;
             $state.go("home")
           });
         })
@@ -203,18 +205,21 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.timeout = function(){
-      var param = {
-        id: $scope.$sessionStorage.complain.id_sucursal
+      if($scope.$sessionStorage.complain){
+        var param = {
+          id: $scope.$sessionStorage.complain.id_sucursal
+        }
+        BranchOfficeService.GetOffice(param).then(function(response){
+          var duration_ms = response.data.maxWaitTime*60*1000;//en milisegundos
+          var duration_s = duration_ms/1000;
+          countdown( "countdown", 0, duration_s );
+          $timeout( function(){ 
+            $("#no_help").prop('disabled', false);
+          }, duration_ms);
+        })
+      }else{
+        $state.go('home');
       }
-      BranchOfficeService.GetOffice(param).then(function(response){
-        var duration_ms = response.data.maxWaitTime*60*1000;//en milisegundos
-        var duration_s = duration_ms/1000;
-        countdown( "countdown", 0, duration_s );
-        $timeout( function(){ 
-          $("#no_help").prop('disabled', false);
-        }, duration_ms);
-      })
-      
     }
 
     function countdown( elementName, minutes, seconds ){

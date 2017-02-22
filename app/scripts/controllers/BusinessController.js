@@ -180,10 +180,10 @@ angular.module('MyApp.Controllers')
             name: 'Pendientes',
             data: $scope.array_pending
         }, {
-            name: 'Resuelto',
+            name: 'Solucionado',
             data: $scope.array_resuelto
         }, {
-            name: 'No Resuelto',
+            name: 'Intervención de gerente nivel 2',
             data: $scope.array_no_resuelto
         }]
       });//fin highcharts
@@ -222,11 +222,11 @@ angular.module('MyApp.Controllers')
                 y: $scope.cont_resuelto
             }, 
             {
-                name: 'Pendientes',
+                name: 'Solucionado',
                 y: $scope.cont_pendiente
             }, 
             {
-                name: 'No Resuelto',
+                name: 'Intervención de gerente nivel dos',
                 y: $scope.cont_no_resuelto
             }]
         }]

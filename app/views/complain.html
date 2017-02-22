@@ -22,6 +22,7 @@
 		        <th>Teléfono</th>
 		        <th>Mensaje</th>
 		        <th>Comentario</th>
+		        <th>Estado</th>
 	      	</tr>
 	    </thead>
 	    <tbody>
@@ -30,6 +31,7 @@
 		        <td>{{x.telephone}}</td>
 		        <td>{{x.message}}</td>
 		        <td>{{x.extraDescription}}</td>
+		        <td>{{x.solved == 0 ? "Pendiente" : ""}}{{x.solved == 1 ? "Solucionado" : ""}}{{x.solved == 2 ? "Intervención de gerente nivel 2" : ""}}</td>
 	      	</tr>
 	    </tbody>
   	</table>

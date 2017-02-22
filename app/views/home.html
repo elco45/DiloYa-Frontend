@@ -3,9 +3,9 @@
 </div>
 <div class="container-fluid" ng-controller="ComplainController" ng-init="getBranchOffice()">
     <div class="row">
-        <div class="mapContainer center-block">
+        <div class="mapContainer center-block" ng-show="activeView == 0">
             <label class="control-label "><h3>Mapa de la ciudad</h3></label>
-            <div ng-show="activeView == 0" class="mapCenter">
+            <div class="mapCenter">
                 <ng-map center="current-location" zoom="17" ng-click="getpos()">
                     <marker visible="true" animation="Animation.BOUNCE" position="current-location" draggable="false"></marker>
                 </ng-map>
