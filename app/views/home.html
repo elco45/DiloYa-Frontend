@@ -1,120 +1,83 @@
-<div class ="container-fluid" ng-controller="ComplainController" ng-init="getBranchOffice()">
-	<div class="row">
-		<div class="text-center col-md-4 col-md-offset-4 col-xs-12 col-sm-12" >
-			<div ng-show = "activeView == 0">
-				<ng-map center="current-location" zoom="17" ng-click="getpos()">
-		          <marker visible="true" animation="Animation.BOUNCE" position="current-location" draggable="false"></marker>
-		        </ng-map>
-				</br>
-				<hr>
-				<form class="form-horizontal" name="complainActivateForm" ng-init="complainActivateForm.$valid" novalidate>
-				  	<div class="form-group" ng-class="{ 'has-error' : complainActivateForm.place.$invalid && !complainActivateForm.place.$pristine }">
-					    <div class="col-sm-9">
-					      	<select
-					      		name="place" 
-					      		class="form-control select-class" 
-					      		ng-options="place as place.name for place in branch_office" 
-					      		ng-model="complain.branchOffice"
-					      		required>
+<div class="homeHeader">
+    <img src="img/Dilo-Ya.jpg" class="img-responsive" alt="Responsive image">
+</div>
+<div class="container-fluid" ng-controller="ComplainController" ng-init="getBranchOffice()">
+    <div class="row">
+        <div class="mapContainer center-block">
+            <label class="control-label "><h3>Mapa de la ciudad</h3></label>
+            <div ng-show="activeView == 0" class="mapCenter">
+                <ng-map center="current-location" zoom="17" ng-click="getpos()">
+                    <marker visible="true" animation="Animation.BOUNCE" position="current-location" draggable="false"></marker>
+                </ng-map>
+            </div>
+            <form class="center-block" name="complainActivateForm" ng-init="complainActivateForm.$valid" novalidate>
+
+                <div class="panel-heading ">
+                    <label class="control-label ">Seleccione un establecimiento :</label>
+                    <div class="form-group col-lg-12 col-md-12" ng-class="{ 'has-error' : complainActivateForm.place.$invalid && !complainActivateForm.place.$pristine }">
+                        <select name="place" class="form-control select-class" ng-options="place as place.name for place in branch_office" ng-model="complain.branchOffice" required>
 							</select>
-					    </div>
-					    <p ng-show="complainActivateForm.place.$invalid && !complainActivateForm.place.$pristine" class="help-block">Seleccione un negocio válido</p>
-				  	</div>
-				  	<div class="form-group"> 
-				    	<div class="col-sm-offset-2 col-sm-10">
-				      		<button type="submit" class="btn btn-success" ng-disabled="complainActivateForm.$invalid" ng-click="activeView = 1" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-right"></span></button>
-				    	</div>
-				  	</div>
-				</form>
-			</div>
-			<div ng-show = "activeView == 1">
-				<div class="pull-left row" >
-					<button class="btn btn-success glyphicon glyphicon-arrow-left" ng-click="activeView = 0"></button>
-				</div>
-				</br>
-				<form class="form-horizontal row text-center" name="complainForm" ng-init="complainForm.$valid" novalidate>
-				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.name.$invalid && !complainForm.name.$pristine }">
-					    <label class="control-label col-sm-3 col-xs-12">Nombre:<font color="red">* </font></label>
-					    <div class="col-sm-9">
-					      	<input 
-						      	type="text" 
-						      	name="name" 
-						      	class="form-control input-class" 
-						      	placeholder="Ingrese su nombre completo" 
-						      	ng-model="complain.name" 
-						      	limit-to="25" 
-						      	ng-pattern="/^([a-zA-Z]+\s)*[a-zA-Z]+$/"
-						    >
-					    </div>
-				  	</div>
-				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.email.$invalid && !complainForm.email.$pristine }">
-					    <label class="control-label col-sm-3 col-xs-12">Email:</label>
-					    <div class="col-sm-9">
-					      	<input 
-						      	type="email" 
-						      	name="email" 
-						      	class="form-control input-class" 
-						      	placeholder="algo@ejemplo.com" 
-						      	ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
-						      	ng-model="complain.email" 
-						      	limit-to="50" 
-						    >
-					      	<p ng-show="complainForm.email.$invalid && !complainForm.email.$pristine" class="help-block">Ingrese un correo válido</p>
-					    </div>
-				  	</div>
-				  	<div class="form-group" ng-class="{ 'has-error' : complainForm.telephone.$invalid && !complainForm.telephone.$pristine }">
-					    <label class="control-label col-sm-3 col-xs-12">Teléfono:<font color="red">* </font></label>
-					    <div class="col-sm-9">
-					      	<input 
-						      	type="text" 
-						      	name="telephone" 
-						      	class="form-control input-class" 
-						      	placeholder="Ej. 88888888"
-						      	ng-pattern="/^\d+$/"
-						      	ng-model="complain.telephone" 
-						      	ng-minlength="8"
-						      	limit-to="8"
-						      	required 
-					      	>
-					      	<p ng-show="complainForm.telephone.$invalid && !complainForm.telephone.$pristine" class="help-block">Porfavor ingrese un número válido</p>
-					    </div>
-				  	</div>
-		        	<div class="form-group" ng-class="{ 'has-error' : complainForm.message.$invalid && !complainForm.message.$pristine }">
-		        		<label class="control-label col-sm-3 col-xs-12">Mensaje:<font color="red">* </font></label>
-				    	<div class="col-sm-9">
-		    				<textarea 
-		    					name="message" 
-		    					class="form-control textarea-class" 
-		    					placeholder="Mensaje" 
-				  				ng-maxlength="500"
-				  				ng-model="complain.message"
-				  				required 
-		    				></textarea>
-		    			</div>
-		    			<p ng-show="complainForm.message.$invalid && !complainForm.message.$pristine" class="help-block">El mensaje no puede estar vacío</p>
-		        	</div>
-		        	<div class="form-group" ng-class="{ 'has-error' : complainForm.table.$invalid && !complainForm.table.$pristine }">
-		        		<label class="control-label col-sm-3 col-xs-12">{{complain.branchOffice.station}}:<font color="red">* </font></label>
-				    	<div class="col-sm-9">
-		    				<input 
-				  				type="text"
-		    					name="table" 
-		    					class="form-control input-class" 
-		    					placeholder="Número de mesa" 
-				  				ng-maxlength="5"
-				  				ng-model="complain.table"
-				  				required 
-		    				>
-		    			</div>
-		    			<p ng-show="complainForm.table.$invalid && !complainForm.table.$pristine" class="help-block">Porfavor ingrese el número de mesa</p>
-		        	</div>
-				</form>
-				<div class="form-group"> 
-			    	<div class="col-sm-offset-2 col-sm-9">
-			      		<button type="submit" class="btn btn-primary" ng-disabled="complainForm.$invalid" ng-click="addComplain(complain); resetForm(complainForm)">Enviar</button>
-			    	</div>
-			  	</div>
-			</div>
-		</div>
-	</div>
+                        <p ng-show="complainActivateForm.place.$invalid && !complainActivateForm.place.$pristine" class="help-block">Seleccione un negocio válido</p>
+                    </div>
+                    <div class="form-group col-lg-12 col-md-12">
+                        <button type="submit" class="btn btn-success" ng-disabled="complainActivateForm.$invalid" ng-click="activeView = 1" data-dismiss="modal"><span class="glyphicon glyphicon-arrow-right"></span></button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-show="activeView == 1">
+            <div class="formContainer">
+                <form class="center-block" name="complainForm" ng-init="complainForm.$valid" novalidate>
+                    <div class="panel-heading ">
+                        <div class="form-group col-lg-12 col-md-12" ng-class="{ 'has-error' : complainForm.name.$invalid && !complainForm.name.$pristine }">
+                            <label class="control-label ">Nombre:<font color="red">* </font></label>
+                            <input type="text" name="name" class="form-control input-class" placeholder="Ingrese su nombre completo" ng-model="complain.name" limit-to="25" ng-pattern="/^([a-zA-Z]+\s)*[a-zA-Z]+$/">
+                        </div>
+
+                        <div class="form-group col-lg-12 col-md-12" ng-class="{ 'has-error' : complainForm.email.$invalid && !complainForm.email.$pristine }">
+                            <label class="control-label ">Email:</label>
+
+                            <input type="email" name="email" class="form-control input-class" placeholder="algo@ejemplo.com" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" ng-model="complain.email" limit-to="50">
+                            <p ng-show="complainForm.email.$invalid && !complainForm.email.$pristine" class="help-block">Ingrese un correo válido</p>
+
+                        </div>
+
+                        <div class="form-group col-lg-12 col-md-12" ng-class="{ 'has-error' : complainForm.telephone.$invalid && !complainForm.telephone.$pristine }">
+                            <label class="control-label ">Teléfono:<font color="red">* </font></label>
+
+                            <input type="text" name="telephone" class="form-control input-class" placeholder="Ej. 88888888" ng-pattern="/^\d+$/" ng-model="complain.telephone" ng-minlength="8" limit-to="8" required>
+                            <p ng-show="complainForm.telephone.$invalid && !complainForm.telephone.$pristine" class="help-block">Porfavor ingrese un número válido</p>
+
+                        </div>
+                    </div>
+                    <div class="panel-heading ">
+                        <div class="form-group col-lg-12 col-md-12" ng-class="{ 'has-error' : complainForm.message.$invalid && !complainForm.message.$pristine }">
+                            <label class="control-label ">Mensaje:<font color="red">* </font></label>
+
+                            <textarea name="message" class="form-control textarea-class" placeholder="Mensaje" ng-maxlength="500" ng-model="complain.message" required></textarea>
+
+                            <p ng-show="complainForm.message.$invalid && !complainForm.message.$pristine" class="help-block">El mensaje no puede estar vacío</p>
+                        </div>
+
+                        <div class="form-group col-lg-12 col-md-12" ng-class="{ 'has-error' : complainForm.table.$invalid && !complainForm.table.$pristine }">
+                            <label class="control-label ">{{complain.branchOffice.station}}:<font color="red">* </font></label>
+
+                            <input type="text" name="table" class="form-control input-class" placeholder="Número de mesa" ng-maxlength="5" ng-model="complain.table" required>
+
+                            <p ng-show="complainForm.table.$invalid && !complainForm.table.$pristine" class="help-block">Porfavor ingrese el número de mesa</p>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="form-group col-lg-12 col-md-12">
+                <button class="btn btn-success glyphicon glyphicon-arrow-left " ng-click="activeView=0 "></button>
+                <button type="submit" class="btn btn-primary btn-md" ng-disabled="complainForm.$invalid" ng-click="addComplain(complain); resetForm(complainForm)">Enviar</button>
+            </div>
+        </div>
+    </div>
+
 </div>
