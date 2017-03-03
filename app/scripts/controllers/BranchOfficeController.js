@@ -71,11 +71,8 @@ angular.module('MyApp.Controllers')
         maxWaitTime: data.maxWaitTime,
         station: data.station
       };
-      if ($scope.$sessionStorage.params.businessName) {
-        param.id_Business = $scope.$sessionStorage.params.id_Business;
-      }else{
-        param.id_Business = $scope.$sessionStorage.currentUser.id_Business;
-      }
+      
+      param.id_Business = $scope.$sessionStorage.params.id_Business;
       //user id_Business
       BranchOfficeService.Add(param).then(function(response){
         $scope.branchOffice = {};
@@ -98,7 +95,7 @@ angular.module('MyApp.Controllers')
             })
           }
           BranchOfficeService.Delete(data).then(function(response5){
-            $scope.allBranchOfficesByBusiness($scope.$sessionStorage.currentUser.id_Business)
+            $scope.allBranchOfficesByBusiness($scope.$sessionStorage.params.id_Business)
           })
         })
       })
@@ -116,11 +113,12 @@ angular.module('MyApp.Controllers')
       };
       BranchOfficeService.Update(param).then(function(response){
         $scope.branchOffice = {};
-        $scope.allBranchOfficesByBusiness($scope.$sessionStorage.currentUser.id_Business)
+        $scope.allBranchOfficesByBusiness($scope.$sessionStorage.params.id_Business)
       })
     }
 
     $scope.allBranchOfficesByBusiness = function(data){
+      console.log($scope.$sessionStorage)
       if(data){
         if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1 || $sessionStorage.currentUser.scope.indexOf('admin') > -1 ){
           var param = {
@@ -130,7 +128,7 @@ angular.module('MyApp.Controllers')
             $scope.businessBranchOffices = response.data;
           })
         }else{
-          $state.go('branchOffice');
+          $scope.go('branchOffice');
         }
       }else{
         $state.go('home');
