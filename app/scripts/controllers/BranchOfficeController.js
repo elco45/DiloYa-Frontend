@@ -72,7 +72,13 @@ angular.module('MyApp.Controllers')
         station: data.station
       };
       
-      param.id_Business = $scope.$sessionStorage.params.id_Business;
+      if ($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1) {
+        param.id_Business = $scope.$sessionStorage.params.id_Business;
+      }else{
+        param.id_Business = $scope.$sessionStorage.currentUser.id_Business;
+      }
+      
+
       //user id_Business
       BranchOfficeService.Add(param).then(function(response){
         $scope.branchOffice = {};
@@ -118,7 +124,6 @@ angular.module('MyApp.Controllers')
     }
 
     $scope.allBranchOfficesByBusiness = function(data){
-      console.log($scope.$sessionStorage)
       if(data){
         if($scope.$sessionStorage.currentUser.scope.indexOf('superAdmin') > -1 || $sessionStorage.currentUser.scope.indexOf('admin') > -1 ){
           var param = {

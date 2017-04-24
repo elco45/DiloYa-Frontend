@@ -222,7 +222,7 @@ angular.module('MyApp.Controllers')
                 y: $scope.cont_resuelto
             }, 
             {
-                name: 'Solucionado',
+                name: 'Pendientes',
                 y: $scope.cont_pendiente
             }, 
             {
